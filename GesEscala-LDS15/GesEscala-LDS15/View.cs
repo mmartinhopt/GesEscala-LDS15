@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GesEscala_LDS15
 {
-    internal class View
+    public class View
     {
         private Model model;
         private FormMain janela;

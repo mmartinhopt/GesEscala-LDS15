@@ -28,18 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
             gerarEscala_btn = new Button();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Location = new Point(242, 107);
-            button1.Name = "button1";
-            button1.Size = new Size(8, 8);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
             // 
             // gerarEscala_btn
             // 
@@ -51,14 +41,13 @@
             gerarEscala_btn.UseVisualStyleBackColor = true;
             gerarEscala_btn.Click += gerarEscala_btn_Click;
             // 
-            // Form1
+            // FormMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(gerarEscala_btn);
-            Controls.Add(button1);
-            Name = "Form1";
+            Name = "FormMain";
             Text = "GesEscala - Equipa 15 - LDS UAB";
             Load += Form1_Load;
             ResumeLayout(false);

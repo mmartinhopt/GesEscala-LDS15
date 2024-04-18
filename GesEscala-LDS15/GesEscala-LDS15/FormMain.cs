@@ -2,6 +2,8 @@ namespace GesEscala_LDS15
 {
     public partial class FormMain : Form
     {
+        private View view;
+        public View View { get => view; set => view = value; }
         public FormMain()
         {
             InitializeComponent();
@@ -15,6 +17,10 @@ namespace GesEscala_LDS15
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        public void Encerrar()
+        {
+            Application.Exit();
         }
     }
 }
