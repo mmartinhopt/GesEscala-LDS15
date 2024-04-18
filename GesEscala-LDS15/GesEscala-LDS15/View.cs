@@ -29,18 +29,17 @@ namespace GesEscala_LDS15
             //viewlog = new ViewLog(janela);
         }
 
-        /*
+        
         public void Encerrar()
         {
             janela.Encerrar();
         }
-        */
+        
 
         public void AtivarInterface()
         {
             janela = new FormMain();
             janela.View = this;
-            // A API WinForms desenha as janelas e botões automaticamente
             janela.ShowDialog();
         }
 

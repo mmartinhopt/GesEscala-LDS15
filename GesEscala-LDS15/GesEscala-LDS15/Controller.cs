@@ -42,8 +42,6 @@ namespace GesEscala_LDS15
 
         public void IniciarPrograma()
         {
-            do
-            {
                 try
                 {
                     view.AtivarInterface();
@@ -52,13 +50,7 @@ namespace GesEscala_LDS15
                 {
                     //Mensagem de erro
                     MessageBox.Show(ex.Message);
-                }
-            } while (!sair);
-            //Na verdade, nunca se chega aqui (a saída é feita noutro local)
-            //mas é mais elegante do que while(true) e permite que, se necessário
-            //se possa sair por aqui caso não se possa sair pelo fecho da FormMain.
-            //Pode suceder tal coisa, por exemplo, devido a uma exceção que atire a execução
-            //para aqui.
+                }       
         }
         
         /*
