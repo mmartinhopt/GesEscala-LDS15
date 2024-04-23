@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GesEscala_LDS15
 {
@@ -11,74 +12,57 @@ namespace GesEscala_LDS15
         private Model model;
         private FormMain janela;
 
-        internal View(Model m)
+        public View(Model m)
         {
             model = m;
-            //viewlog = new ViewLog(janela);
+            // Inscrição nos eventos
+            model.ConfiguracaoInicialSaved += ApresentarConfiguracaoInicial;
+            model.DadosMesUpdated += ApresentarDadosMes;
+            model.DiaSelecionadoUpdated += ApresentarDiaSelecionado;
+            model.ServicoSelecionadoUpdated += ApresentarServicoSelecionado;
+            model.EscalaPDFGenerated += ApresentarEscalaPDF;
         }
-
-
-        public void Encerrar()
-        {
-            janela.Encerrar();
-        }
-
-
+        
+        // Método para ativar a interface
+        // A interface inicial poderá ter duas formas
+        // 1ª - Janela de configuração inicial
+        // 2ª - Janela de visualização da escala em uso
         public void AtivarInterface()
         {
-            // Aqui temos duas interfaces que podem ser ativadas
-            // A primeira é caso seja a primeira vez que o programa é executado apresenta interface de registo de configuração inicial
-            // Caso não seja a primeira vez que o programa é executado apresenta a interface principal (modo escalador)
             janela = new FormMain();
             janela.View = this;
             janela.ShowDialog();
         }
 
-        public void ApresentarConfiguracaoInicial()
+        // Métodos para apresentar mensagens
+        private void ApresentarConfiguracaoInicial(string message)
         {
-            //Apresentar configuração inicial
+            MessageBox.Show(message);
         }
 
-        public void ApresentarDadosMes()
+        private void ApresentarDadosMes(string message)
         {
-            //Apresentar dados do mês
+            MessageBox.Show(message);
         }
 
-        public void ApresentarDiaSelecionado()
+        private void ApresentarDiaSelecionado(string message)
         {
-            //Apresentar dia selecionado
+            MessageBox.Show(message);
         }
 
-        public void ApresentarServicoSelecionado()
+        private void ApresentarServicoSelecionado(string message)
         {
-            //Apresentar serviço selecionado
+            MessageBox.Show(message);
         }
 
-        public void ApresentarErro()
+        private void ApresentarEscalaPDF(string message)
         {
-            //Apresentar erro
+            MessageBox.Show(message);
         }
 
-        public void ApresentarSucesso()
+        public void Encerrar()
         {
-            //Apresentar sucesso
+            janela.Encerrar();
         }
-
-        public void ApresentarAtrasados()
-        {
-            //Apresentar atrasados
-        }
-
-        public void ApresentarServicos()
-        {
-            //Apresentar serviços
-        }
-
-        public void ApresentarEscalaPDF()
-        {
-            //Apresentar PDF
-        }
-
-
     }
 }

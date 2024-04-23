@@ -1,19 +1,22 @@
+using System.Windows.Forms;
+
 namespace GesEscala_LDS15
 {
     class Controller
     {
         Model model;
         View view;
-        //ModelLog modelLog;
         bool sair;
 
+        // Construtor que cria a View e o Model
         public Controller()
         {
             sair = false;
+            model = new Model(view);
             view = new View(model);
-            //model = new Model(view);
         }
 
+        // Método para iniciar o programa
         public void IniciarPrograma()
         {
             try
@@ -22,50 +25,40 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                //Mensagem de erro
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        // Métodos para interação com o Model
+        public void RegistarConfiguracaoInicial()
+        {
+            model.ReceberConfiguracaoInicial();
+        }
+
+        public void BuscarDadosMes()
+        {
+            model.ReceberDadosMes();
+        }
+
+        public void CalcularAtrasados()
+        {
+            model.ReceberDiaSelecionado();
+        }
+
+        public void VerificarEscala()
+        {
+            model.ReceberServicoSelecionado();
+        }
+
+        public void GerarPDF()
+        {
+            model.ReceberGerarPDF();
         }
 
         public void EncerrarPrograma()
         {
             sair = true;
             view.Encerrar();
-        }
-
-
-        // Envia a configuração inicial para o model para ser guardada
-        public void RegistarConfiguracaoInicial()
-        {
-            model.ReceberConfiguracaoInicial();
-            model.EnviarConfiguracaoInicial();
-        }
-
-        // Vai à base de dados buscar os dados do mês selecionado (dias, serviços já escalados, etc)
-        public void BuscarDadosMes()
-        {
-            model.ReceberDadosMes();
-            model.EnviarDadosMes();
-        }
-
-        // Calcula os mais atrasados para o serviço selecionado
-        public void CalcularAtrasados()
-        {
-            model.ReceberDiaSelecionado();
-            model.EnviarDiaSelecionado();
-        }
-
-        // Verfica se o serviço pode ser escalado (Se tem 8 horas de intervalo, se não há serviço sobreposto, etc)
-        public void VerificarEscala()
-        {
-            model.ReceberServicoSelecionado();
-            model.EnviarServicoSelecionado();
-        }
-
-        // Gera PDF com a escala do mês
-        public void GerarPDF()
-        {
-            model.ReceberGerarPDF();
         }
     }
 }

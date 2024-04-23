@@ -6,75 +6,53 @@ using System.Threading.Tasks;
 
 namespace GesEscala_LDS15
 {
-    internal class Model
+    public class Model
     {
+        // Definição de eventos para comunicação com a View
+        public event Action<string> ConfiguracaoInicialSaved;
+        public event Action<string> DadosMesUpdated;
+        public event Action<string> DiaSelecionadoUpdated;
+        public event Action<string> ServicoSelecionadoUpdated;
+        public event Action<string> EscalaPDFGenerated;
 
+        // Referência para a View
         private View view;
 
+        // Construtor que recebe a View
         public Model(View v)
         {
             view = v;
         }
 
-        //Model recebe do controller a configuração inicial e guarda-a
+
         public void ReceberConfiguracaoInicial()
         {
-            //Guardar configuração inicial
+            // Guarda a configuração inicial
+            ConfiguracaoInicialSaved?.Invoke("Configuração inicial armazenada com sucesso");
         }
 
-        //Model envia para a view a configuração inicial para ser apresentada
-        public void EnviarConfiguracaoInicial()
-        {
-            view.ApresentarConfiguracaoInicial();
-        }
-
-        //Model recebe do controller ordem para buscar dados do mês selecionado para escalar
         public void ReceberDadosMes()
         {
-            //Buscar dados do mês selecionado
+            // Procura os dados do mês selecionado
+            DadosMesUpdated?.Invoke("Dados do mês atualizados");
         }
 
-        //Model envia para a view os dados do mês selecionado para serem apresentados
-        public void EnviarDadosMes()
-        {
-            view.ApresentarDadosMes();
-        }
-
-        //Model recebe do controller qual o dia selecionado para escalar e calcula os mais atrasados para os serviço
         public void ReceberDiaSelecionado()
         {
-            //Calcular os mais atrasados para o serviço
+            // Calcula os mais atrasados para o serviço
+            DiaSelecionadoUpdated?.Invoke("Dia selecionado atualizado");
         }
 
-        //Model envia para a view os dados do dia selecionado para serem apresentados
-        public void EnviarDiaSelecionado()
-        {
-            view.ApresentarDiaSelecionado();
-        }
-
-        //Model recebe do controller qual o serviço selecionado e identifica se pode ser escalado
         public void ReceberServicoSelecionado()
         {
-            //Verificar se o serviço pode ser escalado
+            // Verifica se o serviço selecionado é válido
+            ServicoSelecionadoUpdated?.Invoke("Serviço selecionado verificado");
         }
 
-        //Model envia para a view os dados do serviço selecionado para serem apresentados
-        public void EnviarServicoSelecionado()
-        {
-            view.ApresentarServicoSelecionado();
-        }
-
-        //Model recebe do controller a ordem para gerar PDF com a escala
         public void ReceberGerarPDF()
         {
-            //Gerar PDF com a escala
+            // Gera o PDF da escala
+            EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
-
-        //Model envia para a view a escala em PDF para ser apresentada
-        public void EnviarEscalaPDF()
-        {
-            view.ApresentarEscalaPDF();
-        }
-
     }
 }
