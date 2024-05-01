@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +24,31 @@ namespace GesEscala_LDS15
         public Model(View v)
         {
             view = v;
+            SQLiteConnection con = null;
+            con = CriarLigacaoSqlite();
         }
 
+        public void VerificarConfiguracao()
+        {
+
+        }
+
+        static SQLiteConnection CriarLigacaoSqlite()
+        {
+            SQLiteConnection sqlite_conn;
+            // Create a new database connection:
+            sqlite_conn = new SQLiteConnection("Data Source = database.db; Version = 3; New = True; Compress = True; ");
+         // Open the connection:
+            try
+            {
+                sqlite_conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return sqlite_conn;
+        }
 
         public void ReceberConfiguracaoInicial()
         {

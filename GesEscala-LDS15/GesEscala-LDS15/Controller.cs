@@ -29,6 +29,11 @@ namespace GesEscala_LDS15
             }
         }
 
+        public void VerificarConfiguracaoInicial()
+        {
+            model.VerificarConfiguracao();
+        }
+
         // Métodos para interação com o Model
         public void RegistarConfiguracaoInicial()
         {
