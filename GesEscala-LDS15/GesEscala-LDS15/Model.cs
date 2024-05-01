@@ -19,13 +19,15 @@ namespace GesEscala_LDS15
 
         // Referência para a View
         private View view;
+        private SQLiteConnection conn;
 
         // Construtor que recebe a View
         public Model(View v)
         {
             view = v;
-            SQLiteConnection con = null;
-            con = CriarLigacaoSqlite();
+            conn = null;
+            conn = CriarLigacaoSqlite();
+            CriarTabelas(conn);
         }
 
         public void VerificarConfiguracao()
@@ -49,6 +51,52 @@ namespace GesEscala_LDS15
             }
             return sqlite_conn;
         }
+
+        static void CriarTabelas(SQLiteConnection conn)
+        {
+
+            SQLiteCommand sqlite_cmd;
+            string sqlFuncionarios = "CREATE TABLE \"Funcionarios\" " +
+                "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
+                "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
+                "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
+                "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
+
+            string sqlServicos = "CREATE TABLE \"Servicos\" " +
+                "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
+                "\r\n\t\"nome\"\tTEXT NOT NULL," +
+                "\r\n\t\"sigla_servico\"\tTEXT NOT NULL," +
+                "\r\n\t\"hora_inicio\"\tTIME NOT NULL," +
+                "\r\n\t\"hora_fim\"\tTIME NOT NULL," +
+                "\r\n\tPRIMARY KEY(\"id_servico\" AUTOINCREMENT)\r\n)";
+            
+            string sqlEscala = "CREATE TABLE \"Escala\" " +
+                "(\r\n\t\"id_escala\"\tINTEGER NOT NULL," +
+                "\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
+                "\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
+                "\r\n\tFOREIGN KEY(\"id_servico\") REFERENCES \"Servicos\"(\"id_servico\")," +
+                "\r\n\tFOREIGN KEY(\"id_funcionario\") REFERENCES \"Funcionarios\"(\"id_funcionario\")," +
+                "\r\n\tPRIMARY KEY(\"id_escala\" AUTOINCREMENT)\r\n)";
+
+            try
+            {
+                sqlite_cmd = conn.CreateCommand();
+
+                sqlite_cmd.CommandText = sqlFuncionarios;
+                sqlite_cmd.ExecuteNonQuery();
+                sqlite_cmd.CommandText = sqlServicos;
+                sqlite_cmd.ExecuteNonQuery();
+                sqlite_cmd.CommandText = sqlEscala;
+                sqlite_cmd.ExecuteNonQuery();
+            } 
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+        }
+
 
         public void ReceberConfiguracaoInicial()
         {
