@@ -56,13 +56,13 @@ namespace GesEscala_LDS15
         {
 
             SQLiteCommand sqlite_cmd;
-            string sqlFuncionarios = "CREATE TABLE \"Funcionarios\" " +
+            string sqlFuncionarios = "CREATE TABLE IF NOT EXISTS \"Funcionarios\" " +
                 "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
                 "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
                 "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
                 "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
 
-            string sqlServicos = "CREATE TABLE \"Servicos\" " +
+            string sqlServicos = "CREATE TABLE IF NOT EXISTS \"Servicos\" " +
                 "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
                 "\r\n\t\"nome\"\tTEXT NOT NULL," +
                 "\r\n\t\"sigla_servico\"\tTEXT NOT NULL," +
@@ -70,7 +70,7 @@ namespace GesEscala_LDS15
                 "\r\n\t\"hora_fim\"\tTIME NOT NULL," +
                 "\r\n\tPRIMARY KEY(\"id_servico\" AUTOINCREMENT)\r\n)";
             
-            string sqlEscala = "CREATE TABLE \"Escala\" " +
+            string sqlEscala = "CREATE TABLE IF NOT EXISTS \"Escala\" " +
                 "(\r\n\t\"id_escala\"\tINTEGER NOT NULL," +
                 "\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
                 "\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
