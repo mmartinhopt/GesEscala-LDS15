@@ -31,7 +31,7 @@ namespace GesEscala_LDS15
         public void MostrarMenuConfiguracaoInicial()
         {
             // Implementar lógica para solicitar informações iniciais
-            FormConfiguracaoInicial form = new FormConfiguracaoInicial(model);
+            FormMain form = new FormMain();
             form.ShowDialog();
         }
 
