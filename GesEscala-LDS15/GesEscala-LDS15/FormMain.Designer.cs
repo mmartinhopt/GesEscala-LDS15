@@ -34,37 +34,41 @@
             btn_turnos = new Button();
             btn_funcionarios = new Button();
             btn_sair = new Button();
-            tabControl1 = new TabControl();
-            tabPage_escala = new TabPage();
-            panel2 = new Panel();
+            tc_Main = new TabControl();
+            tP_escala = new TabPage();
+            panel_direito = new Panel();
             panel1 = new Panel();
             button2 = new Button();
             button1 = new Button();
             listBox_Efetivo = new ListBox();
             label2 = new Label();
-            groupBox1 = new GroupBox();
+            label3 = new Label();
             monthCalendar1 = new MonthCalendar();
             panel_mid = new Panel();
-            dataGridView1 = new DataGridView();
+            dgv_novaEscala = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             panel_top = new Panel();
             label1 = new Label();
-            tabPage2 = new TabPage();
+            tP_conEscalas = new TabPage();
+            tP_funcionarios = new TabPage();
+            tP_turnos = new TabPage();
+            tP_impressao = new TabPage();
+            tP_main = new TabPage();
             panel_menu.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage_escala.SuspendLayout();
-            panel2.SuspendLayout();
+            tc_Main.SuspendLayout();
+            tP_escala.SuspendLayout();
+            panel_direito.SuspendLayout();
             panel1.SuspendLayout();
-            groupBox1.SuspendLayout();
             panel_mid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).BeginInit();
             panel_top.SuspendLayout();
             SuspendLayout();
             // 
             // btn_gerarEscala
             // 
+            btn_gerarEscala.FlatStyle = FlatStyle.Flat;
             btn_gerarEscala.Location = new Point(3, 2);
             btn_gerarEscala.Margin = new Padding(3, 2, 3, 2);
             btn_gerarEscala.Name = "btn_gerarEscala";
@@ -82,6 +86,7 @@
             panel_menu.Controls.Add(btn_sair);
             panel_menu.Controls.Add(btn_gerarEscala);
             panel_menu.Dock = DockStyle.Left;
+            panel_menu.ForeColor = Color.Black;
             panel_menu.Location = new Point(0, 0);
             panel_menu.Margin = new Padding(3, 2, 3, 2);
             panel_menu.Name = "panel_menu";
@@ -90,6 +95,7 @@
             // 
             // btn_escalas
             // 
+            btn_escalas.FlatStyle = FlatStyle.Flat;
             btn_escalas.Location = new Point(3, 40);
             btn_escalas.Margin = new Padding(3, 2, 3, 2);
             btn_escalas.Name = "btn_escalas";
@@ -97,10 +103,10 @@
             btn_escalas.TabIndex = 6;
             btn_escalas.Text = "Escalas";
             btn_escalas.UseVisualStyleBackColor = true;
-            btn_escalas.Click += btn_escalas_Click;
             // 
             // btn_turnos
             // 
+            btn_turnos.FlatStyle = FlatStyle.Flat;
             btn_turnos.Location = new Point(2, 78);
             btn_turnos.Margin = new Padding(3, 2, 3, 2);
             btn_turnos.Name = "btn_turnos";
@@ -111,6 +117,7 @@
             // 
             // btn_funcionarios
             // 
+            btn_funcionarios.FlatStyle = FlatStyle.Flat;
             btn_funcionarios.Location = new Point(2, 116);
             btn_funcionarios.Margin = new Padding(3, 2, 3, 2);
             btn_funcionarios.Name = "btn_funcionarios";
@@ -130,81 +137,94 @@
             btn_sair.Text = "Sair";
             btn_sair.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tc_Main
             // 
-            tabControl1.Controls.Add(tabPage_escala);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(132, 0);
-            tabControl1.Margin = new Padding(3, 2, 3, 2);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(776, 466);
-            tabControl1.TabIndex = 4;
+            tc_Main.Controls.Add(tP_escala);
+            tc_Main.Controls.Add(tP_conEscalas);
+            tc_Main.Controls.Add(tP_funcionarios);
+            tc_Main.Controls.Add(tP_turnos);
+            tc_Main.Controls.Add(tP_impressao);
+            tc_Main.Controls.Add(tP_main);
+            tc_Main.Dock = DockStyle.Fill;
+            tc_Main.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tc_Main.Location = new Point(132, 0);
+            tc_Main.Margin = new Padding(3, 2, 3, 2);
+            tc_Main.Name = "tc_Main";
+            tc_Main.SelectedIndex = 0;
+            tc_Main.Size = new Size(776, 466);
+            tc_Main.TabIndex = 4;
             // 
-            // tabPage_escala
+            // tP_escala
             // 
-            tabPage_escala.Controls.Add(panel2);
-            tabPage_escala.Controls.Add(panel_mid);
-            tabPage_escala.Controls.Add(panel_top);
-            tabPage_escala.Location = new Point(4, 24);
-            tabPage_escala.Margin = new Padding(3, 2, 3, 2);
-            tabPage_escala.Name = "tabPage_escala";
-            tabPage_escala.Padding = new Padding(3, 2, 3, 2);
-            tabPage_escala.Size = new Size(768, 438);
-            tabPage_escala.TabIndex = 0;
-            tabPage_escala.Text = "Escala";
-            tabPage_escala.UseVisualStyleBackColor = true;
+            tP_escala.Controls.Add(panel_direito);
+            tP_escala.Controls.Add(panel_mid);
+            tP_escala.Controls.Add(panel_top);
+            tP_escala.Location = new Point(4, 26);
+            tP_escala.Margin = new Padding(3, 2, 3, 2);
+            tP_escala.Name = "tP_escala";
+            tP_escala.Padding = new Padding(3, 2, 3, 2);
+            tP_escala.Size = new Size(768, 436);
+            tP_escala.TabIndex = 0;
+            tP_escala.Text = "Nova Escala";
+            tP_escala.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // panel_direito
             // 
-            panel2.Controls.Add(panel1);
-            panel2.Controls.Add(listBox_Efetivo);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(groupBox1);
-            panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(536, 35);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(229, 401);
-            panel2.TabIndex = 2;
-            panel2.Paint += panel2_Paint;
+            panel_direito.BackColor = Color.FromArgb(99, 99, 99);
+            panel_direito.BorderStyle = BorderStyle.FixedSingle;
+            panel_direito.Controls.Add(panel1);
+            panel_direito.Controls.Add(listBox_Efetivo);
+            panel_direito.Controls.Add(label2);
+            panel_direito.Controls.Add(label3);
+            panel_direito.Controls.Add(monthCalendar1);
+            panel_direito.Dock = DockStyle.Right;
+            panel_direito.ForeColor = SystemColors.ButtonFace;
+            panel_direito.Location = new Point(536, 35);
+            panel_direito.Name = "panel_direito";
+            panel_direito.Size = new Size(229, 399);
+            panel_direito.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 176);
+            panel1.Location = new Point(0, 187);
             panel1.Name = "panel1";
-            panel1.Size = new Size(229, 42);
+            panel1.Size = new Size(227, 27);
             panel1.TabIndex = 3;
             // 
             // button2
             // 
-            button2.Dock = DockStyle.Right;
-            button2.Location = new Point(114, 0);
+            button2.BackColor = SystemColors.Control;
+            button2.Dock = DockStyle.Fill;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.ForeColor = SystemColors.ActiveCaptionText;
+            button2.Location = new Point(108, 0);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
-            button2.Size = new Size(115, 42);
+            button2.Size = new Size(119, 27);
             button2.TabIndex = 9;
             button2.Text = "Remover svc";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
+            button1.BackColor = SystemColors.Control;
             button1.Dock = DockStyle.Left;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ActiveCaptionText;
             button1.Location = new Point(0, 0);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(108, 42);
+            button1.Size = new Size(108, 27);
             button1.TabIndex = 8;
             button1.Text = "Adicionar svc";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             // 
             // listBox_Efetivo
             // 
-            listBox_Efetivo.BorderStyle = BorderStyle.None;
+            listBox_Efetivo.BorderStyle = BorderStyle.FixedSingle;
             listBox_Efetivo.Dock = DockStyle.Fill;
             listBox_Efetivo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             listBox_Efetivo.FormattingEnabled = true;
@@ -212,9 +232,8 @@
             listBox_Efetivo.Items.AddRange(new object[] { "209 - Rui", "102 - Pedro", "2030 - Miguel", "1 - Corrida", "Utilizadores registados", "quando tem função", "muda de cor conforme o ", "serviço" });
             listBox_Efetivo.Location = new Point(0, 21);
             listBox_Efetivo.Name = "listBox_Efetivo";
-            listBox_Efetivo.Size = new Size(229, 197);
+            listBox_Efetivo.Size = new Size(227, 193);
             listBox_Efetivo.TabIndex = 2;
-            listBox_Efetivo.SelectedIndexChanged += listBox_Efetivo_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -226,64 +245,64 @@
             label2.Size = new Size(61, 21);
             label2.TabIndex = 1;
             label2.Text = "Efetivo";
-            label2.Click += label2_Click;
             // 
-            // groupBox1
+            // label3
             // 
-            groupBox1.Controls.Add(monthCalendar1);
-            groupBox1.Dock = DockStyle.Bottom;
-            groupBox1.Location = new Point(0, 218);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(229, 183);
-            groupBox1.TabIndex = 4;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Calendário";
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Bottom;
+            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(0, 214);
+            label3.Name = "label3";
+            label3.Size = new Size(88, 21);
+            label3.TabIndex = 5;
+            label3.Text = "Calendario";
             // 
             // monthCalendar1
             // 
-            monthCalendar1.Location = new Point(2, 14);
+            monthCalendar1.Dock = DockStyle.Bottom;
+            monthCalendar1.Location = new Point(0, 235);
             monthCalendar1.Name = "monthCalendar1";
-            monthCalendar1.TabIndex = 0;
+            monthCalendar1.TabIndex = 4;
             // 
             // panel_mid
             // 
-            panel_mid.Controls.Add(dataGridView1);
+            panel_mid.Controls.Add(dgv_novaEscala);
             panel_mid.Dock = DockStyle.Fill;
             panel_mid.Location = new Point(3, 35);
             panel_mid.Name = "panel_mid";
-            panel_mid.Size = new Size(762, 401);
+            panel_mid.Size = new Size(762, 399);
             panel_mid.TabIndex = 1;
             // 
-            // dataGridView1
+            // dgv_novaEscala
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedHeaders;
-            dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column3, Column2 });
-            dataGridView1.Dock = DockStyle.Left;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(762, 401);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dgv_novaEscala.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv_novaEscala.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedHeaders;
+            dgv_novaEscala.BackgroundColor = SystemColors.ControlLightLight;
+            dgv_novaEscala.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_novaEscala.Columns.AddRange(new DataGridViewColumn[] { Column1, Column3, Column2 });
+            dgv_novaEscala.Dock = DockStyle.Fill;
+            dgv_novaEscala.Location = new Point(0, 0);
+            dgv_novaEscala.Name = "dgv_novaEscala";
+            dgv_novaEscala.Size = new Size(762, 399);
+            dgv_novaEscala.TabIndex = 0;
             // 
             // Column1
             // 
             Column1.HeaderText = "Serviço";
             Column1.Name = "Column1";
-            Column1.Width = 70;
+            Column1.Width = 77;
             // 
             // Column3
             // 
             Column3.HeaderText = "Horario";
             Column3.Name = "Column3";
-            Column3.Width = 72;
+            Column3.Width = 79;
             // 
             // Column2
             // 
             Column2.HeaderText = "Funcionarios";
             Column2.Name = "Column2";
+            Column2.Width = 110;
             // 
             // panel_top
             // 
@@ -299,20 +318,56 @@
             label1.AutoSize = true;
             label1.Location = new Point(3, 9);
             label1.Name = "label1";
-            label1.Size = new Size(147, 15);
+            label1.Size = new Size(167, 17);
             label1.TabIndex = 0;
             label1.Text = "Escala do dia: XX/XX/XXXX";
             // 
-            // tabPage2
+            // tP_conEscalas
             // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Margin = new Padding(3, 2, 3, 2);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 2, 3, 2);
-            tabPage2.Size = new Size(768, 438);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            tP_conEscalas.Location = new Point(4, 26);
+            tP_conEscalas.Margin = new Padding(3, 2, 3, 2);
+            tP_conEscalas.Name = "tP_conEscalas";
+            tP_conEscalas.Padding = new Padding(3, 2, 3, 2);
+            tP_conEscalas.Size = new Size(768, 436);
+            tP_conEscalas.TabIndex = 1;
+            tP_conEscalas.Text = "Consultar escala";
+            tP_conEscalas.UseVisualStyleBackColor = true;
+            // 
+            // tP_funcionarios
+            // 
+            tP_funcionarios.Location = new Point(4, 26);
+            tP_funcionarios.Name = "tP_funcionarios";
+            tP_funcionarios.Padding = new Padding(3);
+            tP_funcionarios.Size = new Size(768, 436);
+            tP_funcionarios.TabIndex = 2;
+            tP_funcionarios.Text = "Funcionarios";
+            tP_funcionarios.UseVisualStyleBackColor = true;
+            // 
+            // tP_turnos
+            // 
+            tP_turnos.Location = new Point(4, 26);
+            tP_turnos.Name = "tP_turnos";
+            tP_turnos.Size = new Size(768, 436);
+            tP_turnos.TabIndex = 3;
+            tP_turnos.Text = "Turnos";
+            tP_turnos.UseVisualStyleBackColor = true;
+            // 
+            // tP_impressao
+            // 
+            tP_impressao.Location = new Point(4, 26);
+            tP_impressao.Name = "tP_impressao";
+            tP_impressao.Size = new Size(768, 436);
+            tP_impressao.TabIndex = 4;
+            tP_impressao.Text = "Impressão";
+            tP_impressao.UseVisualStyleBackColor = true;
+            // 
+            // tP_main
+            // 
+            tP_main.Location = new Point(4, 26);
+            tP_main.Name = "tP_main";
+            tP_main.Size = new Size(768, 436);
+            tP_main.TabIndex = 5;
+            tP_main.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -320,21 +375,19 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(908, 466);
-            Controls.Add(tabControl1);
+            Controls.Add(tc_Main);
             Controls.Add(panel_menu);
             Margin = new Padding(3, 2, 3, 2);
             Name = "FormMain";
             Text = "GesEscala - Equipa 15 - LDS UAB";
-            Load += FormMain_Load;
             panel_menu.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage_escala.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            tc_Main.ResumeLayout(false);
+            tP_escala.ResumeLayout(false);
+            panel_direito.ResumeLayout(false);
+            panel_direito.PerformLayout();
             panel1.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
             panel_mid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).EndInit();
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
             ResumeLayout(false);
@@ -347,14 +400,13 @@
         private Button btn_turnos;
         private Button btn_funcionarios;
         private Button btn_sair;
-        private TabControl tabControl1;
-        private TabPage tabPage_escala;
-        private TabPage tabPage2;
+        private TabControl tc_Main;
+        private TabPage tP_escala;
+        private TabPage tP_conEscalas;
         private Panel panel_top;
         private Panel panel_mid;
-        private Panel panel2;
-        private ListBox listBox_Efetivo;
-        private DataGridView dataGridView1;
+        private Panel panel_direito;
+        private DataGridView dgv_novaEscala;
         private Label label1;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column3;
@@ -363,7 +415,12 @@
         private Panel panel1;
         private Button button2;
         private Button button1;
-        private GroupBox groupBox1;
+        private TabPage tP_funcionarios;
+        private TabPage tP_turnos;
+        private TabPage tP_impressao;
+        private TabPage tP_main;
+        private ListBox listBox_Efetivo;
+        private Label label3;
         private MonthCalendar monthCalendar1;
     }
 }

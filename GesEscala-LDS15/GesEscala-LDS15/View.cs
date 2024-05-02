@@ -37,9 +37,7 @@ namespace GesEscala_LDS15
 
         public void MostrarOpcoesConfiguracao()
         {
-            // Implementar lógica para mostrar as opções de alterar configuração ou escalar
-            FormOpcoesConfiguracao form = new FormOpcoesConfiguracao();
-            form.ShowDialog();
+         
         }
 
 

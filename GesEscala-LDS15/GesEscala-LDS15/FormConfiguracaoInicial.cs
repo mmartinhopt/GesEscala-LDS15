@@ -46,17 +46,13 @@ namespace GesEscala_LDS15
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // Abre menu de configuração de empregados GerirEmpregados
-            GerirEmpregados form = new GerirEmpregados(model);
-            form.ShowDialog();
+        
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Abre menu de configuração de serviços GerirServicos
-            GerirServicos form = new GerirServicos(model);
-            form.ShowDialog();
+          
         }
     }
 }
