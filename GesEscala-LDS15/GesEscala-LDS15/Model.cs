@@ -32,7 +32,7 @@ namespace GesEscala_LDS15
 
         public bool IsDatabaseEmpty()
         {
-            // Suponha que uma base de dados vazia significa não ter funcionários registrados
+            // Base de dados vazia significa não ter funcionários registados
             string query = "SELECT COUNT(*) FROM Funcionarios";
             SQLiteCommand command = new SQLiteCommand(query, conn);
             int count = Convert.ToInt32(command.ExecuteScalar());
@@ -61,7 +61,44 @@ namespace GesEscala_LDS15
             return sqlite_conn;
         }
 
-        static void CriarTabelas(SQLiteConnection conn)
+        public void PreencherServicosPadrao()
+        {
+            try
+            {
+                // Verifica se já existem registos para não inserir duplicados
+                string checkQuery = "SELECT COUNT(*) FROM Servicos";
+                SQLiteCommand checkCommand = new SQLiteCommand(checkQuery, conn);
+                int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                if (count == 0) // Apenas insere se ainda não há serviços
+                {
+                    List<Tuple<string, string, string, string>> servicos = new List<Tuple<string, string, string, string>>
+            {
+                Tuple.Create("DS", "Descanso Semanal", "00:00", "23:59"),
+                Tuple.Create("LF", "Licença Férias", "00:00", "23:59"),
+                Tuple.Create("C", "Baixa Médica", "00:00", "23:59")
+            };
+
+                    foreach (var servico in servicos)
+                    {
+                        string sqlInsert = "INSERT INTO Servicos (sigla_servico, nome, hora_inicio, hora_fim) VALUES (@Sigla, @Nome, @Inicio, @Fim)";
+                        SQLiteCommand sqlite_cmd = new SQLiteCommand(sqlInsert, conn);
+                        sqlite_cmd.Parameters.AddWithValue("@Sigla", servico.Item1);
+                        sqlite_cmd.Parameters.AddWithValue("@Nome", servico.Item2);
+                        sqlite_cmd.Parameters.AddWithValue("@Inicio", servico.Item3);
+                        sqlite_cmd.Parameters.AddWithValue("@Fim", servico.Item4);
+                        sqlite_cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao preencher serviços padrão: " + ex.Message);
+            }
+        }
+
+
+        public void CriarTabelas(SQLiteConnection conn)
         {
 
             SQLiteCommand sqlite_cmd;
@@ -104,6 +141,9 @@ namespace GesEscala_LDS15
                 sqlite_cmd.ExecuteNonQuery();
                 sqlite_cmd.CommandText = sqlSeccao;
                 sqlite_cmd.ExecuteNonQuery();
+
+                PreencherServicosPadrao();
+
             } 
             catch(Exception ex)
             {
