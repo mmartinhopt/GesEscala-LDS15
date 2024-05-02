@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GesEscala_LDS15
 {
@@ -27,7 +28,7 @@ namespace GesEscala_LDS15
             view = v;
             conn = null;
             conn = CriarLigacaoSqlite();
-            CriarTabelas(conn);
+            //CriarTabelas(conn);
         }
 
         public bool IsDatabaseEmpty()
@@ -106,7 +107,10 @@ namespace GesEscala_LDS15
                 "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
                 "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
                 "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
+                "\r\n\t\"morada_funcionario\"\tTEXT," +
+                "\r\n\t\"contacto_funcionario\"\tINTEGER," +
                 "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
+            
 
             string sqlServicos = "CREATE TABLE IF NOT EXISTS \"Servicos\" " +
                 "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
