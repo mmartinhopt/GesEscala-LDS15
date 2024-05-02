@@ -34,6 +34,21 @@ namespace GesEscala_LDS15
             janela.ShowDialog();
         }
 
+        public void MostrarMenuConfiguracaoInicial()
+        {
+            // Implementar lógica para solicitar informações iniciais
+            FormConfiguracaoInicial form = new FormConfiguracaoInicial();
+            form.ShowDialog();
+        }
+
+        public void MostrarOpcoesConfiguracao()
+        {
+            // Implementar lógica para mostrar as opções de alterar configuração ou escalar
+            FormOpcoesConfiguracao form = new FormOpcoesConfiguracao();
+            form.ShowDialog();
+        }
+
+
         // Métodos para apresentar mensagens
         private void ApresentarConfiguracaoInicial(string message)
         {

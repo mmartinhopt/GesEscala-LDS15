@@ -30,6 +30,15 @@ namespace GesEscala_LDS15
             CriarTabelas(conn);
         }
 
+        public bool IsDatabaseEmpty()
+        {
+            // Suponha que uma base de dados vazia significa não ter funcionários registrados
+            string query = "SELECT COUNT(*) FROM Funcionarios";
+            SQLiteCommand command = new SQLiteCommand(query, conn);
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            return count == 0;
+        }
+
         public void VerificarConfiguracao()
         {
 

@@ -21,13 +21,23 @@ namespace GesEscala_LDS15
         {
             try
             {
-                view.AtivarInterface();
+                if (model.IsDatabaseEmpty())
+                {
+                    // Mostra a janela de configuração inicial
+                    view.MostrarMenuConfiguracaoInicial();
+                }
+                else
+                {
+                    // Mostra as opções de alterar configuração ou escalar
+                    view.MostrarOpcoesConfiguracao();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
 
         public void VerificarConfiguracaoInicial()
         {
