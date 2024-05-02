@@ -12,9 +12,12 @@ namespace GesEscala_LDS15
 {
     public partial class FormConfiguracaoInicial : Form
     {
-        public FormConfiguracaoInicial()
+        private Model model;
+
+        public FormConfiguracaoInicial(Model model)
         {
             InitializeComponent();
+            this.model = model; // Recebe o Model
         }
 
         private void FormConfiguracaoInicial_Load(object sender, EventArgs e)
@@ -35,7 +38,8 @@ namespace GesEscala_LDS15
             }
             else
             {
-                string nomeSecao = textBox1.Text; 
+                string nomeSecao = textBox1.Text;
+                model.GuardarNomeSeccao(nomeSecao);
                 this.Close(); // Fecha a janela
             }
         }

@@ -87,6 +87,11 @@ namespace GesEscala_LDS15
                 "\r\n\tFOREIGN KEY(\"id_funcionario\") REFERENCES \"Funcionarios\"(\"id_funcionario\")," +
                 "\r\n\tPRIMARY KEY(\"id_escala\" AUTOINCREMENT)\r\n)";
 
+            string sqlSeccao = "CREATE TABLE IF NOT EXISTS \"Seccao\" " +
+                "(\r\n\t\"id_seccao\"\tINTEGER NOT NULL," +
+                "\r\n\t\"nome_seccao\"\tTEXT NOT NULL," +
+                "\r\n\tPRIMARY KEY(\"id_seccao\" AUTOINCREMENT)\r\n)";
+
             try
             {
                 sqlite_cmd = conn.CreateCommand();
@@ -97,13 +102,13 @@ namespace GesEscala_LDS15
                 sqlite_cmd.ExecuteNonQuery();
                 sqlite_cmd.CommandText = sqlEscala;
                 sqlite_cmd.ExecuteNonQuery();
+                sqlite_cmd.CommandText = sqlSeccao;
+                sqlite_cmd.ExecuteNonQuery();
             } 
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
 
@@ -111,6 +116,16 @@ namespace GesEscala_LDS15
         {
             // Guarda a configuração inicial
             ConfiguracaoInicialSaved?.Invoke("Configuração inicial armazenada com sucesso");
+        }
+
+        public void GuardarNomeSeccao(string nomeSecao)
+        {
+            // Guarda o nome da secção
+            string query = "INSERT INTO Seccao (nome_seccao) VALUES (@nomeSecao)";
+            SQLiteCommand command = new SQLiteCommand(query, conn);
+            command.Parameters.AddWithValue("@nomeSecao", nomeSecao);
+            command.ExecuteNonQuery();
+
         }
 
         public void ReceberDadosMes()

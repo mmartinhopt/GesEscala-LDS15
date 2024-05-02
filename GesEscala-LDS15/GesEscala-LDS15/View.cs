@@ -27,17 +27,11 @@ namespace GesEscala_LDS15
         // A interface inicial poderá ter duas formas
         // 1ª - Janela de configuração inicial
         // 2ª - Janela de visualização da escala em uso
-        public void AtivarInterface()
-        {
-            janela = new FormMain();
-            janela.View = this;
-            janela.ShowDialog();
-        }
 
         public void MostrarMenuConfiguracaoInicial()
         {
             // Implementar lógica para solicitar informações iniciais
-            FormConfiguracaoInicial form = new FormConfiguracaoInicial();
+            FormConfiguracaoInicial form = new FormConfiguracaoInicial(model);
             form.ShowDialog();
         }
 
