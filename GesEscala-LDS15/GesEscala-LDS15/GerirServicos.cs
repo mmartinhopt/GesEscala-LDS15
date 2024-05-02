@@ -12,9 +12,13 @@ namespace GesEscala_LDS15
 {
     public partial class GerirServicos : Form
     {
-        public GerirServicos()
+
+        private Model model;
+
+        public GerirServicos(Model model)
         {
             InitializeComponent();
+            this.model = model;
         }
     }
 }

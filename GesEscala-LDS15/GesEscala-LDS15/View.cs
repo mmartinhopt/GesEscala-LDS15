@@ -26,7 +26,7 @@ namespace GesEscala_LDS15
         // Método para ativar a interface
         // A interface inicial poderá ter duas formas
         // 1ª - Janela de configuração inicial
-        // 2ª - Janela de visualização da escala em uso
+        // 2ª - Janela de opção de alterar configuração ou escalar
 
         public void MostrarMenuConfiguracaoInicial()
         {
