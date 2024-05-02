@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             btn_gerarEscala = new Button();
             panel_menu = new Panel();
             btn_escalas = new Button();
@@ -53,6 +54,21 @@
             label1 = new Label();
             tP_conEscalas = new TabPage();
             tP_funcionarios = new TabPage();
+            panel2 = new Panel();
+            groupBox1 = new GroupBox();
+            pic_Funcionario = new PictureBox();
+            btn_remover = new Button();
+            btn_adicionar = new Button();
+            label8 = new Label();
+            tb_contacto = new TextBox();
+            label7 = new Label();
+            tb_morada = new TextBox();
+            label5 = new Label();
+            tb_nome = new TextBox();
+            label6 = new Label();
+            panel_lateral = new Panel();
+            lst_funcionarios_registo = new ListBox();
+            label4 = new Label();
             tP_turnos = new TabPage();
             tP_impressao = new TabPage();
             tP_main = new TabPage();
@@ -64,6 +80,11 @@
             panel_mid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).BeginInit();
             panel_top.SuspendLayout();
+            tP_funcionarios.SuspendLayout();
+            panel2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pic_Funcionario).BeginInit();
+            panel_lateral.SuspendLayout();
             SuspendLayout();
             // 
             // btn_gerarEscala
@@ -228,6 +249,8 @@
             listBox_Efetivo.Dock = DockStyle.Fill;
             listBox_Efetivo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             listBox_Efetivo.FormattingEnabled = true;
+            listBox_Efetivo.HorizontalScrollbar = true;
+            listBox_Efetivo.IntegralHeight = false;
             listBox_Efetivo.ItemHeight = 17;
             listBox_Efetivo.Items.AddRange(new object[] { "209 - Rui", "102 - Pedro", "2030 - Miguel", "1 - Corrida", "Utilizadores registados", "quando tem função", "muda de cor conforme o ", "serviço" });
             listBox_Efetivo.Location = new Point(0, 21);
@@ -242,9 +265,9 @@
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(61, 21);
+            label2.Size = new Size(102, 21);
             label2.TabIndex = 1;
-            label2.Text = "Efetivo";
+            label2.Text = "Funcionários";
             // 
             // label3
             // 
@@ -306,6 +329,7 @@
             // 
             // panel_top
             // 
+            panel_top.BackColor = Color.FromArgb(99, 99, 99);
             panel_top.Controls.Add(label1);
             panel_top.Dock = DockStyle.Top;
             panel_top.Location = new Point(3, 2);
@@ -316,6 +340,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(3, 9);
             label1.Name = "label1";
             label1.Size = new Size(167, 17);
@@ -335,6 +360,8 @@
             // 
             // tP_funcionarios
             // 
+            tP_funcionarios.Controls.Add(panel2);
+            tP_funcionarios.Controls.Add(panel_lateral);
             tP_funcionarios.Location = new Point(4, 26);
             tP_funcionarios.Name = "tP_funcionarios";
             tP_funcionarios.Padding = new Padding(3);
@@ -342,6 +369,159 @@
             tP_funcionarios.TabIndex = 2;
             tP_funcionarios.Text = "Funcionarios";
             tP_funcionarios.UseVisualStyleBackColor = true;
+            tP_funcionarios.Click += tP_funcionarios_Click;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(groupBox1);
+            panel2.Controls.Add(label6);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(3, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(480, 430);
+            panel2.TabIndex = 5;
+            panel2.Paint += panel2_Paint;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(pic_Funcionario);
+            groupBox1.Controls.Add(btn_remover);
+            groupBox1.Controls.Add(btn_adicionar);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(tb_contacto);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(tb_morada);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(tb_nome);
+            groupBox1.Location = new Point(15, 49);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(444, 296);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Identificação";
+            // 
+            // pic_Funcionario
+            // 
+            pic_Funcionario.Image = (Image)resources.GetObject("pic_Funcionario.Image");
+            pic_Funcionario.Location = new Point(23, 31);
+            pic_Funcionario.Name = "pic_Funcionario";
+            pic_Funcionario.Size = new Size(64, 64);
+            pic_Funcionario.SizeMode = PictureBoxSizeMode.AutoSize;
+            pic_Funcionario.TabIndex = 11;
+            pic_Funcionario.TabStop = false;
+            // 
+            // btn_remover
+            // 
+            btn_remover.Location = new Point(328, 250);
+            btn_remover.Name = "btn_remover";
+            btn_remover.Size = new Size(102, 30);
+            btn_remover.TabIndex = 10;
+            btn_remover.Text = "&Remover";
+            btn_remover.UseVisualStyleBackColor = true;
+            // 
+            // btn_adicionar
+            // 
+            btn_adicionar.Location = new Point(206, 250);
+            btn_adicionar.Name = "btn_adicionar";
+            btn_adicionar.Size = new Size(102, 30);
+            btn_adicionar.TabIndex = 9;
+            btn_adicionar.Text = "&Adicionar";
+            btn_adicionar.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(32, 199);
+            label8.Name = "label8";
+            label8.Size = new Size(66, 17);
+            label8.TabIndex = 8;
+            label8.Text = "Contacto:";
+            // 
+            // tb_contacto
+            // 
+            tb_contacto.Location = new Point(104, 191);
+            tb_contacto.Name = "tb_contacto";
+            tb_contacto.Size = new Size(184, 25);
+            tb_contacto.TabIndex = 7;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(40, 163);
+            label7.Name = "label7";
+            label7.Size = new Size(58, 17);
+            label7.TabIndex = 3;
+            label7.Text = "Morada:";
+            // 
+            // tb_morada
+            // 
+            tb_morada.Location = new Point(104, 155);
+            tb_morada.Name = "tb_morada";
+            tb_morada.Size = new Size(326, 25);
+            tb_morada.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(50, 118);
+            label5.Name = "label5";
+            label5.Size = new Size(48, 17);
+            label5.TabIndex = 1;
+            label5.Text = "Nome:";
+            label5.Click += label5_Click;
+            // 
+            // tb_nome
+            // 
+            tb_nome.Location = new Point(104, 115);
+            tb_nome.Name = "tb_nome";
+            tb_nome.Size = new Size(284, 25);
+            tb_nome.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(15, 11);
+            label6.Name = "label6";
+            label6.Size = new Size(139, 21);
+            label6.TabIndex = 5;
+            label6.Text = "Novo Funcionário";
+            // 
+            // panel_lateral
+            // 
+            panel_lateral.BackColor = Color.FromArgb(99, 99, 99);
+            panel_lateral.BorderStyle = BorderStyle.FixedSingle;
+            panel_lateral.Controls.Add(lst_funcionarios_registo);
+            panel_lateral.Controls.Add(label4);
+            panel_lateral.Dock = DockStyle.Right;
+            panel_lateral.ForeColor = SystemColors.ButtonFace;
+            panel_lateral.Location = new Point(483, 3);
+            panel_lateral.Name = "panel_lateral";
+            panel_lateral.Size = new Size(282, 430);
+            panel_lateral.TabIndex = 4;
+            // 
+            // lst_funcionarios_registo
+            // 
+            lst_funcionarios_registo.BorderStyle = BorderStyle.FixedSingle;
+            lst_funcionarios_registo.Dock = DockStyle.Fill;
+            lst_funcionarios_registo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lst_funcionarios_registo.FormattingEnabled = true;
+            lst_funcionarios_registo.ItemHeight = 17;
+            lst_funcionarios_registo.Location = new Point(0, 21);
+            lst_funcionarios_registo.Name = "lst_funcionarios_registo";
+            lst_funcionarios_registo.Size = new Size(280, 407);
+            lst_funcionarios_registo.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Top;
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(0, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(185, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Funcionários em registo";
             // 
             // tP_turnos
             // 
@@ -380,6 +560,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "FormMain";
             Text = "GesEscala - Equipa 15 - LDS UAB";
+            Load += FormMain_Load;
             panel_menu.ResumeLayout(false);
             tc_Main.ResumeLayout(false);
             tP_escala.ResumeLayout(false);
@@ -390,6 +571,14 @@
             ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).EndInit();
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
+            tP_funcionarios.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pic_Funcionario).EndInit();
+            panel_lateral.ResumeLayout(false);
+            panel_lateral.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -422,5 +611,20 @@
         private ListBox listBox_Efetivo;
         private Label label3;
         private MonthCalendar monthCalendar1;
+        private ListBox lst_funcionarios_registo;
+        private Panel panel_lateral;
+        private Label label4;
+        private Panel panel2;
+        private GroupBox groupBox1;
+        private Label label5;
+        private TextBox tb_nome;
+        private Label label6;
+        private Button btn_adicionar;
+        private Label label8;
+        private TextBox tb_contacto;
+        private Label label7;
+        private TextBox tb_morada;
+        private Button btn_remover;
+        private PictureBox pic_Funcionario;
     }
 }
