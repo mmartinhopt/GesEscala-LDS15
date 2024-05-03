@@ -45,17 +45,31 @@ namespace GesEscala_LDS15
             }
         }
 
+        public void obterFuncionarios()
+        {
+
+            lst_funcionarios_registo.Items.Clear();
+            try
+            {
+                foreach (var funcionario in funcionarios)
+                {
+                    lst_funcionarios_registo.Items.Add(funcionario["Nome"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
+            }
+        }
+
         private void btn_funcionarios_Click(object sender, EventArgs e)
         {
 
-            tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"];
+            tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"]; // Seleciona a tab de funcionários
+            obterFuncionarios(); // Obtém os funcionários
 
-
-            lst_funcionarios_registo.Items.Clear();
-            foreach (var funcionario in funcionarios)
-            {
-                lst_funcionarios_registo.Items.Add(funcionario["Nome"]);
-            }
+           
 
         }
 
