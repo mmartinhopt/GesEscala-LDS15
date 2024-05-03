@@ -11,20 +11,26 @@ namespace GesEscala_LDS15
     {
         // Atributos
         private Model model;
-      //  private FormMain janela;
+        private FormMain janela;
+        //  private FormMain janela;
 
-
+        private List<Dictionary<string, object>> listaFuncionariosView = null;
+        private List<Dictionary<string, object>> listaEscaladosView = null;
+        private List<Dictionary<string, object>> listaServicosView = null;
 
         // Eventos
-        public event EventHandler ConfiguracaoInicialButtonClicked;
-        public event EventHandler GerarPDFButtonClicked;
+        //public event EventHandler ConfiguracaoInicialButtonClicked;
+        //public event EventHandler GerarPDFButtonClicked;
+        public event EventHandler EventUserClicouFuncionarios;
+        public event EventHandler EventUserClicouServicos;
+        public event EventHandler EventUserClicouEscalados;
 
 
         // Propriedades
-        public ListView FuncionariosListView { get; set; }
+        //public ListView FuncionariosListView { get; set; }
 
         // Construtor
-        public View(Model m)
+        internal View(Model m)
         {
             model = m;
         }
@@ -36,7 +42,7 @@ namespace GesEscala_LDS15
             try
             {
                 
-                FuncionariosListView.Items.Clear();
+                //FuncionariosListView.Items.Clear();
                 foreach (var funcionario in funcionarios)
                 {
                     ListViewItem item = new ListViewItem(funcionario["Id"].ToString());
@@ -44,7 +50,7 @@ namespace GesEscala_LDS15
                     item.SubItems.Add(funcionario["Nome"].ToString());
                     item.SubItems.Add(funcionario["Morada"].ToString());
                     item.SubItems.Add(funcionario["Contacto"].ToString());
-                    FuncionariosListView.Items.Add(item);
+                    //FuncionariosListView.Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -55,16 +61,17 @@ namespace GesEscala_LDS15
         }
 
         
-        public void MostrarFormInicial()
+        public void IniciarInterface()
         {
             // Apresenta o Form inicial FormMain
-            FormMain form = new FormMain();
-            form.ShowDialog();
+            janela = new FormMain();
+            janela.View = this;
+            janela.ShowDialog();
         }
 
         // Método para encerrar a aplicação
-        public void Encerrar()
-        {
-        }
+        //public void Encerrar()
+        //{
+        //}
     }
 }

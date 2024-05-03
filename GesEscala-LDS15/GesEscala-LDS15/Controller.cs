@@ -5,22 +5,33 @@ namespace GesEscala_LDS15
 {
     class Controller
     {
-        private Model model;
-        private View view;
+        Model model;
+        View view;
 
         // Construtor
-        public View View { get => view; }
-
         public Controller()
         {
-            this.model = new Model();
-            this.view = new View(model);
+            view = new View(model);
+            model = new Model(view);
+
+
+            //CONTINUAR DAQUI
+            view.EventUserClicouServicos += model.GetListaServicos()
+
         }
 
         // Método para iniciar o programa
         public void IniciarPrograma()
         {
-            view.MostrarFormInicial();
+            try
+            {
+                view.IniciarInterface();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         // Método para buscar funcionários
@@ -32,7 +43,7 @@ namespace GesEscala_LDS15
         // Método para encerrar o programa
         public void EncerrarPrograma()
         {
-            view.Encerrar();
+            //view.Encerrar();
         }
     }
 }

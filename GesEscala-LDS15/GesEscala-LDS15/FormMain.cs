@@ -5,14 +5,18 @@ namespace GesEscala_LDS15
     public partial class FormMain : Form
     {
         private View view;
-        public View View { get => view; set => view = value; }
         private Controller controller;
-        private List<Dictionary<string, object>> funcionarios;
+
+        private List<Dictionary<string, object>> listaFuncionariosApresentar = null;
+        private List<Dictionary<string, object>> listaEscaladosApresentar = null;
+        private List<Dictionary<string, object>> listaServicosApresentar = null;
+
         // Tornar o construtor público
         public FormMain()
         {
             InitializeComponent();
-            controller = new Controller(); // Define o controller recebido
+            
+            //controller = new Controller(); // Define o controller recebido
 
 
             //Inicializadores
@@ -24,13 +28,17 @@ namespace GesEscala_LDS15
 
         public void Encerrar()
         {
-            view.Encerrar();
+            //view.Encerrar();
         }
+
+        public View View { get => view; set => view = value; }
+
 
         private void BuscarFuncionarios()
         {
             // Obtém a lista de funcionários do controller
-            funcionarios = controller.BuscarFuncionarios();
+            //funcionarios = controller.BuscarFuncionarios();
+
         }
         private void btn_adicionar_svc_Click(object sender, EventArgs e)
         {
@@ -68,8 +76,6 @@ namespace GesEscala_LDS15
 
             tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"]; // Seleciona a tab de funcionários
             obterFuncionarios(); // Obtém os funcionários
-
-           
 
         }
 

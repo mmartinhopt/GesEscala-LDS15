@@ -12,6 +12,8 @@ namespace GesEscala_LDS15
 {
     public class Model
     {
+        private View view;
+
         // Definição de eventos para comunicação com a View
         public event Action<string> ConfiguracaoInicialSaved;
         public event Action<string> DadosMesUpdated;
@@ -23,9 +25,9 @@ namespace GesEscala_LDS15
         private SQLiteConnection conn;
 
         // Construtor que recebe a View
-        public Model()
+        public Model(View v)
         {
-           
+            view = v;
             conn = CriarLigacaoSqlite();
             // CriarTabelas(conn);
         }
@@ -83,6 +85,56 @@ namespace GesEscala_LDS15
             }
             return funcionarios;
         }
+
+
+        public void testeBox(string m)
+        {
+            MessageBox.Show(m);
+        }
+
+        
+        public List<Dictionary<string, object>> GetEscalados(string data)
+        {
+
+            List<Dictionary<string, object>> escalados = new List<Dictionary<string, object>>();
+            try
+            {
+                string query = "SELECT s.nome AS Nome_Servico,\r\n" +
+                    "GROUP_CONCAT(DISTINCT s.hora_inicio || '-' || s.hora_fim) AS Horario,\r\n" +
+                    "(SELECT GROUP_CONCAT(f.nome_funcionario, ', ')\r\n" +
+                    "FROM Funcionarios f\r\n        JOIN Escala e2 ON f.id_funcionario = e2.id_funcionario\r\n" +
+                    "WHERE e2.id_servico = s.id_servico AND e2.dia_escala ="+ data +") AS Funcionarios\r\n" +
+                    "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
+                    "GROUP BY s.nome;";
+
+                testeBox(query);
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Cria um dicionário para armazenar os dados de cada funcionário
+                            Dictionary<string, object> escalado = new Dictionary<string, object>();
+                            escalado["Nome_Servico"] = reader["Nome_Servico"].ToString();
+                            escalado["Horario"] = reader["Horario"].ToString();
+                            escalado["Funcionarios"] = reader["Funcionarios"].ToString();
+                            // Adiciona o dicionário à lista de funcionários
+                            escalados.Add(escalado);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao recuperar funcionários: {ex.Message}");
+            }
+            return escalados;
+        }
+        
 
         static SQLiteConnection CriarLigacaoSqlite()
         {
