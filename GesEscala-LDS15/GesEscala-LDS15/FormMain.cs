@@ -4,14 +4,13 @@ namespace GesEscala_LDS15
     {
         private View view;
         public View View { get => view; set => view = value; }
+        private Controller controller;
+
+        // Tornar o construtor público
         public FormMain()
         {
             InitializeComponent();
-        }
-
-        private void gerarEscala_btn_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Teste");
+            controller = new Controller(); // Define o controller recebido
         }
 
 
@@ -20,29 +19,9 @@ namespace GesEscala_LDS15
             view.Encerrar();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tP_funcionarios_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
+            controller.BuscarFuncionarios();
         }
     }
 }

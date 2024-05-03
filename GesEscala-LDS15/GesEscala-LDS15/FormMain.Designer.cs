@@ -240,8 +240,9 @@
             button1.Name = "button1";
             button1.Size = new Size(108, 27);
             button1.TabIndex = 8;
-            button1.Text = "Adicionar svc";
+            button1.Text = "popular ";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // listBox_Efetivo
             // 
@@ -369,7 +370,6 @@
             tP_funcionarios.TabIndex = 2;
             tP_funcionarios.Text = "Funcionarios";
             tP_funcionarios.UseVisualStyleBackColor = true;
-            tP_funcionarios.Click += tP_funcionarios_Click;
             // 
             // panel2
             // 
@@ -380,7 +380,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(480, 430);
             panel2.TabIndex = 5;
-            panel2.Paint += panel2_Paint;
             // 
             // groupBox1
             // 
@@ -468,7 +467,6 @@
             label5.Size = new Size(48, 17);
             label5.TabIndex = 1;
             label5.Text = "Nome:";
-            label5.Click += label5_Click;
             // 
             // tb_nome
             // 
@@ -560,7 +558,6 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "FormMain";
             Text = "GesEscala - Equipa 15 - LDS UAB";
-            Load += FormMain_Load;
             panel_menu.ResumeLayout(false);
             tc_Main.ResumeLayout(false);
             tP_escala.ResumeLayout(false);

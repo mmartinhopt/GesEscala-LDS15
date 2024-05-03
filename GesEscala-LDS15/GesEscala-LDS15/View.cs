@@ -9,67 +9,61 @@ namespace GesEscala_LDS15
 {
     public class View
     {
+        // Atributos
         private Model model;
-        private FormMain janela;
+      //  private FormMain janela;
 
+
+
+        // Eventos
+        public event EventHandler ConfiguracaoInicialButtonClicked;
+        public event EventHandler GerarPDFButtonClicked;
+
+
+        // Propriedades
+        public ListView FuncionariosListView { get; set; }
+
+        // Construtor
         public View(Model m)
         {
             model = m;
-            // Inscrição nos eventos
-            model.ConfiguracaoInicialSaved += ApresentarConfiguracaoInicial;
-            model.DadosMesUpdated += ApresentarDadosMes;
-            model.DiaSelecionadoUpdated += ApresentarDiaSelecionado;
-            model.ServicoSelecionadoUpdated += ApresentarServicoSelecionado;
-            model.EscalaPDFGenerated += ApresentarEscalaPDF;
+        }
+
+        // Métodos
+
+        public void PreencherListView(List<Dictionary<string, object>> funcionarios)
+        {
+            try
+            {
+                FuncionariosListView.Items.Clear();
+                foreach (var funcionario in funcionarios)
+                {
+                    ListViewItem item = new ListViewItem(funcionario["Id"].ToString());
+                    item.SubItems.Add(funcionario["Numero"].ToString());
+                    item.SubItems.Add(funcionario["Nome"].ToString());
+                    item.SubItems.Add(funcionario["Morada"].ToString());
+                    item.SubItems.Add(funcionario["Contacto"].ToString());
+                    FuncionariosListView.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
+            }
         }
         
-        // Método para ativar a interface
-        // A interface inicial poderá ter duas formas
-        // 1ª - Janela de configuração inicial
-        // 2ª - Janela de opção de alterar configuração ou escalar
-
-        public void MostrarMenuConfiguracaoInicial()
+        public void MostrarFormInicial()
         {
-            // Implementar lógica para solicitar informações iniciais
+            // Apresenta o Form inicial FormMain
             FormMain form = new FormMain();
             form.ShowDialog();
         }
 
-        public void MostrarOpcoesConfiguracao()
-        {
-         
-        }
-
-
-        // Métodos para apresentar mensagens
-        private void ApresentarConfiguracaoInicial(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private void ApresentarDadosMes(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private void ApresentarDiaSelecionado(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private void ApresentarServicoSelecionado(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private void ApresentarEscalaPDF(string message)
-        {
-            MessageBox.Show(message);
-        }
-
+        // Método para encerrar a aplicação
         public void Encerrar()
         {
-            janela.Encerrar();
+         
         }
     }
 }

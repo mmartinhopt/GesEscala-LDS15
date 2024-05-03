@@ -1,78 +1,37 @@
+using System;
 using System.Windows.Forms;
 
 namespace GesEscala_LDS15
 {
     class Controller
     {
-        Model model;
-        View view;
-        bool sair;
+        private Model model;
+        private View view;
 
-        // Construtor que cria a View e o Model
+        // Construtor
+        public View View { get => view; }
+
         public Controller()
         {
-            sair = false;
-            model = new Model(view);
-            view = new View(model);
+            this.model = new Model();
+            this.view = new View(model);
         }
 
         // Método para iniciar o programa
         public void IniciarPrograma()
         {
-            try
-            {
-                if (model.IsDatabaseEmpty())
-                {
-                    // Mostra a janela de configuração inicial
-                    view.MostrarMenuConfiguracaoInicial();
-                }
-                else
-                {
-                    // Mostra as opções de alterar configuração ou escalar
-                    view.MostrarOpcoesConfiguracao();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            view.MostrarFormInicial();
         }
 
-
-        public void VerificarConfiguracaoInicial()
+        // Método para buscar funcionários
+        public void BuscarFuncionarios()
         {
-            model.VerificarConfiguracao();
+            view.PreencherListView(model.GetFuncionarios());
         }
 
-        // Métodos para interação com o Model
-        public void RegistarConfiguracaoInicial()
-        {
-            model.ReceberConfiguracaoInicial();
-        }
-
-        public void BuscarDadosMes()
-        {
-            model.ReceberDadosMes();
-        }
-
-        public void CalcularAtrasados()
-        {
-            model.ReceberDiaSelecionado();
-        }
-
-        public void VerificarEscala()
-        {
-            model.ReceberServicoSelecionado();
-        }
-
-        public void GerarPDF()
-        {
-            model.ReceberGerarPDF();
-        }
-
+        // Método para encerrar o programa
         public void EncerrarPrograma()
         {
-            sair = true;
             view.Encerrar();
         }
     }
