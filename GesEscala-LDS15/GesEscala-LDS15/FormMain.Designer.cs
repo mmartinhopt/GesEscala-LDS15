@@ -40,7 +40,7 @@
             panel_direito = new Panel();
             panel1 = new Panel();
             button2 = new Button();
-            button1 = new Button();
+            btn_adicionar_svc = new Button();
             listBox_Efetivo = new ListBox();
             label2 = new Label();
             label3 = new Label();
@@ -55,7 +55,10 @@
             tP_conEscalas = new TabPage();
             tP_funcionarios = new TabPage();
             panel2 = new Panel();
-            groupBox1 = new GroupBox();
+            label9 = new Label();
+            tb_numero = new TextBox();
+            lbl_ID = new Label();
+            lbl_info_ID = new Label();
             pic_Funcionario = new PictureBox();
             btn_remover = new Button();
             btn_adicionar = new Button();
@@ -82,7 +85,6 @@
             panel_top.SuspendLayout();
             tP_funcionarios.SuspendLayout();
             panel2.SuspendLayout();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).BeginInit();
             panel_lateral.SuspendLayout();
             SuspendLayout();
@@ -146,6 +148,7 @@
             btn_funcionarios.TabIndex = 4;
             btn_funcionarios.Text = "Funcionários";
             btn_funcionarios.UseVisualStyleBackColor = true;
+            btn_funcionarios.Click += btn_funcionarios_Click;
             // 
             // btn_sair
             // 
@@ -208,7 +211,7 @@
             // panel1
             // 
             panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btn_adicionar_svc);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 187);
             panel1.Name = "panel1";
@@ -229,20 +232,20 @@
             button2.Text = "Remover svc";
             button2.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btn_adicionar_svc
             // 
-            button1.BackColor = SystemColors.Control;
-            button1.Dock = DockStyle.Left;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = SystemColors.ActiveCaptionText;
-            button1.Location = new Point(0, 0);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(108, 27);
-            button1.TabIndex = 8;
-            button1.Text = "popular ";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            btn_adicionar_svc.BackColor = SystemColors.Control;
+            btn_adicionar_svc.Dock = DockStyle.Left;
+            btn_adicionar_svc.FlatStyle = FlatStyle.Flat;
+            btn_adicionar_svc.ForeColor = SystemColors.ActiveCaptionText;
+            btn_adicionar_svc.Location = new Point(0, 0);
+            btn_adicionar_svc.Margin = new Padding(3, 2, 3, 2);
+            btn_adicionar_svc.Name = "btn_adicionar_svc";
+            btn_adicionar_svc.Size = new Size(108, 27);
+            btn_adicionar_svc.TabIndex = 8;
+            btn_adicionar_svc.Text = "popular ";
+            btn_adicionar_svc.UseVisualStyleBackColor = false;
+            btn_adicionar_svc.Click += btn_adicionar_svc_Click;
             // 
             // listBox_Efetivo
             // 
@@ -373,7 +376,19 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(groupBox1);
+            panel2.Controls.Add(label9);
+            panel2.Controls.Add(tb_numero);
+            panel2.Controls.Add(lbl_ID);
+            panel2.Controls.Add(lbl_info_ID);
+            panel2.Controls.Add(pic_Funcionario);
+            panel2.Controls.Add(btn_remover);
+            panel2.Controls.Add(btn_adicionar);
+            panel2.Controls.Add(label8);
+            panel2.Controls.Add(tb_contacto);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(tb_morada);
+            panel2.Controls.Add(label5);
+            panel2.Controls.Add(tb_nome);
             panel2.Controls.Add(label6);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
@@ -381,99 +396,115 @@
             panel2.Size = new Size(480, 430);
             panel2.TabIndex = 5;
             // 
-            // groupBox1
+            // label9
             // 
-            groupBox1.Controls.Add(pic_Funcionario);
-            groupBox1.Controls.Add(btn_remover);
-            groupBox1.Controls.Add(btn_adicionar);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(tb_contacto);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(tb_morada);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(tb_nome);
-            groupBox1.Location = new Point(15, 49);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(444, 296);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Identificação";
+            label9.AutoSize = true;
+            label9.Location = new Point(33, 182);
+            label9.Name = "label9";
+            label9.Size = new Size(61, 17);
+            label9.TabIndex = 28;
+            label9.Text = "Numero:";
+            // 
+            // tb_numero
+            // 
+            tb_numero.Location = new Point(100, 179);
+            tb_numero.Name = "tb_numero";
+            tb_numero.Size = new Size(93, 25);
+            tb_numero.TabIndex = 27;
+            // 
+            // lbl_ID
+            // 
+            lbl_ID.AutoSize = true;
+            lbl_ID.ForeColor = Color.IndianRed;
+            lbl_ID.Location = new Point(92, 140);
+            lbl_ID.Name = "lbl_ID";
+            lbl_ID.Size = new Size(0, 17);
+            lbl_ID.TabIndex = 26;
+            // 
+            // lbl_info_ID
+            // 
+            lbl_info_ID.AutoSize = true;
+            lbl_info_ID.Location = new Point(70, 140);
+            lbl_info_ID.Name = "lbl_info_ID";
+            lbl_info_ID.Size = new Size(24, 17);
+            lbl_info_ID.TabIndex = 25;
+            lbl_info_ID.Text = "ID:";
             // 
             // pic_Funcionario
             // 
             pic_Funcionario.Image = (Image)resources.GetObject("pic_Funcionario.Image");
-            pic_Funcionario.Location = new Point(23, 31);
+            pic_Funcionario.Location = new Point(33, 55);
             pic_Funcionario.Name = "pic_Funcionario";
             pic_Funcionario.Size = new Size(64, 64);
             pic_Funcionario.SizeMode = PictureBoxSizeMode.AutoSize;
-            pic_Funcionario.TabIndex = 11;
+            pic_Funcionario.TabIndex = 24;
             pic_Funcionario.TabStop = false;
             // 
             // btn_remover
             // 
-            btn_remover.Location = new Point(328, 250);
+            btn_remover.Location = new Point(332, 379);
             btn_remover.Name = "btn_remover";
             btn_remover.Size = new Size(102, 30);
-            btn_remover.TabIndex = 10;
+            btn_remover.TabIndex = 23;
             btn_remover.Text = "&Remover";
             btn_remover.UseVisualStyleBackColor = true;
             // 
             // btn_adicionar
             // 
-            btn_adicionar.Location = new Point(206, 250);
+            btn_adicionar.Location = new Point(217, 379);
             btn_adicionar.Name = "btn_adicionar";
             btn_adicionar.Size = new Size(102, 30);
-            btn_adicionar.TabIndex = 9;
+            btn_adicionar.TabIndex = 22;
             btn_adicionar.Text = "&Adicionar";
             btn_adicionar.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(32, 199);
+            label8.Location = new Point(28, 322);
             label8.Name = "label8";
             label8.Size = new Size(66, 17);
-            label8.TabIndex = 8;
+            label8.TabIndex = 21;
             label8.Text = "Contacto:";
             // 
             // tb_contacto
             // 
-            tb_contacto.Location = new Point(104, 191);
+            tb_contacto.Location = new Point(100, 319);
             tb_contacto.Name = "tb_contacto";
             tb_contacto.Size = new Size(184, 25);
-            tb_contacto.TabIndex = 7;
+            tb_contacto.TabIndex = 20;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(40, 163);
+            label7.Location = new Point(36, 274);
             label7.Name = "label7";
             label7.Size = new Size(58, 17);
-            label7.TabIndex = 3;
+            label7.TabIndex = 19;
             label7.Text = "Morada:";
             // 
             // tb_morada
             // 
-            tb_morada.Location = new Point(104, 155);
+            tb_morada.Location = new Point(100, 271);
             tb_morada.Name = "tb_morada";
             tb_morada.Size = new Size(326, 25);
-            tb_morada.TabIndex = 2;
+            tb_morada.TabIndex = 18;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(50, 118);
+            label5.Location = new Point(46, 225);
             label5.Name = "label5";
             label5.Size = new Size(48, 17);
-            label5.TabIndex = 1;
+            label5.TabIndex = 17;
             label5.Text = "Nome:";
             // 
             // tb_nome
             // 
-            tb_nome.Location = new Point(104, 115);
+            tb_nome.Location = new Point(100, 222);
             tb_nome.Name = "tb_nome";
             tb_nome.Size = new Size(284, 25);
-            tb_nome.TabIndex = 0;
+            tb_nome.TabIndex = 16;
             // 
             // label6
             // 
@@ -509,6 +540,7 @@
             lst_funcionarios_registo.Name = "lst_funcionarios_registo";
             lst_funcionarios_registo.Size = new Size(280, 407);
             lst_funcionarios_registo.TabIndex = 3;
+            lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -571,8 +603,6 @@
             tP_funcionarios.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).EndInit();
             panel_lateral.ResumeLayout(false);
             panel_lateral.PerformLayout();
@@ -600,7 +630,7 @@
         private Label label2;
         private Panel panel1;
         private Button button2;
-        private Button button1;
+        private Button btn_adicionar_svc;
         private TabPage tP_funcionarios;
         private TabPage tP_turnos;
         private TabPage tP_impressao;
@@ -612,16 +642,19 @@
         private Panel panel_lateral;
         private Label label4;
         private Panel panel2;
-        private GroupBox groupBox1;
-        private Label label5;
-        private TextBox tb_nome;
         private Label label6;
+        private Label label9;
+        private TextBox tb_numero;
+        private Label lbl_ID;
+        private Label lbl_info_ID;
+        private PictureBox pic_Funcionario;
+        private Button btn_remover;
         private Button btn_adicionar;
         private Label label8;
         private TextBox tb_contacto;
         private Label label7;
         private TextBox tb_morada;
-        private Button btn_remover;
-        private PictureBox pic_Funcionario;
+        private Label label5;
+        private TextBox tb_nome;
     }
 }
