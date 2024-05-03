@@ -36,7 +36,8 @@
             btn_funcionarios = new Button();
             btn_sair = new Button();
             tc_Main = new TabControl();
-            tP_escala = new TabPage();
+            tP_main = new TabPage();
+            tP_nEscala = new TabPage();
             panel_direito = new Panel();
             panel1 = new Panel();
             button2 = new Button();
@@ -52,7 +53,7 @@
             Column2 = new DataGridViewTextBoxColumn();
             panel_top = new Panel();
             label1 = new Label();
-            tP_conEscalas = new TabPage();
+            tP_cEscalas = new TabPage();
             tP_funcionarios = new TabPage();
             panel2 = new Panel();
             label9 = new Label();
@@ -72,12 +73,33 @@
             panel_lateral = new Panel();
             lst_funcionarios_registo = new ListBox();
             label4 = new Label();
-            tP_turnos = new TabPage();
+            panel3 = new Panel();
+            label17 = new Label();
+            tP_servicos = new TabPage();
+            panel6 = new Panel();
+            listBox1 = new ListBox();
+            label18 = new Label();
+            panel4 = new Panel();
+            label10 = new Label();
+            textBox1 = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            pictureBox1 = new PictureBox();
+            button1 = new Button();
+            button3 = new Button();
+            label13 = new Label();
+            textBox2 = new TextBox();
+            label14 = new Label();
+            textBox3 = new TextBox();
+            label15 = new Label();
+            textBox4 = new TextBox();
+            label16 = new Label();
+            panel5 = new Panel();
+            label19 = new Label();
             tP_impressao = new TabPage();
-            tP_main = new TabPage();
             panel_menu.SuspendLayout();
             tc_Main.SuspendLayout();
-            tP_escala.SuspendLayout();
+            tP_nEscala.SuspendLayout();
             panel_direito.SuspendLayout();
             panel1.SuspendLayout();
             panel_mid.SuspendLayout();
@@ -87,6 +109,12 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).BeginInit();
             panel_lateral.SuspendLayout();
+            panel3.SuspendLayout();
+            tP_servicos.SuspendLayout();
+            panel6.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // btn_gerarEscala
@@ -99,6 +127,7 @@
             btn_gerarEscala.TabIndex = 2;
             btn_gerarEscala.Text = "Nova Escala";
             btn_gerarEscala.UseVisualStyleBackColor = true;
+            btn_gerarEscala.Click += btn_gerarEscala_Click;
             // 
             // panel_menu
             // 
@@ -124,7 +153,7 @@
             btn_escalas.Name = "btn_escalas";
             btn_escalas.Size = new Size(127, 34);
             btn_escalas.TabIndex = 6;
-            btn_escalas.Text = "Escalas";
+            btn_escalas.Text = "Consultar Escala";
             btn_escalas.UseVisualStyleBackColor = true;
             // 
             // btn_turnos
@@ -135,8 +164,9 @@
             btn_turnos.Name = "btn_turnos";
             btn_turnos.Size = new Size(127, 34);
             btn_turnos.TabIndex = 5;
-            btn_turnos.Text = "Turnos";
+            btn_turnos.Text = "Serviços";
             btn_turnos.UseVisualStyleBackColor = true;
+            btn_turnos.Click += btn_turnos_Click;
             // 
             // btn_funcionarios
             // 
@@ -163,34 +193,45 @@
             // 
             // tc_Main
             // 
-            tc_Main.Controls.Add(tP_escala);
-            tc_Main.Controls.Add(tP_conEscalas);
-            tc_Main.Controls.Add(tP_funcionarios);
-            tc_Main.Controls.Add(tP_turnos);
-            tc_Main.Controls.Add(tP_impressao);
             tc_Main.Controls.Add(tP_main);
+            tc_Main.Controls.Add(tP_nEscala);
+            tc_Main.Controls.Add(tP_cEscalas);
+            tc_Main.Controls.Add(tP_funcionarios);
+            tc_Main.Controls.Add(tP_servicos);
+            tc_Main.Controls.Add(tP_impressao);
             tc_Main.Dock = DockStyle.Fill;
             tc_Main.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tc_Main.Location = new Point(132, 0);
-            tc_Main.Margin = new Padding(3, 2, 3, 2);
+            tc_Main.Margin = new Padding(0);
             tc_Main.Name = "tc_Main";
             tc_Main.SelectedIndex = 0;
             tc_Main.Size = new Size(776, 466);
             tc_Main.TabIndex = 4;
+            tc_Main.TabStop = false;
             // 
-            // tP_escala
+            // tP_main
             // 
-            tP_escala.Controls.Add(panel_direito);
-            tP_escala.Controls.Add(panel_mid);
-            tP_escala.Controls.Add(panel_top);
-            tP_escala.Location = new Point(4, 26);
-            tP_escala.Margin = new Padding(3, 2, 3, 2);
-            tP_escala.Name = "tP_escala";
-            tP_escala.Padding = new Padding(3, 2, 3, 2);
-            tP_escala.Size = new Size(768, 436);
-            tP_escala.TabIndex = 0;
-            tP_escala.Text = "Nova Escala";
-            tP_escala.UseVisualStyleBackColor = true;
+            tP_main.Location = new Point(4, 26);
+            tP_main.Name = "tP_main";
+            tP_main.Padding = new Padding(3);
+            tP_main.Size = new Size(768, 436);
+            tP_main.TabIndex = 5;
+            tP_main.Text = "Main";
+            tP_main.UseVisualStyleBackColor = true;
+            // 
+            // tP_nEscala
+            // 
+            tP_nEscala.Controls.Add(panel_direito);
+            tP_nEscala.Controls.Add(panel_mid);
+            tP_nEscala.Controls.Add(panel_top);
+            tP_nEscala.Location = new Point(4, 26);
+            tP_nEscala.Margin = new Padding(3, 2, 3, 2);
+            tP_nEscala.Name = "tP_nEscala";
+            tP_nEscala.Padding = new Padding(3, 2, 3, 2);
+            tP_nEscala.Size = new Size(768, 436);
+            tP_nEscala.TabIndex = 0;
+            tP_nEscala.Text = "Nova Escala";
+            tP_nEscala.UseVisualStyleBackColor = true;
             // 
             // panel_direito
             // 
@@ -351,27 +392,28 @@
             label1.TabIndex = 0;
             label1.Text = "Escala do dia: XX/XX/XXXX";
             // 
-            // tP_conEscalas
+            // tP_cEscalas
             // 
-            tP_conEscalas.Location = new Point(4, 26);
-            tP_conEscalas.Margin = new Padding(3, 2, 3, 2);
-            tP_conEscalas.Name = "tP_conEscalas";
-            tP_conEscalas.Padding = new Padding(3, 2, 3, 2);
-            tP_conEscalas.Size = new Size(768, 436);
-            tP_conEscalas.TabIndex = 1;
-            tP_conEscalas.Text = "Consultar escala";
-            tP_conEscalas.UseVisualStyleBackColor = true;
+            tP_cEscalas.Location = new Point(4, 26);
+            tP_cEscalas.Margin = new Padding(3, 2, 3, 2);
+            tP_cEscalas.Name = "tP_cEscalas";
+            tP_cEscalas.Padding = new Padding(3, 2, 3, 2);
+            tP_cEscalas.Size = new Size(768, 436);
+            tP_cEscalas.TabIndex = 1;
+            tP_cEscalas.Text = "Consultar escala";
+            tP_cEscalas.UseVisualStyleBackColor = true;
             // 
             // tP_funcionarios
             // 
             tP_funcionarios.Controls.Add(panel2);
             tP_funcionarios.Controls.Add(panel_lateral);
+            tP_funcionarios.Controls.Add(panel3);
             tP_funcionarios.Location = new Point(4, 26);
             tP_funcionarios.Name = "tP_funcionarios";
             tP_funcionarios.Padding = new Padding(3);
             tP_funcionarios.Size = new Size(768, 436);
             tP_funcionarios.TabIndex = 2;
-            tP_funcionarios.Text = "Funcionarios";
+            tP_funcionarios.Text = "Funcionários";
             tP_funcionarios.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -391,9 +433,9 @@
             panel2.Controls.Add(tb_nome);
             panel2.Controls.Add(label6);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(3, 3);
+            panel2.Location = new Point(3, 36);
             panel2.Name = "panel2";
-            panel2.Size = new Size(480, 430);
+            panel2.Size = new Size(480, 397);
             panel2.TabIndex = 5;
             // 
             // label9
@@ -512,9 +554,9 @@
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(15, 11);
             label6.Name = "label6";
-            label6.Size = new Size(139, 21);
+            label6.Size = new Size(95, 21);
             label6.TabIndex = 5;
-            label6.Text = "Novo Funcionário";
+            label6.Text = "Funcionário";
             // 
             // panel_lateral
             // 
@@ -524,9 +566,9 @@
             panel_lateral.Controls.Add(label4);
             panel_lateral.Dock = DockStyle.Right;
             panel_lateral.ForeColor = SystemColors.ButtonFace;
-            panel_lateral.Location = new Point(483, 3);
+            panel_lateral.Location = new Point(483, 36);
             panel_lateral.Name = "panel_lateral";
-            panel_lateral.Size = new Size(282, 430);
+            panel_lateral.Size = new Size(282, 397);
             panel_lateral.TabIndex = 4;
             // 
             // lst_funcionarios_registo
@@ -538,7 +580,7 @@
             lst_funcionarios_registo.ItemHeight = 17;
             lst_funcionarios_registo.Location = new Point(0, 21);
             lst_funcionarios_registo.Name = "lst_funcionarios_registo";
-            lst_funcionarios_registo.Size = new Size(280, 407);
+            lst_funcionarios_registo.Size = new Size(280, 374);
             lst_funcionarios_registo.TabIndex = 3;
             lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
             // 
@@ -553,14 +595,232 @@
             label4.TabIndex = 4;
             label4.Text = "Funcionários em registo";
             // 
-            // tP_turnos
+            // panel3
             // 
-            tP_turnos.Location = new Point(4, 26);
-            tP_turnos.Name = "tP_turnos";
-            tP_turnos.Size = new Size(768, 436);
-            tP_turnos.TabIndex = 3;
-            tP_turnos.Text = "Turnos";
-            tP_turnos.UseVisualStyleBackColor = true;
+            panel3.BackColor = Color.FromArgb(99, 99, 99);
+            panel3.Controls.Add(label17);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(762, 33);
+            panel3.TabIndex = 30;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.ForeColor = SystemColors.ButtonHighlight;
+            label17.Location = new Point(3, 9);
+            label17.Name = "label17";
+            label17.Size = new Size(167, 17);
+            label17.TabIndex = 0;
+            label17.Text = "Escala do dia: XX/XX/XXXX";
+            // 
+            // tP_servicos
+            // 
+            tP_servicos.Controls.Add(panel6);
+            tP_servicos.Controls.Add(panel4);
+            tP_servicos.Controls.Add(panel5);
+            tP_servicos.Location = new Point(4, 26);
+            tP_servicos.Name = "tP_servicos";
+            tP_servicos.Size = new Size(768, 436);
+            tP_servicos.TabIndex = 3;
+            tP_servicos.Text = "Serviços";
+            tP_servicos.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(listBox1);
+            panel6.Controls.Add(label18);
+            panel6.Dock = DockStyle.Right;
+            panel6.Location = new Point(511, 33);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(257, 403);
+            panel6.TabIndex = 34;
+            // 
+            // listBox1
+            // 
+            listBox1.BorderStyle = BorderStyle.FixedSingle;
+            listBox1.Dock = DockStyle.Fill;
+            listBox1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 17;
+            listBox1.Location = new Point(0, 21);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(257, 382);
+            listBox1.TabIndex = 33;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Dock = DockStyle.Top;
+            label18.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(0, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(185, 21);
+            label18.TabIndex = 34;
+            label18.Text = "Funcionários em registo";
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(label10);
+            panel4.Controls.Add(textBox1);
+            panel4.Controls.Add(label11);
+            panel4.Controls.Add(label12);
+            panel4.Controls.Add(pictureBox1);
+            panel4.Controls.Add(button1);
+            panel4.Controls.Add(button3);
+            panel4.Controls.Add(label13);
+            panel4.Controls.Add(textBox2);
+            panel4.Controls.Add(label14);
+            panel4.Controls.Add(textBox3);
+            panel4.Controls.Add(label15);
+            panel4.Controls.Add(textBox4);
+            panel4.Controls.Add(label16);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 33);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(768, 403);
+            panel4.TabIndex = 0;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(99, 182);
+            label10.Name = "label10";
+            label10.Size = new Size(39, 17);
+            label10.TabIndex = 56;
+            label10.Text = "Sigla:";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(165, 179);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(93, 25);
+            textBox1.TabIndex = 55;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.ForeColor = Color.IndianRed;
+            label11.Location = new Point(138, 98);
+            label11.Name = "label11";
+            label11.Size = new Size(0, 17);
+            label11.TabIndex = 54;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(116, 98);
+            label12.Name = "label12";
+            label12.Size = new Size(24, 17);
+            label12.TabIndex = 53;
+            label12.Text = "ID:";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(79, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(64, 64);
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox1.TabIndex = 52;
+            pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(287, 339);
+            button1.Name = "button1";
+            button1.Size = new Size(102, 30);
+            button1.TabIndex = 51;
+            button1.Text = "&Remover";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(172, 339);
+            button3.Name = "button3";
+            button3.Size = new Size(102, 30);
+            button3.TabIndex = 50;
+            button3.Text = "&Adicionar";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(74, 275);
+            label13.Name = "label13";
+            label13.Size = new Size(64, 17);
+            label13.TabIndex = 49;
+            label13.Text = "Hora fim:";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(165, 272);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(184, 25);
+            textBox2.TabIndex = 48;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(61, 232);
+            label14.Name = "label14";
+            label14.Size = new Size(77, 17);
+            label14.TabIndex = 47;
+            label14.Text = "Hora Inicio:";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(165, 229);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(85, 25);
+            textBox3.TabIndex = 46;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(90, 142);
+            label15.Name = "label15";
+            label15.Size = new Size(48, 17);
+            label15.TabIndex = 45;
+            label15.Text = "Nome:";
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(165, 139);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(224, 25);
+            textBox4.TabIndex = 44;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(63, -28);
+            label16.Name = "label16";
+            label16.Size = new Size(65, 21);
+            label16.TabIndex = 43;
+            label16.Text = "Serviço";
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.FromArgb(99, 99, 99);
+            panel5.Controls.Add(label19);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(0, 0);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(768, 33);
+            panel5.TabIndex = 33;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.ForeColor = SystemColors.ButtonHighlight;
+            label19.Location = new Point(3, 9);
+            label19.Name = "label19";
+            label19.Size = new Size(167, 17);
+            label19.TabIndex = 0;
+            label19.Text = "Escala do dia: XX/XX/XXXX";
             // 
             // tP_impressao
             // 
@@ -570,14 +830,6 @@
             tP_impressao.TabIndex = 4;
             tP_impressao.Text = "Impressão";
             tP_impressao.UseVisualStyleBackColor = true;
-            // 
-            // tP_main
-            // 
-            tP_main.Location = new Point(4, 26);
-            tP_main.Name = "tP_main";
-            tP_main.Size = new Size(768, 436);
-            tP_main.TabIndex = 5;
-            tP_main.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -592,7 +844,7 @@
             Text = "GesEscala - Equipa 15 - LDS UAB";
             panel_menu.ResumeLayout(false);
             tc_Main.ResumeLayout(false);
-            tP_escala.ResumeLayout(false);
+            tP_nEscala.ResumeLayout(false);
             panel_direito.ResumeLayout(false);
             panel_direito.PerformLayout();
             panel1.ResumeLayout(false);
@@ -606,6 +858,16 @@
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).EndInit();
             panel_lateral.ResumeLayout(false);
             panel_lateral.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            tP_servicos.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -617,8 +879,8 @@
         private Button btn_funcionarios;
         private Button btn_sair;
         private TabControl tc_Main;
-        private TabPage tP_escala;
-        private TabPage tP_conEscalas;
+        private TabPage tP_nEscala;
+        private TabPage tP_cEscalas;
         private Panel panel_top;
         private Panel panel_mid;
         private Panel panel_direito;
@@ -632,17 +894,35 @@
         private Button button2;
         private Button btn_adicionar_svc;
         private TabPage tP_funcionarios;
-        private TabPage tP_turnos;
+        private TabPage tP_servicos;
         private TabPage tP_impressao;
         private TabPage tP_main;
         private ListBox listBox_Efetivo;
         private Label label3;
         private MonthCalendar monthCalendar1;
-        private ListBox lst_funcionarios_registo;
         private Panel panel_lateral;
         private Label label4;
+        private Panel panel6;
+        private ListBox listBox1;
+        private Label label18;
+        private Panel panel4;
+        private Label label10;
+        private TextBox textBox1;
+        private Label label11;
+        private Label label12;
+        private PictureBox pictureBox1;
+        private Button button1;
+        private Button button3;
+        private Label label13;
+        private TextBox textBox2;
+        private Label label14;
+        private TextBox textBox3;
+        private Label label15;
+        private TextBox textBox4;
+        private Label label16;
+        private Panel panel5;
+        private Label label19;
         private Panel panel2;
-        private Label label6;
         private Label label9;
         private TextBox tb_numero;
         private Label lbl_ID;
@@ -656,5 +936,9 @@
         private TextBox tb_morada;
         private Label label5;
         private TextBox tb_nome;
+        private Label label6;
+        private ListBox lst_funcionarios_registo;
+        private Panel panel3;
+        private Label label17;
     }
 }
