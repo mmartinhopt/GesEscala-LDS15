@@ -35,6 +35,7 @@ namespace GesEscala_LDS15
         {
             try
             {
+                
                 FuncionariosListView.Items.Clear();
                 foreach (var funcionario in funcionarios)
                 {
@@ -52,6 +53,7 @@ namespace GesEscala_LDS15
                 Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
             }
         }
+
         
         public void MostrarFormInicial()
         {
@@ -63,7 +65,6 @@ namespace GesEscala_LDS15
         // Método para encerrar a aplicação
         public void Encerrar()
         {
-         
         }
     }
 }

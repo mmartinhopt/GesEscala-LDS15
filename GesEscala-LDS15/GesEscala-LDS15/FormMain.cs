@@ -21,7 +21,17 @@ namespace GesEscala_LDS15
 
         private void button1_Click(object sender, EventArgs e)
         {
-            controller.BuscarFuncionarios();
+            // Obtém a lista de funcionários do controller
+            List<Dictionary<string, object>> funcionarios = controller.BuscarFuncionarios();
+
+            // Limpa a ListBox antes de preencher novamente
+            listBox_Efetivo.Items.Clear();
+
+            // Preenche a ListBox com os funcionários obtidos
+            foreach (var funcionario in funcionarios)
+            {
+                listBox_Efetivo.Items.Add(funcionario["Nome"]);
+            }
         }
     }
 }

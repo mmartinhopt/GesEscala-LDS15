@@ -27,7 +27,7 @@ namespace GesEscala_LDS15
         {
            
             conn = CriarLigacaoSqlite();
-            CriarTabelas(conn);
+            // CriarTabelas(conn);
         }
 
 
@@ -51,14 +51,12 @@ namespace GesEscala_LDS15
 
         public List<Dictionary<string, object>> GetFuncionarios()
         {
+
             List<Dictionary<string, object>> funcionarios = new List<Dictionary<string, object>>();
             try
-            {
-                using (SQLiteConnection connection = CriarLigacaoSqlite())
-                {
-                    connection.Open();
+            {                 
                     string query = "SELECT * FROM Funcionarios";
-                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
                         {
@@ -76,7 +74,7 @@ namespace GesEscala_LDS15
                             }
                         }
                     }
-                }
+                
             }
             catch (Exception ex)
             {

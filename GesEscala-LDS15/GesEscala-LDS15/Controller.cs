@@ -24,9 +24,9 @@ namespace GesEscala_LDS15
         }
 
         // Método para buscar funcionários
-        public void BuscarFuncionarios()
+        public List<Dictionary<string, object>> BuscarFuncionarios()
         {
-            view.PreencherListView(model.GetFuncionarios());
+            return model.GetFuncionarios();
         }
 
         // Método para encerrar o programa
