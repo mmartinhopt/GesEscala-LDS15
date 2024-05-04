@@ -14,7 +14,7 @@ namespace GesEscala_LDS15
     {
         private View view;
 
-        List<Dictionary<string, object>> listaFuncionarios;
+        List<Funcionario> listaFuncionarios;
         List<Dictionary<string, object>> listaEscalados;
         List<Dictionary<string, object>> listaServicos;
 
@@ -37,7 +37,7 @@ namespace GesEscala_LDS15
             view = v;
             conn = CriarLigacaoSqlite();
             listaEscalados = new List<Dictionary<string, object>>();
-            listaFuncionarios = new List<Dictionary<string, object>>();
+            listaFuncionarios = new List<Funcionario>();
             listaServicos = new List<Dictionary<string, object>>();
 
             // CriarTabelas(conn);
@@ -62,6 +62,7 @@ namespace GesEscala_LDS15
             }
         }
 
+        /*
         public void GetListaFuncionarios(ref List<Dictionary<string, object>> listaFuncionarios)
         {
 
@@ -95,6 +96,47 @@ namespace GesEscala_LDS15
                 debugBox(ex.Message);
             }
             
+            //listaFuncionarios = funcionarios;
+            // Notifica que a lista foi alterada.
+            //ListaDeFuncionariosAlterada();
+        }
+        */
+
+        public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
+        {
+
+            listaFuncionarios = new List<Funcionario>();
+            try
+            {
+                string query = "SELECT * FROM Funcionarios";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Funcionario funcionario = new Funcionario
+                            {
+                                ID = Convert.ToInt32(reader["id_funcionario"]),
+                                Numero = Convert.ToInt32(reader["numero_funcionario"]),
+                                Nome = reader["nome_funcionario"].ToString(),
+                                Apelido = reader["apelido_funcionario"].ToString(),
+                                Morada = reader["morada_funcionario"].ToString(),
+                                Contacto = Convert.ToInt32(reader["contacto_funcionario"])
+                            };
+                            listaFuncionarios.Add(funcionario);
+                        }
+                    }
+                }
+                MessageBox.Show(listaFuncionarios.Count().ToString());
+
+            }
+            catch (Exception ex)
+            {
+                // TODO Lidar com a exceção
+                debugBox(ex.Message);
+            }
+
             //listaFuncionarios = funcionarios;
             // Notifica que a lista foi alterada.
             //ListaDeFuncionariosAlterada();

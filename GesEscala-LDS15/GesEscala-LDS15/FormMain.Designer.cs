@@ -584,7 +584,7 @@
             lst_funcionarios_registo.Name = "lst_funcionarios_registo";
             lst_funcionarios_registo.Size = new Size(280, 374);
             lst_funcionarios_registo.TabIndex = 3;
-            lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
+            //lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
             // 
             // label4
             // 

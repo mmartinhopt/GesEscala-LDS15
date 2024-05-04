@@ -14,13 +14,13 @@ namespace GesEscala_LDS15
         private FormMain janela;
         // private FormMain janela;
 
-        private List<Dictionary<string, object>> listaFuncionariosView = null;
+        private List<Funcionario> listaFuncionariosView = null;
         private List<Dictionary<string, object>> listaEscaladosView = null;
         private List<Dictionary<string, object>> listaServicosView = null;
 
         // Eventos
 
-        public delegate void PedidoListaFuncionarios(ref List<Dictionary<string, object>> listaFuncionarios);
+        public delegate void PedidoListaFuncionarios(ref List<Funcionario> listaFuncionarios);
         public event PedidoListaFuncionarios PrecisoDeFuncionarios;
 
         //public event EventHandler UserAtivouTabFuncionarios;
@@ -87,14 +87,10 @@ namespace GesEscala_LDS15
             janela.PopularFuncionarios(ref listaFuncionariosView);
         }
 
-        public void FormTabFuncionariosAtiva(object sender, EventArgs e)
-        {
-            //UserAtivouTabFuncionarios(this, e);
-        }
-
-        public void PrecisoDeListaFuncionarios(List<Dictionary<string, object>> listaFuncionariosView)
+        public void PrecisoDeListaFuncionarios(ref List<Funcionario> listaFuncionariosView)
         {
             PrecisoDeFuncionarios(ref listaFuncionariosView);
+            janela.AtualizaListaFuncionarios(ref listaFuncionariosView);
         }
 
         // Método para encerrar a aplicação
