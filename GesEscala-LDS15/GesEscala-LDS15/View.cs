@@ -23,6 +23,9 @@ namespace GesEscala_LDS15
         public delegate void PedidoListaFuncionarios(ref List<Funcionario> listaFuncionarios);
         public event PedidoListaFuncionarios PrecisoDeFuncionarios;
 
+        public delegate void NovoFuncionario(ref Funcionario novoFuncionario);
+        public event NovoFuncionario RegistoNovoFuncionario;
+
         //public event EventHandler UserAtivouTabFuncionarios;
 
         //public event EventHandler ConfiguracaoInicialButtonClicked;
@@ -75,6 +78,10 @@ namespace GesEscala_LDS15
             janela.ShowDialog();
         }
 
+        public void RegistarNovoFuncionario(Funcionario novoFuncionario)
+        {
+            RegistarNovoFuncionario(novoFuncionario);
+        }
 
         public void AtualizarListaFuncionarios(object sender, EventArgs e)
         {
