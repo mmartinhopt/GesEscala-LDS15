@@ -62,45 +62,6 @@ namespace GesEscala_LDS15
             }
         }
 
-        /*
-        public void GetListaFuncionarios(ref List<Dictionary<string, object>> listaFuncionarios)
-        {
-
-            listaFuncionarios = new List<Dictionary<string, object>>();
-            try
-            {                 
-                    string query = "SELECT * FROM Funcionarios";
-                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
-                    {
-                        using (SQLiteDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Cria um dicionário para armazenar os dados de cada funcionário
-                                Dictionary<string, object> funcionario = new Dictionary<string, object>();
-                                funcionario["Id"] = Convert.ToInt32(reader["id_funcionario"]);
-                                funcionario["Numero"] = Convert.ToInt32(reader["numero_funcionario"]);
-                                funcionario["Nome"] = reader["nome_funcionario"].ToString();
-                                funcionario["Morada"] = reader["morada_funcionario"].ToString();
-                                funcionario["Contacto"] = Convert.ToInt32(reader["contacto_funcionario"]);
-                                // Adiciona o dicionário à lista de funcionários
-                                listaFuncionarios.Add(funcionario);
-                            }
-                        }
-                    }
-                
-            }
-            catch (Exception ex)
-            {
-                // TODO Lidar com a exceção
-                debugBox(ex.Message);
-            }
-            
-            //listaFuncionarios = funcionarios;
-            // Notifica que a lista foi alterada.
-            //ListaDeFuncionariosAlterada();
-        }
-        */
 
         public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
         {

@@ -56,6 +56,10 @@
             tP_cEscalas = new TabPage();
             tP_funcionarios = new TabPage();
             panel2 = new Panel();
+            tb_apelido = new TextBox();
+            label20 = new Label();
+            btn_alterar = new Button();
+            btn_limpar = new Button();
             label9 = new Label();
             tb_numero = new TextBox();
             lbl_ID = new Label();
@@ -97,8 +101,16 @@
             panel5 = new Panel();
             label19 = new Label();
             tP_impressao = new TabPage();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            label27 = new Label();
             panel_menu.SuspendLayout();
             tc_Main.SuspendLayout();
+            tP_main.SuspendLayout();
             tP_nEscala.SuspendLayout();
             panel_direito.SuspendLayout();
             panel1.SuspendLayout();
@@ -142,7 +154,7 @@
             panel_menu.Location = new Point(0, 0);
             panel_menu.Margin = new Padding(3, 2, 3, 2);
             panel_menu.Name = "panel_menu";
-            panel_menu.Size = new Size(132, 466);
+            panel_menu.Size = new Size(132, 479);
             panel_menu.TabIndex = 3;
             // 
             // btn_escalas
@@ -183,7 +195,7 @@
             // btn_sair
             // 
             btn_sair.Dock = DockStyle.Bottom;
-            btn_sair.Location = new Point(0, 432);
+            btn_sair.Location = new Point(0, 445);
             btn_sair.Margin = new Padding(3, 2, 3, 2);
             btn_sair.Name = "btn_sair";
             btn_sair.Size = new Size(132, 34);
@@ -205,16 +217,23 @@
             tc_Main.Margin = new Padding(0);
             tc_Main.Name = "tc_Main";
             tc_Main.SelectedIndex = 0;
-            tc_Main.Size = new Size(776, 466);
+            tc_Main.Size = new Size(823, 479);
             tc_Main.TabIndex = 4;
             tc_Main.TabStop = false;
             // 
             // tP_main
             // 
+            tP_main.Controls.Add(label21);
+            tP_main.Controls.Add(label22);
+            tP_main.Controls.Add(label23);
+            tP_main.Controls.Add(label24);
+            tP_main.Controls.Add(label25);
+            tP_main.Controls.Add(label26);
+            tP_main.Controls.Add(label27);
             tP_main.Location = new Point(4, 26);
             tP_main.Name = "tP_main";
             tP_main.Padding = new Padding(3);
-            tP_main.Size = new Size(768, 436);
+            tP_main.Size = new Size(815, 449);
             tP_main.TabIndex = 5;
             tP_main.Text = "Main";
             tP_main.UseVisualStyleBackColor = true;
@@ -228,7 +247,7 @@
             tP_nEscala.Margin = new Padding(3, 2, 3, 2);
             tP_nEscala.Name = "tP_nEscala";
             tP_nEscala.Padding = new Padding(3, 2, 3, 2);
-            tP_nEscala.Size = new Size(768, 436);
+            tP_nEscala.Size = new Size(815, 449);
             tP_nEscala.TabIndex = 0;
             tP_nEscala.Text = "Nova Escala";
             tP_nEscala.UseVisualStyleBackColor = true;
@@ -244,9 +263,9 @@
             panel_direito.Controls.Add(monthCalendar1);
             panel_direito.Dock = DockStyle.Right;
             panel_direito.ForeColor = SystemColors.ButtonFace;
-            panel_direito.Location = new Point(536, 35);
+            panel_direito.Location = new Point(583, 35);
             panel_direito.Name = "panel_direito";
-            panel_direito.Size = new Size(229, 399);
+            panel_direito.Size = new Size(229, 412);
             panel_direito.TabIndex = 2;
             // 
             // panel1
@@ -254,7 +273,7 @@
             panel1.Controls.Add(button2);
             panel1.Controls.Add(btn_adicionar_svc);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 187);
+            panel1.Location = new Point(0, 200);
             panel1.Name = "panel1";
             panel1.Size = new Size(227, 27);
             panel1.TabIndex = 3;
@@ -300,7 +319,7 @@
             listBox_Efetivo.Items.AddRange(new object[] { "209 - Rui", "102 - Pedro", "2030 - Miguel", "1 - Corrida", "Utilizadores registados", "quando tem função", "muda de cor conforme o ", "serviço" });
             listBox_Efetivo.Location = new Point(0, 21);
             listBox_Efetivo.Name = "listBox_Efetivo";
-            listBox_Efetivo.Size = new Size(227, 193);
+            listBox_Efetivo.Size = new Size(227, 206);
             listBox_Efetivo.TabIndex = 2;
             listBox_Efetivo.SelectedIndexChanged += listBox_Efetivo_SelectedIndexChanged;
             // 
@@ -321,7 +340,7 @@
             label3.AutoSize = true;
             label3.Dock = DockStyle.Bottom;
             label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(0, 214);
+            label3.Location = new Point(0, 227);
             label3.Name = "label3";
             label3.Size = new Size(88, 21);
             label3.TabIndex = 5;
@@ -330,7 +349,7 @@
             // monthCalendar1
             // 
             monthCalendar1.Dock = DockStyle.Bottom;
-            monthCalendar1.Location = new Point(0, 235);
+            monthCalendar1.Location = new Point(0, 248);
             monthCalendar1.Name = "monthCalendar1";
             monthCalendar1.TabIndex = 4;
             // 
@@ -340,7 +359,7 @@
             panel_mid.Dock = DockStyle.Fill;
             panel_mid.Location = new Point(3, 35);
             panel_mid.Name = "panel_mid";
-            panel_mid.Size = new Size(762, 399);
+            panel_mid.Size = new Size(809, 412);
             panel_mid.TabIndex = 1;
             // 
             // dgv_novaEscala
@@ -353,7 +372,7 @@
             dgv_novaEscala.Dock = DockStyle.Fill;
             dgv_novaEscala.Location = new Point(0, 0);
             dgv_novaEscala.Name = "dgv_novaEscala";
-            dgv_novaEscala.Size = new Size(762, 399);
+            dgv_novaEscala.Size = new Size(809, 412);
             dgv_novaEscala.TabIndex = 0;
             // 
             // Column1
@@ -381,7 +400,7 @@
             panel_top.Dock = DockStyle.Top;
             panel_top.Location = new Point(3, 2);
             panel_top.Name = "panel_top";
-            panel_top.Size = new Size(762, 33);
+            panel_top.Size = new Size(809, 33);
             panel_top.TabIndex = 0;
             // 
             // label1
@@ -400,7 +419,7 @@
             tP_cEscalas.Margin = new Padding(3, 2, 3, 2);
             tP_cEscalas.Name = "tP_cEscalas";
             tP_cEscalas.Padding = new Padding(3, 2, 3, 2);
-            tP_cEscalas.Size = new Size(768, 436);
+            tP_cEscalas.Size = new Size(815, 449);
             tP_cEscalas.TabIndex = 1;
             tP_cEscalas.Text = "Consultar escala";
             tP_cEscalas.UseVisualStyleBackColor = true;
@@ -413,13 +432,17 @@
             tP_funcionarios.Location = new Point(4, 26);
             tP_funcionarios.Name = "tP_funcionarios";
             tP_funcionarios.Padding = new Padding(3);
-            tP_funcionarios.Size = new Size(768, 436);
+            tP_funcionarios.Size = new Size(815, 449);
             tP_funcionarios.TabIndex = 2;
             tP_funcionarios.Text = "Funcionários";
             tP_funcionarios.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            panel2.Controls.Add(tb_apelido);
+            panel2.Controls.Add(label20);
+            panel2.Controls.Add(btn_alterar);
+            panel2.Controls.Add(btn_limpar);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(tb_numero);
             panel2.Controls.Add(lbl_ID);
@@ -437,13 +460,51 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 36);
             panel2.Name = "panel2";
-            panel2.Size = new Size(480, 397);
+            panel2.Size = new Size(527, 410);
             panel2.TabIndex = 5;
+            // 
+            // tb_apelido
+            // 
+            tb_apelido.Location = new Point(100, 217);
+            tb_apelido.Name = "tb_apelido";
+            tb_apelido.Size = new Size(284, 25);
+            tb_apelido.TabIndex = 32;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.BackColor = Color.Transparent;
+            label20.Location = new Point(37, 220);
+            label20.Name = "label20";
+            label20.Size = new Size(57, 17);
+            label20.TabIndex = 31;
+            label20.Text = "Apelido:";
+            label20.Click += label20_Click;
+            // 
+            // btn_alterar
+            // 
+            btn_alterar.Enabled = false;
+            btn_alterar.Location = new Point(382, 319);
+            btn_alterar.Name = "btn_alterar";
+            btn_alterar.Size = new Size(102, 30);
+            btn_alterar.TabIndex = 30;
+            btn_alterar.Text = "&Alterar";
+            btn_alterar.UseVisualStyleBackColor = true;
+            // 
+            // btn_limpar
+            // 
+            btn_limpar.Location = new Point(274, 355);
+            btn_limpar.Name = "btn_limpar";
+            btn_limpar.Size = new Size(102, 30);
+            btn_limpar.TabIndex = 29;
+            btn_limpar.Text = "&Limpar";
+            btn_limpar.UseVisualStyleBackColor = true;
+            btn_limpar.Click += btn_limpar_Click;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(33, 182);
+            label9.Location = new Point(33, 158);
             label9.Name = "label9";
             label9.Size = new Size(61, 17);
             label9.TabIndex = 28;
@@ -451,7 +512,7 @@
             // 
             // tb_numero
             // 
-            tb_numero.Location = new Point(100, 179);
+            tb_numero.Location = new Point(100, 155);
             tb_numero.Name = "tb_numero";
             tb_numero.Size = new Size(93, 25);
             tb_numero.TabIndex = 27;
@@ -460,7 +521,7 @@
             // 
             lbl_ID.AutoSize = true;
             lbl_ID.ForeColor = Color.IndianRed;
-            lbl_ID.Location = new Point(92, 140);
+            lbl_ID.Location = new Point(92, 116);
             lbl_ID.Name = "lbl_ID";
             lbl_ID.Size = new Size(0, 17);
             lbl_ID.TabIndex = 26;
@@ -468,7 +529,7 @@
             // lbl_info_ID
             // 
             lbl_info_ID.AutoSize = true;
-            lbl_info_ID.Location = new Point(70, 140);
+            lbl_info_ID.Location = new Point(70, 116);
             lbl_info_ID.Name = "lbl_info_ID";
             lbl_info_ID.Size = new Size(24, 17);
             lbl_info_ID.TabIndex = 25;
@@ -477,7 +538,7 @@
             // pic_Funcionario
             // 
             pic_Funcionario.Image = (Image)resources.GetObject("pic_Funcionario.Image");
-            pic_Funcionario.Location = new Point(33, 55);
+            pic_Funcionario.Location = new Point(30, 35);
             pic_Funcionario.Name = "pic_Funcionario";
             pic_Funcionario.Size = new Size(64, 64);
             pic_Funcionario.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -486,7 +547,8 @@
             // 
             // btn_remover
             // 
-            btn_remover.Location = new Point(332, 379);
+            btn_remover.Enabled = false;
+            btn_remover.Location = new Point(382, 355);
             btn_remover.Name = "btn_remover";
             btn_remover.Size = new Size(102, 30);
             btn_remover.TabIndex = 23;
@@ -495,7 +557,7 @@
             // 
             // btn_adicionar
             // 
-            btn_adicionar.Location = new Point(217, 379);
+            btn_adicionar.Location = new Point(166, 355);
             btn_adicionar.Name = "btn_adicionar";
             btn_adicionar.Size = new Size(102, 30);
             btn_adicionar.TabIndex = 22;
@@ -505,7 +567,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(28, 322);
+            label8.Location = new Point(28, 282);
             label8.Name = "label8";
             label8.Size = new Size(66, 17);
             label8.TabIndex = 21;
@@ -513,7 +575,7 @@
             // 
             // tb_contacto
             // 
-            tb_contacto.Location = new Point(100, 319);
+            tb_contacto.Location = new Point(100, 279);
             tb_contacto.Name = "tb_contacto";
             tb_contacto.Size = new Size(184, 25);
             tb_contacto.TabIndex = 20;
@@ -521,7 +583,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(36, 274);
+            label7.Location = new Point(36, 251);
             label7.Name = "label7";
             label7.Size = new Size(58, 17);
             label7.TabIndex = 19;
@@ -529,15 +591,15 @@
             // 
             // tb_morada
             // 
-            tb_morada.Location = new Point(100, 271);
+            tb_morada.Location = new Point(100, 248);
             tb_morada.Name = "tb_morada";
-            tb_morada.Size = new Size(326, 25);
+            tb_morada.Size = new Size(384, 25);
             tb_morada.TabIndex = 18;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(46, 225);
+            label5.Location = new Point(46, 189);
             label5.Name = "label5";
             label5.Size = new Size(48, 17);
             label5.TabIndex = 17;
@@ -545,7 +607,7 @@
             // 
             // tb_nome
             // 
-            tb_nome.Location = new Point(100, 222);
+            tb_nome.Location = new Point(100, 186);
             tb_nome.Name = "tb_nome";
             tb_nome.Size = new Size(284, 25);
             tb_nome.TabIndex = 16;
@@ -568,9 +630,9 @@
             panel_lateral.Controls.Add(label4);
             panel_lateral.Dock = DockStyle.Right;
             panel_lateral.ForeColor = SystemColors.ButtonFace;
-            panel_lateral.Location = new Point(483, 36);
+            panel_lateral.Location = new Point(530, 36);
             panel_lateral.Name = "panel_lateral";
-            panel_lateral.Size = new Size(282, 397);
+            panel_lateral.Size = new Size(282, 410);
             panel_lateral.TabIndex = 4;
             // 
             // lst_funcionarios_registo
@@ -582,9 +644,9 @@
             lst_funcionarios_registo.ItemHeight = 17;
             lst_funcionarios_registo.Location = new Point(0, 21);
             lst_funcionarios_registo.Name = "lst_funcionarios_registo";
-            lst_funcionarios_registo.Size = new Size(280, 374);
+            lst_funcionarios_registo.Size = new Size(280, 387);
             lst_funcionarios_registo.TabIndex = 3;
-            //lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
+            lst_funcionarios_registo.SelectedIndexChanged += lst_funcionarios_registo_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -604,7 +666,7 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(762, 33);
+            panel3.Size = new Size(809, 33);
             panel3.TabIndex = 30;
             // 
             // label17
@@ -616,6 +678,7 @@
             label17.Size = new Size(167, 17);
             label17.TabIndex = 0;
             label17.Text = "Escala do dia: XX/XX/XXXX";
+            label17.Click += label17_Click;
             // 
             // tP_servicos
             // 
@@ -624,7 +687,7 @@
             tP_servicos.Controls.Add(panel5);
             tP_servicos.Location = new Point(4, 26);
             tP_servicos.Name = "tP_servicos";
-            tP_servicos.Size = new Size(768, 436);
+            tP_servicos.Size = new Size(815, 449);
             tP_servicos.TabIndex = 3;
             tP_servicos.Text = "Serviços";
             tP_servicos.UseVisualStyleBackColor = true;
@@ -634,9 +697,9 @@
             panel6.Controls.Add(listBox1);
             panel6.Controls.Add(label18);
             panel6.Dock = DockStyle.Right;
-            panel6.Location = new Point(511, 33);
+            panel6.Location = new Point(558, 33);
             panel6.Name = "panel6";
-            panel6.Size = new Size(257, 403);
+            panel6.Size = new Size(257, 416);
             panel6.TabIndex = 34;
             // 
             // listBox1
@@ -648,7 +711,7 @@
             listBox1.ItemHeight = 17;
             listBox1.Location = new Point(0, 21);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(257, 382);
+            listBox1.Size = new Size(257, 395);
             listBox1.TabIndex = 33;
             // 
             // label18
@@ -681,7 +744,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(0, 33);
             panel4.Name = "panel4";
-            panel4.Size = new Size(768, 403);
+            panel4.Size = new Size(815, 416);
             panel4.TabIndex = 0;
             // 
             // label10
@@ -811,7 +874,7 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(768, 33);
+            panel5.Size = new Size(815, 33);
             panel5.TabIndex = 33;
             // 
             // label19
@@ -828,17 +891,88 @@
             // 
             tP_impressao.Location = new Point(4, 26);
             tP_impressao.Name = "tP_impressao";
-            tP_impressao.Size = new Size(768, 436);
+            tP_impressao.Size = new Size(815, 449);
             tP_impressao.TabIndex = 4;
             tP_impressao.Text = "Impressão";
             tP_impressao.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F);
+            label21.Location = new Point(135, 250);
+            label21.Name = "label21";
+            label21.Size = new Size(178, 21);
+            label21.TabIndex = 13;
+            label21.Text = "XXXXXXX - José Campos";
+            label21.Click += label21_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F);
+            label22.Location = new Point(135, 208);
+            label22.Name = "label22";
+            label22.Size = new Size(209, 21);
+            label22.TabIndex = 12;
+            label22.Text = "2201083 - Marcelo Bregieira";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F);
+            label23.Location = new Point(135, 229);
+            label23.Name = "label23";
+            label23.Size = new Size(186, 21);
+            label23.TabIndex = 11;
+            label23.Text = "2104851 - António Vieira";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F);
+            label24.Location = new Point(135, 187);
+            label24.Name = "label24";
+            label24.Size = new Size(199, 21);
+            label24.TabIndex = 10;
+            label24.Text = "2200037 - Marco Martinho";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F);
+            label25.Location = new Point(135, 166);
+            label25.Name = "label25";
+            label25.Size = new Size(201, 21);
+            label25.TabIndex = 9;
+            label25.Text = "2003918 - Ricardo Sanches";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label26.Location = new Point(43, 136);
+            label26.Name = "label26";
+            label26.Size = new Size(183, 21);
+            label26.TabIndex = 8;
+            label26.Text = "Projeto elaborado por:";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label27.Location = new Point(93, 14);
+            label27.Name = "label27";
+            label27.Size = new Size(312, 86);
+            label27.TabIndex = 7;
+            label27.Text = "GesEscala";
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(908, 466);
+            ClientSize = new Size(955, 479);
             Controls.Add(tc_Main);
             Controls.Add(panel_menu);
             Margin = new Padding(3, 2, 3, 2);
@@ -846,6 +980,8 @@
             Text = "GesEscala - Equipa 15 - LDS UAB";
             panel_menu.ResumeLayout(false);
             tc_Main.ResumeLayout(false);
+            tP_main.ResumeLayout(false);
+            tP_main.PerformLayout();
             tP_nEscala.ResumeLayout(false);
             panel_direito.ResumeLayout(false);
             panel_direito.PerformLayout();
@@ -942,5 +1078,16 @@
         private ListBox lst_funcionarios_registo;
         private Panel panel3;
         private Label label17;
+        private Button btn_alterar;
+        private Button btn_limpar;
+        private Label label20;
+        private TextBox tb_apelido;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private Label label25;
+        private Label label26;
+        private Label label27;
     }
 }
