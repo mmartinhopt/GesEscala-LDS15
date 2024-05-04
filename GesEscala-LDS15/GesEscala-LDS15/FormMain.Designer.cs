@@ -37,6 +37,13 @@
             btn_sair = new Button();
             tc_Main = new TabControl();
             tP_main = new TabPage();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            label27 = new Label();
             tP_nEscala = new TabPage();
             panel_direito = new Panel();
             panel1 = new Panel();
@@ -101,13 +108,6 @@
             panel5 = new Panel();
             label19 = new Label();
             tP_impressao = new TabPage();
-            label21 = new Label();
-            label22 = new Label();
-            label23 = new Label();
-            label24 = new Label();
-            label25 = new Label();
-            label26 = new Label();
-            label27 = new Label();
             panel_menu.SuspendLayout();
             tc_Main.SuspendLayout();
             tP_main.SuspendLayout();
@@ -237,6 +237,77 @@
             tP_main.TabIndex = 5;
             tP_main.Text = "Main";
             tP_main.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F);
+            label21.Location = new Point(135, 250);
+            label21.Name = "label21";
+            label21.Size = new Size(178, 21);
+            label21.TabIndex = 13;
+            label21.Text = "XXXXXXX - José Campos";
+            label21.Click += label21_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F);
+            label22.Location = new Point(135, 208);
+            label22.Name = "label22";
+            label22.Size = new Size(209, 21);
+            label22.TabIndex = 12;
+            label22.Text = "2201083 - Marcelo Bregieira";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F);
+            label23.Location = new Point(135, 229);
+            label23.Name = "label23";
+            label23.Size = new Size(186, 21);
+            label23.TabIndex = 11;
+            label23.Text = "2104851 - António Vieira";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F);
+            label24.Location = new Point(135, 187);
+            label24.Name = "label24";
+            label24.Size = new Size(199, 21);
+            label24.TabIndex = 10;
+            label24.Text = "2200037 - Marco Martinho";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F);
+            label25.Location = new Point(135, 166);
+            label25.Name = "label25";
+            label25.Size = new Size(201, 21);
+            label25.TabIndex = 9;
+            label25.Text = "2003918 - Ricardo Sanches";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label26.Location = new Point(43, 136);
+            label26.Name = "label26";
+            label26.Size = new Size(183, 21);
+            label26.TabIndex = 8;
+            label26.Text = "Projeto elaborado por:";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label27.Location = new Point(93, 14);
+            label27.Name = "label27";
+            label27.Size = new Size(312, 86);
+            label27.TabIndex = 7;
+            label27.Text = "GesEscala";
             // 
             // tP_nEscala
             // 
@@ -895,77 +966,6 @@
             tP_impressao.TabIndex = 4;
             tP_impressao.Text = "Impressão";
             tP_impressao.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F);
-            label21.Location = new Point(135, 250);
-            label21.Name = "label21";
-            label21.Size = new Size(178, 21);
-            label21.TabIndex = 13;
-            label21.Text = "XXXXXXX - José Campos";
-            label21.Click += label21_Click;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 12F);
-            label22.Location = new Point(135, 208);
-            label22.Name = "label22";
-            label22.Size = new Size(209, 21);
-            label22.TabIndex = 12;
-            label22.Text = "2201083 - Marcelo Bregieira";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 12F);
-            label23.Location = new Point(135, 229);
-            label23.Name = "label23";
-            label23.Size = new Size(186, 21);
-            label23.TabIndex = 11;
-            label23.Text = "2104851 - António Vieira";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 12F);
-            label24.Location = new Point(135, 187);
-            label24.Name = "label24";
-            label24.Size = new Size(199, 21);
-            label24.TabIndex = 10;
-            label24.Text = "2200037 - Marco Martinho";
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Segoe UI", 12F);
-            label25.Location = new Point(135, 166);
-            label25.Name = "label25";
-            label25.Size = new Size(201, 21);
-            label25.TabIndex = 9;
-            label25.Text = "2003918 - Ricardo Sanches";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label26.Location = new Point(43, 136);
-            label26.Name = "label26";
-            label26.Size = new Size(183, 21);
-            label26.TabIndex = 8;
-            label26.Text = "Projeto elaborado por:";
-            // 
-            // label27
-            // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label27.Location = new Point(93, 14);
-            label27.Name = "label27";
-            label27.Size = new Size(312, 86);
-            label27.TabIndex = 7;
-            label27.Text = "GesEscala";
             // 
             // FormMain
             // 

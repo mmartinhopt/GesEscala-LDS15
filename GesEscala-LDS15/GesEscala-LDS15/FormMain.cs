@@ -169,20 +169,5 @@ namespace GesEscala_LDS15
 
             btn_adicionar.Enabled = true;
         }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label21_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
