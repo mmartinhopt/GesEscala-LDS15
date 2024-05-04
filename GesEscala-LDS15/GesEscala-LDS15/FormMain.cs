@@ -169,5 +169,40 @@ namespace GesEscala_LDS15
 
             btn_adicionar.Enabled = true;
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_adicionar_Click(object sender, EventArgs e)
+        {
+            
+            if(tb_numero.Text.Length > 0 && tb_nome.Text.Length > 0)
+            {
+                Funcionario novoFuncionario = new Funcionario{
+                    Numero = Convert.ToInt32(tb_numero.Text),
+                    Nome = tb_nome.Text,
+                    Apelido = tb_apelido.Text,
+                    Morada = tb_morada.Text,
+                    Contacto = Convert.ToInt32(tb_contacto.Text),
+                };
+                view.RegistarNovoFuncionario(novoFuncionario);
+            } else
+            {
+                MessageBox.Show("O campos número de nome são de preenchimento obrigatorio");
+            }
+            
+        }
     }
 }
