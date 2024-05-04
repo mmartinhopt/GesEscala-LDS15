@@ -15,8 +15,9 @@ namespace GesEscala_LDS15
             model = new Model(view);
 
 
-            //CONTINUAR DAQUI
-            view.EventUserClicouServicos += model.GetListaServicos()
+            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
+            view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
 
         }
 
@@ -35,9 +36,22 @@ namespace GesEscala_LDS15
         }
 
         // Método para buscar funcionários
-        public List<Dictionary<string, object>> BuscarFuncionarios()
+        /*public List<Dictionary<string, object>> BuscarFuncionarios()
         {
             return model.GetFuncionarios();
+        }
+        */
+
+        /*
+        public void CliqueEmFuncionarios(object sender, System.EventArgs e)
+        {
+            model.SolicitarListaFuncionarios();
+        }
+        */
+
+        public void UserAtivouTabFuncionarios(object sender, EventArgs e)
+        {
+            //model.GetListaFuncionarios();
         }
 
         // Método para encerrar o programa

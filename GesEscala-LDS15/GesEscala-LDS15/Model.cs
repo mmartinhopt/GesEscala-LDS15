@@ -14,12 +14,19 @@ namespace GesEscala_LDS15
     {
         private View view;
 
+        List<Dictionary<string, object>> listaFuncionarios;
+        List<Dictionary<string, object>> listaEscalados;
+        List<Dictionary<string, object>> listaServicos;
+
         // Definição de eventos para comunicação com a View
         public event Action<string> ConfiguracaoInicialSaved;
         public event Action<string> DadosMesUpdated;
         public event Action<string> DiaSelecionadoUpdated;
         public event Action<string> ServicoSelecionadoUpdated;
         public event Action<string> EscalaPDFGenerated;
+
+        public delegate void NotificarListaDeFuncionariosAlterada();
+        public event NotificarListaDeFuncionariosAlterada ListaDeFuncionariosAlterada;
 
         // Referência para a View
         private SQLiteConnection conn;
@@ -29,6 +36,10 @@ namespace GesEscala_LDS15
         {
             view = v;
             conn = CriarLigacaoSqlite();
+            listaEscalados = new List<Dictionary<string, object>>();
+            listaFuncionarios = new List<Dictionary<string, object>>();
+            listaServicos = new List<Dictionary<string, object>>();
+
             // CriarTabelas(conn);
         }
 
@@ -51,10 +62,10 @@ namespace GesEscala_LDS15
             }
         }
 
-        public List<Dictionary<string, object>> GetFuncionarios()
+        public void GetListaFuncionarios(ref List<Dictionary<string, object>> listaFuncionarios)
         {
 
-            List<Dictionary<string, object>> funcionarios = new List<Dictionary<string, object>>();
+            listaFuncionarios = new List<Dictionary<string, object>>();
             try
             {                 
                     string query = "SELECT * FROM Funcionarios";
@@ -72,7 +83,7 @@ namespace GesEscala_LDS15
                                 funcionario["Morada"] = reader["morada_funcionario"].ToString();
                                 funcionario["Contacto"] = Convert.ToInt32(reader["contacto_funcionario"]);
                                 // Adiciona o dicionário à lista de funcionários
-                                funcionarios.Add(funcionario);
+                                listaFuncionarios.Add(funcionario);
                             }
                         }
                     }
@@ -80,14 +91,17 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao recuperar funcionários: {ex.Message}");
+                // TODO Lidar com a exceção
+                debugBox(ex.Message);
             }
-            return funcionarios;
+            
+            //listaFuncionarios = funcionarios;
+            // Notifica que a lista foi alterada.
+            //ListaDeFuncionariosAlterada();
         }
 
 
-        public void testeBox(string m)
+        public void debugBox(string m)
         {
             MessageBox.Show(m);
         }
@@ -107,7 +121,7 @@ namespace GesEscala_LDS15
                     "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
                     "GROUP BY s.nome;";
 
-                testeBox(query);
+                debugBox(query);
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
@@ -293,5 +307,11 @@ namespace GesEscala_LDS15
             // Gera o PDF da escala
             EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
+
+        public void GetListaServicos()
+        {
+
+        }
+
     }
 }

@@ -302,6 +302,7 @@
             listBox_Efetivo.Name = "listBox_Efetivo";
             listBox_Efetivo.Size = new Size(227, 193);
             listBox_Efetivo.TabIndex = 2;
+            listBox_Efetivo.SelectedIndexChanged += listBox_Efetivo_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -313,6 +314,7 @@
             label2.Size = new Size(102, 21);
             label2.TabIndex = 1;
             label2.Text = "Funcionários";
+            label2.Click += label2_Click;
             // 
             // label3
             // 

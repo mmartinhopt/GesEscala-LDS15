@@ -15,13 +15,13 @@ namespace GesEscala_LDS15
         public FormMain()
         {
             InitializeComponent();
-            
+
             //controller = new Controller(); // Define o controller recebido
 
 
             //Inicializadores
             //Obtem o nome dos funcionários
-            BuscarFuncionarios();
+            //BuscarFuncionarios();
             remover_tabs(); // Remove todas as tabs
         }
 
@@ -47,19 +47,29 @@ namespace GesEscala_LDS15
             listBox_Efetivo.Items.Clear();
 
             // Preenche a ListBox com os funcionários obtidos
-            foreach (var funcionario in funcionarios)
+            foreach (var funcionario in listaFuncionariosApresentar)
             {
                 listBox_Efetivo.Items.Add(funcionario["Nome"]);
             }
         }
 
-        public void obterFuncionarios()
+        public void ApresentarFuncionarios(ListBox listview)
         {
-
-            lst_funcionarios_registo.Items.Clear();
+            //lst_funcionarios_registo.Items.Clear();
+            listview.Items.Clear();
             try
             {
-                foreach (var funcionario in funcionarios)
+                view.PrecisoDeListaFuncionarios(listaFuncionariosApresentar);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Erro a obter lista de funcionarios da view" + e.Message);
+            }
+
+
+            try
+            {
+                foreach (var funcionario in listaFuncionariosApresentar)
                 {
                     lst_funcionarios_registo.Items.Add(funcionario["Nome"]);
                 }
@@ -75,7 +85,14 @@ namespace GesEscala_LDS15
         {
 
             tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"]; // Seleciona a tab de funcionários
-            obterFuncionarios(); // Obtém os funcionários
+            ApresentarFuncionarios(lst_funcionarios_registo);
+            view.FormTabFuncionariosAtiva(sender, e);
+        }
+
+        internal void PopularFuncionarios(ref List<Dictionary<string, object>> listaFuncionariosView)
+        {
+            this.listaFuncionariosApresentar = listaFuncionariosView;
+            //ApresentarFuncionarios();
 
         }
 
@@ -86,11 +103,11 @@ namespace GesEscala_LDS15
             {
                 // Obtém o item selecionado
 
-                lbl_ID.Text = funcionarios[lst_funcionarios_registo.SelectedIndex]["Id"].ToString();
-                tb_numero.Text = funcionarios[lst_funcionarios_registo.SelectedIndex]["Numero"].ToString();
-                tb_nome.Text = funcionarios[lst_funcionarios_registo.SelectedIndex]["Nome"].ToString();
-                tb_morada.Text = funcionarios[lst_funcionarios_registo.SelectedIndex]["Morada"].ToString();
-                tb_contacto.Text = funcionarios[lst_funcionarios_registo.SelectedIndex]["Contacto"].ToString();
+                lbl_ID.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex]["Id"].ToString();
+                tb_numero.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex]["Numero"].ToString();
+                tb_nome.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex]["Nome"].ToString();
+                tb_morada.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex]["Morada"].ToString();
+                tb_contacto.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex]["Contacto"].ToString();
 
             }
         }
@@ -117,6 +134,16 @@ namespace GesEscala_LDS15
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox_Efetivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

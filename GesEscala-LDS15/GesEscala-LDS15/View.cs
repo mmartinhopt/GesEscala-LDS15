@@ -12,18 +12,24 @@ namespace GesEscala_LDS15
         // Atributos
         private Model model;
         private FormMain janela;
-        //  private FormMain janela;
+        // private FormMain janela;
 
         private List<Dictionary<string, object>> listaFuncionariosView = null;
         private List<Dictionary<string, object>> listaEscaladosView = null;
         private List<Dictionary<string, object>> listaServicosView = null;
 
         // Eventos
+
+        public delegate void PedidoListaFuncionarios(ref List<Dictionary<string, object>> listaFuncionarios);
+        public event PedidoListaFuncionarios PrecisoDeFuncionarios;
+
+        //public event EventHandler UserAtivouTabFuncionarios;
+
         //public event EventHandler ConfiguracaoInicialButtonClicked;
         //public event EventHandler GerarPDFButtonClicked;
-        public event EventHandler EventUserClicouFuncionarios;
-        public event EventHandler EventUserClicouServicos;
-        public event EventHandler EventUserClicouEscalados;
+        //public event EventHandler EventUserClicouFuncionarios;
+        //public event EventHandler EventUserClicouServicos;
+        //public event EventHandler EventUserClicouEscalados;
 
 
         // Propriedades
@@ -67,6 +73,28 @@ namespace GesEscala_LDS15
             janela = new FormMain();
             janela.View = this;
             janela.ShowDialog();
+        }
+
+
+        public void AtualizarListaFuncionarios(object sender, EventArgs e)
+        {
+            PrecisoDeFuncionarios(ref listaFuncionariosView);
+            PopularFuncionarios();
+        }
+
+        void PopularFuncionarios()
+        {
+            janela.PopularFuncionarios(ref listaFuncionariosView);
+        }
+
+        public void FormTabFuncionariosAtiva(object sender, EventArgs e)
+        {
+            //UserAtivouTabFuncionarios(this, e);
+        }
+
+        public void PrecisoDeListaFuncionarios(List<Dictionary<string, object>> listaFuncionariosView)
+        {
+            PrecisoDeFuncionarios(ref listaFuncionariosView);
         }
 
         // Método para encerrar a aplicação
