@@ -13,6 +13,11 @@ namespace GesEscala_LDS15
         [STAThread]
         static void Main()
         {
+            //Ativar estilos visuais par uma melhor visualização
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            //Instanciar o Controller
             Controller controller = new Controller();
             controller.IniciarPrograma();
         }

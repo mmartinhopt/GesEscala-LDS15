@@ -10,15 +10,20 @@ using System.Windows.Forms;
 
 namespace GesEscala_LDS15
 {
-    public partial class GerirServicos : Form
+    public partial class FormIntro : Form
     {
-
         private Model model;
 
-        public GerirServicos(Model model)
+        public FormIntro(Model model)
         {
             InitializeComponent();
-            this.model = model;
+            this.model = model; // Recebe o Model
         }
+
+        private void FormConfiguracaoInicial_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

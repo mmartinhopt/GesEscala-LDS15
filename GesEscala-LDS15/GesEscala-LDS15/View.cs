@@ -9,69 +9,105 @@ namespace GesEscala_LDS15
 {
     public class View
     {
+        // Atributos
         private Model model;
         private FormMain janela;
+        // private FormMain janela;
 
-        public View(Model m)
+        private List<Funcionario> listaFuncionariosView = null;
+        private List<Dictionary<string, object>> listaEscaladosView = null;
+        private List<Dictionary<string, object>> listaServicosView = null;
+
+        // Eventos
+
+        public delegate void PedidoListaFuncionarios(ref List<Funcionario> listaFuncionarios);
+        public event PedidoListaFuncionarios PrecisoDeFuncionarios;
+
+        public delegate void EventNovoFuncionario(Funcionario novoFuncionario);
+        public event EventNovoFuncionario RegistoNovoFuncionario;
+
+        //public event EventHandler UserAtivouTabFuncionarios;
+
+        //public event EventHandler ConfiguracaoInicialButtonClicked;
+        //public event EventHandler GerarPDFButtonClicked;
+        //public event EventHandler EventUserClicouFuncionarios;
+        //public event EventHandler EventUserClicouServicos;
+        //public event EventHandler EventUserClicouEscalados;
+
+
+        // Propriedades
+        //public ListView FuncionariosListView { get; set; }
+
+        // Construtor
+        internal View(Model m)
         {
             model = m;
-            // Inscrição nos eventos
-            model.ConfiguracaoInicialSaved += ApresentarConfiguracaoInicial;
-            model.DadosMesUpdated += ApresentarDadosMes;
-            model.DiaSelecionadoUpdated += ApresentarDiaSelecionado;
-            model.ServicoSelecionadoUpdated += ApresentarServicoSelecionado;
-            model.EscalaPDFGenerated += ApresentarEscalaPDF;
         }
+
+        // Métodos
+
+        public void PreencherListView(List<Dictionary<string, object>> funcionarios)
+        {
+            try
+            {
+                
+                //FuncionariosListView.Items.Clear();
+                foreach (var funcionario in funcionarios)
+                {
+                    ListViewItem item = new ListViewItem(funcionario["Id"].ToString());
+                    item.SubItems.Add(funcionario["Numero"].ToString());
+                    item.SubItems.Add(funcionario["Nome"].ToString());
+                    item.SubItems.Add(funcionario["Morada"].ToString());
+                    item.SubItems.Add(funcionario["Contacto"].ToString());
+                    //FuncionariosListView.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
+            }
+        }
+
         
-        // Método para ativar a interface
-        // A interface inicial poderá ter duas formas
-        // 1ª - Janela de configuração inicial
-        // 2ª - Janela de opção de alterar configuração ou escalar
-
-        public void MostrarMenuConfiguracaoInicial()
+        public void IniciarInterface()
         {
-            // Implementar lógica para solicitar informações iniciais
-            FormConfiguracaoInicial form = new FormConfiguracaoInicial(model);
-            form.ShowDialog();
+            // Apresenta o Form inicial FormMain
+            janela = new FormMain();
+            janela.View = this;
+            janela.ShowDialog();
         }
 
-        public void MostrarOpcoesConfiguracao()
+        public void NovoFuncionario(Funcionario novoFuncionario)
         {
-            // Implementar lógica para mostrar as opções de alterar configuração ou escalar
-            FormOpcoesConfiguracao form = new FormOpcoesConfiguracao();
-            form.ShowDialog();
+            RegistoNovoFuncionario(novoFuncionario);
         }
 
-
-        // Métodos para apresentar mensagens
-        private void ApresentarConfiguracaoInicial(string message)
+        public void ListaNovoFuncionario()
         {
-            MessageBox.Show(message);
+
         }
 
-        private void ApresentarDadosMes(string message)
+        public void AtualizarListaFuncionarios(object sender, EventArgs e)
         {
-            MessageBox.Show(message);
+            PrecisoDeFuncionarios(ref listaFuncionariosView);
+            PopularFuncionarios();
         }
 
-        private void ApresentarDiaSelecionado(string message)
+        void PopularFuncionarios()
         {
-            MessageBox.Show(message);
+            janela.PopularFuncionarios(ref listaFuncionariosView);
         }
 
-        private void ApresentarServicoSelecionado(string message)
+        public void PrecisoDeListaFuncionarios(ref List<Funcionario> listaFuncionariosView)
         {
-            MessageBox.Show(message);
+            PrecisoDeFuncionarios(ref listaFuncionariosView);
+            janela.AtualizaListaFuncionarios(ref listaFuncionariosView);
         }
 
-        private void ApresentarEscalaPDF(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        public void Encerrar()
-        {
-            janela.Encerrar();
-        }
+        // Método para encerrar a aplicação
+        //public void Encerrar()
+        //{
+        //}
     }
 }

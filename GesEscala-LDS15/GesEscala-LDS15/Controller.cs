@@ -1,3 +1,6 @@
+using System;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace GesEscala_LDS15
@@ -6,14 +9,20 @@ namespace GesEscala_LDS15
     {
         Model model;
         View view;
-        bool sair;
 
-        // Construtor que cria a View e o Model
+        // Construtor
         public Controller()
         {
-            sair = false;
-            model = new Model(view);
             view = new View(model);
+            model = new Model(view);
+
+
+            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
+            view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
+            view.RegistoNovoFuncionario += RegistoNovoFuncionario;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
+
         }
 
         // Método para iniciar o programa
@@ -21,59 +30,56 @@ namespace GesEscala_LDS15
         {
             try
             {
-                if (model.IsDatabaseEmpty())
-                {
-                    // Mostra a janela de configuração inicial
-                    view.MostrarMenuConfiguracaoInicial();
-                }
-                else
-                {
-                    // Mostra as opções de alterar configuração ou escalar
-                    view.MostrarOpcoesConfiguracao();
-                }
+                view.IniciarInterface();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            
         }
 
-
-        public void VerificarConfiguracaoInicial()
+        // Método para buscar funcionários
+        /*public List<Dictionary<string, object>> BuscarFuncionarios()
         {
-            model.VerificarConfiguracao();
+            return model.GetFuncionarios();
         }
+        */
 
-        // Métodos para interação com o Model
-        public void RegistarConfiguracaoInicial()
+        /*
+        public void CliqueEmFuncionarios(object sender, System.EventArgs e)
         {
-            model.ReceberConfiguracaoInicial();
+            model.SolicitarListaFuncionarios();
         }
+        */
 
-        public void BuscarDadosMes()
+        public void RegistoNovoFuncionario(Funcionario novoFuncionario)
         {
-            model.ReceberDadosMes();
+            try
+            {
+                if (novoFuncionario.Contacto != null && novoFuncionario.Contacto.ToString().Length != 9)
+                {
+                    throw new Exception("O numero tem de contar exatamente 9 digitos");
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            model.AdicionarFuncionario(novoFuncionario);
+
         }
 
-        public void CalcularAtrasados()
+
+        public void UserAtivouTabFuncionarios(object sender, EventArgs e)
         {
-            model.ReceberDiaSelecionado();
+            //model.GetListaFuncionarios();
         }
 
-        public void VerificarEscala()
-        {
-            model.ReceberServicoSelecionado();
-        }
-
-        public void GerarPDF()
-        {
-            model.ReceberGerarPDF();
-        }
-
+        // Método para encerrar o programa
         public void EncerrarPrograma()
         {
-            sair = true;
-            view.Encerrar();
+            //view.Encerrar();
         }
     }
 }

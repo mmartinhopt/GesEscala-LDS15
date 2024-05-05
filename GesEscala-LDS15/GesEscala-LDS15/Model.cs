@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SQLite;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GesEscala_LDS15
 {
     public class Model
     {
+        private View view;
+
+        List<Funcionario> listaFuncionarios;
+        List<Dictionary<string, object>> listaEscalados;
+        List<Dictionary<string, object>> listaServicos;
+
         // Definição de eventos para comunicação com a View
         public event Action<string> ConfiguracaoInicialSaved;
         public event Action<string> DadosMesUpdated;
@@ -17,31 +25,148 @@ namespace GesEscala_LDS15
         public event Action<string> ServicoSelecionadoUpdated;
         public event Action<string> EscalaPDFGenerated;
 
+        public delegate void NotificarListaDeFuncionariosAlterada();
+        public event NotificarListaDeFuncionariosAlterada ListaDeFuncionariosAlterada;
+
+
         // Referência para a View
-        private View view;
         private SQLiteConnection conn;
 
         // Construtor que recebe a View
         public Model(View v)
         {
             view = v;
-            conn = null;
             conn = CriarLigacaoSqlite();
-            CriarTabelas(conn);
+            listaEscalados = new List<Dictionary<string, object>>();
+            listaFuncionarios = new List<Funcionario>();
+            listaServicos = new List<Dictionary<string, object>>();
+
+            // CriarTabelas(conn);
         }
+
 
         public bool IsDatabaseEmpty()
         {
-            // Base de dados vazia significa não ter funcionários registados
-            string query = "SELECT COUNT(*) FROM Funcionarios";
-            SQLiteCommand command = new SQLiteCommand(query, conn);
-            int count = Convert.ToInt32(command.ExecuteScalar());
-            return count == 0;
+            try
+            {
+                // Base de dados vazia significa não ter funcionários registados
+                string query = "SELECT COUNT(*) FROM Funcionarios";
+                SQLiteCommand command = new SQLiteCommand(query, conn);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count == 0;
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao verificar se a base de dados está vazia: {ex.Message}");
+                return false; // Retorna false para indicar que não está vazia por causa do erro
+            }
         }
 
-        public void VerificarConfiguracao()
+
+        public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
         {
 
+            listaFuncionarios = new List<Funcionario>();
+            try
+            {
+                string query = "SELECT * FROM Funcionarios";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Funcionario funcionario = new Funcionario
+                            {
+                                ID = Convert.ToInt32(reader["id_funcionario"]),
+                                Numero = Convert.ToInt32(reader["numero_funcionario"]),
+                                Nome = reader["nome_funcionario"].ToString(),
+                                Apelido = reader["apelido_funcionario"].ToString(),
+                                Morada = reader["morada_funcionario"].ToString(),
+                                Contacto = Convert.ToInt32(reader["contacto_funcionario"])
+                            };
+                            listaFuncionarios.Add(funcionario);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // TODO Lidar com a exceção
+                MessageBox.Show("Problema GetListaFuncionarios" +ex.Message);
+            }
+
+            //listaFuncionarios = funcionarios;
+            // Notifica que a lista foi alterada.
+            //ListaDeFuncionariosAlterada();
+        }
+
+        
+        public List<Dictionary<string, object>> GetEscalados(string data)
+        {
+
+            List<Dictionary<string, object>> escalados = new List<Dictionary<string, object>>();
+            try
+            {
+                string query = "SELECT s.nome AS Nome_Servico,\r\n" +
+                    "GROUP_CONCAT(DISTINCT s.hora_inicio || '-' || s.hora_fim) AS Horario,\r\n" +
+                    "(SELECT GROUP_CONCAT(f.nome_funcionario, ', ')\r\n" +
+                    "FROM Funcionarios f\r\n        JOIN Escala e2 ON f.id_funcionario = e2.id_funcionario\r\n" +
+                    "WHERE e2.id_servico = s.id_servico AND e2.dia_escala ="+ data +") AS Funcionarios\r\n" +
+                    "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
+                    "GROUP BY s.nome;";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Cria um dicionário para armazenar os dados de cada funcionário
+                            Dictionary<string, object> escalado = new Dictionary<string, object>();
+                            escalado["Nome_Servico"] = reader["Nome_Servico"].ToString();
+                            escalado["Horario"] = reader["Horario"].ToString();
+                            escalado["Funcionarios"] = reader["Funcionarios"].ToString();
+                            // Adiciona o dicionário à lista de funcionários
+                            escalados.Add(escalado);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao recuperar funcionários: {ex.Message}");
+            }
+            return escalados;
+        }
+
+        public void AdicionarFuncionario(Funcionario novoFuncionario)
+        {
+            try
+            {
+                string sqlInsert = "INSERT INTO Funcionarios (numero_funcionario, nome_funcionario, " +
+                                   "apelido_funcionario, morada_funcionario, contacto_funcionario) VALUES " +
+                                   "(@Numero, @Nome, @Apelido, @Morada, @Contacto)";
+                SQLiteCommand sqlite_cmd = new SQLiteCommand(sqlInsert, conn);
+                sqlite_cmd.Parameters.AddWithValue("@Numero", Convert.ToInt32(novoFuncionario.Numero));
+                sqlite_cmd.Parameters.AddWithValue("@Nome", novoFuncionario.Nome.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Apelido", novoFuncionario.Apelido.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Morada", novoFuncionario.Morada.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Contacto", Convert.ToInt32(novoFuncionario.Contacto));
+
+                sqlite_cmd.ExecuteNonQuery();
+                
+
+
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         static SQLiteConnection CriarLigacaoSqlite()
@@ -49,14 +174,15 @@ namespace GesEscala_LDS15
             SQLiteConnection sqlite_conn;
             // Create a new database connection:
             sqlite_conn = new SQLiteConnection("Data Source = database.db; Version = 3; New = True; Compress = True; ");
-         // Open the connection:
+            // Open the connection:
             try
             {
                 sqlite_conn.Open();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao abrir a conexão com o banco de dados: {ex.Message}");
             }
             return sqlite_conn;
         }
@@ -73,11 +199,11 @@ namespace GesEscala_LDS15
                 if (count == 0) // Apenas insere se ainda não há serviços
                 {
                     List<Tuple<string, string, string, string>> servicos = new List<Tuple<string, string, string, string>>
-            {
-                Tuple.Create("DS", "Descanso Semanal", "00:00", "23:59"),
-                Tuple.Create("LF", "Licença Férias", "00:00", "23:59"),
-                Tuple.Create("C", "Baixa Médica", "00:00", "23:59")
-            };
+                    {
+                        Tuple.Create("DS", "Descanso Semanal", "00:00", "23:59"),
+                        Tuple.Create("LF", "Licença Férias", "00:00", "23:59"),
+                        Tuple.Create("C", "Baixa Médica", "00:00", "23:59")
+                    };
 
                     foreach (var servico in servicos)
                     {
@@ -93,44 +219,47 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao preencher serviços padrão: " + ex.Message);
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher serviços padrão: {ex.Message}");
             }
         }
 
-
+        // Geração da base de dados
         public void CriarTabelas(SQLiteConnection conn)
         {
-
-            SQLiteCommand sqlite_cmd;
-            string sqlFuncionarios = "CREATE TABLE IF NOT EXISTS \"Funcionarios\" " +
-                "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
-                "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
-                "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
-                "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
-
-            string sqlServicos = "CREATE TABLE IF NOT EXISTS \"Servicos\" " +
-                "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
-                "\r\n\t\"nome\"\tTEXT NOT NULL," +
-                "\r\n\t\"sigla_servico\"\tTEXT NOT NULL," +
-                "\r\n\t\"hora_inicio\"\tTIME NOT NULL," +
-                "\r\n\t\"hora_fim\"\tTIME NOT NULL," +
-                "\r\n\tPRIMARY KEY(\"id_servico\" AUTOINCREMENT)\r\n)";
-            
-            string sqlEscala = "CREATE TABLE IF NOT EXISTS \"Escala\" " +
-                "(\r\n\t\"id_escala\"\tINTEGER NOT NULL," +
-                "\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
-                "\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
-                "\r\n\tFOREIGN KEY(\"id_servico\") REFERENCES \"Servicos\"(\"id_servico\")," +
-                "\r\n\tFOREIGN KEY(\"id_funcionario\") REFERENCES \"Funcionarios\"(\"id_funcionario\")," +
-                "\r\n\tPRIMARY KEY(\"id_escala\" AUTOINCREMENT)\r\n)";
-
-            string sqlSeccao = "CREATE TABLE IF NOT EXISTS \"Seccao\" " +
-                "(\r\n\t\"id_seccao\"\tINTEGER NOT NULL," +
-                "\r\n\t\"nome_seccao\"\tTEXT NOT NULL," +
-                "\r\n\tPRIMARY KEY(\"id_seccao\" AUTOINCREMENT)\r\n)";
-
             try
             {
+                SQLiteCommand sqlite_cmd;
+                string sqlFuncionarios = "CREATE TABLE IF NOT EXISTS \"Funcionarios\" " +
+                    "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
+                    "\r\n\t\"morada_funcionario\"\tTEXT," +
+                    "\r\n\t\"contacto_funcionario\"\tINTEGER," +
+                    "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
+
+
+                string sqlServicos = "CREATE TABLE IF NOT EXISTS \"Servicos\" " +
+                    "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"nome\"\tTEXT NOT NULL," +
+                    "\r\n\t\"sigla_servico\"\tTEXT NOT NULL," +
+                    "\r\n\t\"hora_inicio\"\tTIME NOT NULL," +
+                    "\r\n\t\"hora_fim\"\tTIME NOT NULL," +
+                    "\r\n\tPRIMARY KEY(\"id_servico\" AUTOINCREMENT)\r\n)";
+
+                string sqlEscala = "CREATE TABLE IF NOT EXISTS \"Escala\" " +
+                    "(\r\n\t\"id_escala\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
+                    "\r\n\tFOREIGN KEY(\"id_servico\") REFERENCES \"Servicos\"(\"id_servico\")," +
+                    "\r\n\tFOREIGN KEY(\"id_funcionario\") REFERENCES \"Funcionarios\"(\"id_funcionario\")," +
+                    "\r\n\tPRIMARY KEY(\"id_escala\" AUTOINCREMENT)\r\n)";
+
+                string sqlSeccao = "CREATE TABLE IF NOT EXISTS \"Seccao\" " +
+                    "(\r\n\t\"id_seccao\"\tINTEGER NOT NULL," +
+                    "\r\n\t\"nome_seccao\"\tTEXT NOT NULL," +
+                    "\r\n\tPRIMARY KEY(\"id_seccao\" AUTOINCREMENT)\r\n)";
+
                 sqlite_cmd = conn.CreateCommand();
 
                 sqlite_cmd.CommandText = sqlFuncionarios;
@@ -143,14 +272,13 @@ namespace GesEscala_LDS15
                 sqlite_cmd.ExecuteNonQuery();
 
                 PreencherServicosPadrao();
-
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao criar tabelas: {ex.Message}");
             }
         }
-
 
         public void ReceberConfiguracaoInicial()
         {
@@ -160,12 +288,19 @@ namespace GesEscala_LDS15
 
         public void GuardarNomeSeccao(string nomeSecao)
         {
-            // Guarda o nome da secção
-            string query = "INSERT INTO Seccao (nome_seccao) VALUES (@nomeSecao)";
-            SQLiteCommand command = new SQLiteCommand(query, conn);
-            command.Parameters.AddWithValue("@nomeSecao", nomeSecao);
-            command.ExecuteNonQuery();
-
+            try
+            {
+                // Guarda o nome da secção
+                string query = "INSERT INTO Seccao (nome_seccao) VALUES (@nomeSecao)";
+                SQLiteCommand command = new SQLiteCommand(query, conn);
+                command.Parameters.AddWithValue("@nomeSecao", nomeSecao);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao guardar o nome da secção: {ex.Message}");
+            }
         }
 
         public void ReceberDadosMes()
@@ -191,5 +326,11 @@ namespace GesEscala_LDS15
             // Gera o PDF da escala
             EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
+
+        public void GetListaServicos()
+        {
+
+        }
+
     }
 }
