@@ -69,7 +69,9 @@ namespace GesEscala_LDS15
             {
                 foreach (Funcionario funcionario in listaFuncionariosApresentar)
                 {
-                    lst_funcionarios_registo.Items.Add(funcionario.Nome);
+                    string aux = funcionario.ID.ToString() + " - " +funcionario.Nome.ToString() + " " + funcionario.Apelido.ToString();
+                    //MessageBox.Show(aux);
+                    lst_funcionarios_registo.Items.Add(aux);
                 }
             }
             catch (Exception ex)
@@ -187,20 +189,24 @@ namespace GesEscala_LDS15
 
         private void btn_adicionar_Click(object sender, EventArgs e)
         {
-            
-            if(tb_numero.Text.Length > 0 && tb_nome.Text.Length > 0)
+            int numero;
+            if(tb_numero.Text.Length > 0 && tb_nome.Text.Length > 0 && int.TryParse(tb_numero.Text, out numero))
             {
-                Funcionario novoFuncionario = new Funcionario{
-                    Numero = Convert.ToInt32(tb_numero.Text),
-                    Nome = tb_nome.Text,
-                    Apelido = tb_apelido.Text,
-                    Morada = tb_morada.Text,
-                    Contacto = Convert.ToInt32(tb_contacto.Text),
-                };
-                view.RegistarNovoFuncionario(novoFuncionario);
+                Funcionario novoFuncionario = new Funcionario();
+
+                novoFuncionario.Numero = Convert.ToInt32(tb_numero.Text);
+                novoFuncionario.Nome = tb_nome.Text.ToString();
+                
+                if(tb_apelido != null) { novoFuncionario.Apelido = tb_apelido.Text.ToString(); }
+                if(tb_morada != null) { novoFuncionario.Morada = tb_morada.Text.ToString(); };
+                if (tb_contacto.Text.Length > 0 && int.TryParse(tb_contacto.Text, out numero)) { novoFuncionario.Contacto = Convert.ToInt32(tb_contacto.Text); } 
+                
+                view.NovoFuncionario(novoFuncionario);
+                ApresentarFuncionarios();
             } else
             {
-                MessageBox.Show("O campos número de nome são de preenchimento obrigatorio");
+                MessageBox.Show("O campos NUMERO e NOME são de preenchimento obrigatorio\n" +
+                                "Campo NUMERO apenas pode conter digitos.");
             }
             
         }

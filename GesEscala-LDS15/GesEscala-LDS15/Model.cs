@@ -28,6 +28,7 @@ namespace GesEscala_LDS15
         public delegate void NotificarListaDeFuncionariosAlterada();
         public event NotificarListaDeFuncionariosAlterada ListaDeFuncionariosAlterada;
 
+
         // Referência para a View
         private SQLiteConnection conn;
 
@@ -89,24 +90,17 @@ namespace GesEscala_LDS15
                         }
                     }
                 }
-                MessageBox.Show(listaFuncionarios.Count().ToString());
 
             }
             catch (Exception ex)
             {
                 // TODO Lidar com a exceção
-                debugBox(ex.Message);
+                MessageBox.Show("Problema GetListaFuncionarios" +ex.Message);
             }
 
             //listaFuncionarios = funcionarios;
             // Notifica que a lista foi alterada.
             //ListaDeFuncionariosAlterada();
-        }
-
-
-        public void debugBox(string m)
-        {
-            MessageBox.Show(m);
         }
 
         
@@ -123,8 +117,6 @@ namespace GesEscala_LDS15
                     "WHERE e2.id_servico = s.id_servico AND e2.dia_escala ="+ data +") AS Funcionarios\r\n" +
                     "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
                     "GROUP BY s.nome;";
-
-                debugBox(query);
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
@@ -151,7 +143,31 @@ namespace GesEscala_LDS15
             }
             return escalados;
         }
-        
+
+        public void AdicionarFuncionario(Funcionario novoFuncionario)
+        {
+            try
+            {
+                string sqlInsert = "INSERT INTO Funcionarios (numero_funcionario, nome_funcionario, " +
+                                   "apelido_funcionario, morada_funcionario, contacto_funcionario) VALUES " +
+                                   "(@Numero, @Nome, @Apelido, @Morada, @Contacto)";
+                SQLiteCommand sqlite_cmd = new SQLiteCommand(sqlInsert, conn);
+                sqlite_cmd.Parameters.AddWithValue("@Numero", Convert.ToInt32(novoFuncionario.Numero));
+                sqlite_cmd.Parameters.AddWithValue("@Nome", novoFuncionario.Nome.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Apelido", novoFuncionario.Apelido.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Morada", novoFuncionario.Morada.ToString());
+                sqlite_cmd.Parameters.AddWithValue("@Contacto", Convert.ToInt32(novoFuncionario.Contacto));
+
+                sqlite_cmd.ExecuteNonQuery();
+                
+
+
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         static SQLiteConnection CriarLigacaoSqlite()
         {

@@ -1,4 +1,6 @@
 using System;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace GesEscala_LDS15
@@ -18,6 +20,8 @@ namespace GesEscala_LDS15
             //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
+            view.RegistoNovoFuncionario += RegistoNovoFuncionario;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
 
         }
 
@@ -48,6 +52,24 @@ namespace GesEscala_LDS15
             model.SolicitarListaFuncionarios();
         }
         */
+
+        public void RegistoNovoFuncionario(Funcionario novoFuncionario)
+        {
+            try
+            {
+                if (novoFuncionario.Contacto != null && novoFuncionario.Contacto.ToString().Length != 9)
+                {
+                    throw new Exception("O numero tem de contar exatamente 9 digitos");
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            model.AdicionarFuncionario(novoFuncionario);
+
+        }
+
 
         public void UserAtivouTabFuncionarios(object sender, EventArgs e)
         {
