@@ -20,6 +20,10 @@ namespace GesEscala_LDS15
             //Instanciar o Controller
             Controller controller = new Controller();
             controller.IniciarPrograma();
+
+            // Cria o PDF - teste
+            EscalaPDF escalaPDF = new EscalaPDF();
+            escalaPDF.CriarPDF();
         }
     }
 }
