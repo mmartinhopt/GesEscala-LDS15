@@ -24,6 +24,14 @@ namespace GesEscala_LDS15
             // Cria o PDF - teste
             EscalaPDF escalaPDF = new EscalaPDF();
             escalaPDF.CriarPDF();
+
+            // Adiciona um serviço e um funcionário ao PDF - teste
+            Servico servico = new Servico();
+            servico.Sigla = "AT1";
+            Funcionario funcionario = new Funcionario();
+            funcionario.Nome = "Bregieira";
+            escalaPDF.AdicionarServicoFuncionario(servico, funcionario);
+            escalaPDF.AbrirPDF();
         }
     }
 }
