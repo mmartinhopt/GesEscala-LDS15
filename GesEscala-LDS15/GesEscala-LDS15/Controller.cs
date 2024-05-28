@@ -16,11 +16,16 @@ namespace GesEscala_LDS15
             view = new View(model);
             model = new Model(view);
 
+            //Registio dos eventos dos Serviços
 
-            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
-            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
+            view.PrecisoDeServicos += model.GetListaServicos;
+
+
+            //Registio dos eventos dos Funcionários
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
             view.RegistoNovoFuncionario += RegistoNovoFuncionario;
+            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
 
         }
