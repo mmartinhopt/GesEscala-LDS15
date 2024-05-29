@@ -31,6 +31,15 @@ namespace GesEscala_LDS15
             Funcionario funcionario = new Funcionario();
             funcionario.Nome = "Bregieira";
             escalaPDF.AdicionarServicoFuncionario(servico, funcionario);
+
+            // Adicionar um segundo serviço e funcionário ao PDF - teste
+            Servico servico2 = new Servico();
+            servico2.Sigla = "AT2";
+            Funcionario funcionario2 = new Funcionario();
+            funcionario2.Nome = "Santos";
+            escalaPDF.AdicionarServicoFuncionario(servico2, funcionario2);
+
+            // Abrir o PDF - teste
             escalaPDF.AbrirPDF();
         }
     }
