@@ -10,8 +10,10 @@ namespace GesEscala_LDS15
         Model model;
         View view;
 
+        private readonly IGeradorRelatorio geradorRelatorio;
+
         // Construtor
-        public Controller()
+        public Controller(IGeradorRelatorio geradorRelatorio)
         {
             view = new View(model);
             model = new Model(view);
@@ -22,6 +24,8 @@ namespace GesEscala_LDS15
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
             view.RegistoNovoFuncionario += RegistoNovoFuncionario;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
+
+            this.geradorRelatorio = geradorRelatorio;
 
         }
 
@@ -68,6 +72,16 @@ namespace GesEscala_LDS15
 
             model.AdicionarFuncionario(novoFuncionario);
 
+        }
+
+        public void ExecutarAcaoGerarRelatorio()
+        {
+            geradorRelatorio.GerarRelatorio();
+        }
+
+        public void AdicionarServicoFuncionario(Servico servico, Funcionario funcionario)
+        {
+            geradorRelatorio.AdicionarServicoFuncionario(servico, funcionario);
         }
 
 
