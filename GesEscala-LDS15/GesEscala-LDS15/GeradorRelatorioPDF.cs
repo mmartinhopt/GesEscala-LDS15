@@ -2,6 +2,7 @@
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using System.Collections.Generic;
+using PdfSharp.Fonts;
 
 namespace GesEscala_LDS15
 {
@@ -22,6 +23,7 @@ namespace GesEscala_LDS15
                 var page = doc.AddPage();
                 var graphics = XGraphics.FromPdfPage(page);
                 var textFormatter = new XTextFormatter(graphics);
+                GlobalFontSettings.FontResolver = new FontResolver();
                 var fontTitulo = new XFont("Arial", 20);
                 var fontConteudo = new XFont("Arial", 12);
                 double currentYPosition = 100;
