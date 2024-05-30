@@ -93,7 +93,7 @@ namespace GesEscala_LDS15
         public void PrecisoDeListaServicos(ref List<Servico> listaServicosView)
         {
             PrecisoDeServicos(ref listaServicosView);
-            //janela.AtualizarListaServicos(ref listaServicoesView)
+            janela.AtualizarListaServicos(ref listaServicosView);
         }
 
         // Método para encerrar a aplicação

@@ -51,7 +51,7 @@ namespace GesEscala_LDS15
             this.listaFuncionariosApresentar = listaNova;
         }
 
-        public void ActualizaListaServiços(ref List<Servico> novaListaServicos)
+        public void AtualizarListaServicos(ref List<Servico> novaListaServicos)
         {
             this.listaServicosApresentar = novaListaServicos;
         }
@@ -86,6 +86,37 @@ namespace GesEscala_LDS15
             }
         }
 
+
+        public void ApresentarServicos()
+        {
+
+            //lst_funcionarios_registo.Items.Clear();
+            lst_servicos_registo.Items.Clear();
+            try
+            {
+                view.PrecisoDeListaServicos(ref listaServicosApresentar);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro a obter lista de servicos da view" + e.Message);
+            }
+
+
+            try
+            {
+                foreach (Servico servico in listaServicosApresentar)
+                {
+                    string aux = servico.ID.ToString() + " - " + servico.Nome.ToString() + " " + servico.HoraInicio.ToString();
+                    //MessageBox.Show(aux);
+                    lst_servicos_registo.Items.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher ListViewServicos: {ex.Message}");
+            }
+        }
         private void btn_funcionarios_Click(object sender, EventArgs e)
         {
 
@@ -142,6 +173,8 @@ namespace GesEscala_LDS15
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
+            panel3.Visible = false;
+            ApresentarServicos();
         }
 
         private void label2_Click(object sender, EventArgs e)

@@ -64,7 +64,6 @@ namespace GesEscala_LDS15
             }
         }
 
-
         public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
         {
 
@@ -106,7 +105,6 @@ namespace GesEscala_LDS15
 
         public void GetListaServicos(ref List<Servico> listaServicos)
         {
-
             listaServicos = new List<Servico>();
             try
             {
@@ -135,7 +133,7 @@ namespace GesEscala_LDS15
             catch (Exception ex)
             {
                 // TODO Lidar com a exceção
-                MessageBox.Show("Problema GetListaFuncionarios" + ex.Message);
+                MessageBox.Show("Problema GetListaServicos" + ex.Message);
             }
 
             //listaFuncionarios = funcionarios;
@@ -391,13 +389,5 @@ namespace GesEscala_LDS15
             // Gera o PDF da escala
             EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
-
-        public void GetListaServicos()
-        {
-
-        }
-
-        
-
     }
 }

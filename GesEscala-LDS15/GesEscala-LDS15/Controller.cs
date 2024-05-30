@@ -44,20 +44,6 @@ namespace GesEscala_LDS15
             
         }
 
-        // Método para buscar funcionários
-        /*public List<Dictionary<string, object>> BuscarFuncionarios()
-        {
-            return model.GetFuncionarios();
-        }
-        */
-
-        /*
-        public void CliqueEmFuncionarios(object sender, System.EventArgs e)
-        {
-            model.SolicitarListaFuncionarios();
-        }
-        */
-
         public void RegistoNovoFuncionario(Funcionario novoFuncionario)
         {
             try
@@ -73,12 +59,6 @@ namespace GesEscala_LDS15
 
             model.AdicionarFuncionario(novoFuncionario);
 
-        }
-
-
-        public void UserAtivouTabFuncionarios(object sender, EventArgs e)
-        {
-            //model.GetListaFuncionarios();
         }
 
         // Método para encerrar o programa
