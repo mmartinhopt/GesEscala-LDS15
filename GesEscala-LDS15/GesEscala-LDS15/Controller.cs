@@ -1,5 +1,6 @@
 using System;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.SQLite;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -27,7 +28,7 @@ namespace GesEscala_LDS15
             //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
-
+            view.RemoverFuncionario += RemoverFuncionario;
         }
 
         // Método para iniciar o programa
@@ -43,7 +44,7 @@ namespace GesEscala_LDS15
             }
             
         }
-
+        //Adicionar novo funcionario à base de dados
         public void RegistoNovoFuncionario(Funcionario novoFuncionario)
         {
             try
@@ -59,6 +60,38 @@ namespace GesEscala_LDS15
 
             model.AdicionarFuncionario(novoFuncionario);
 
+        }
+
+        //Remover funcionario pelo id unico
+        public void RemoverFuncionario(int id_funcionario)
+        {
+            try
+            {
+                // Verificar se o ID do funcionário é válido ( maior que 0)
+                if (id_funcionario <= 0)
+                {
+                    MessageBox.Show("ID de funcionário inválido. O ID deve ser maior que zero.");
+                    return;
+                }
+
+                // Tentar remover o funcionário pelo ID
+                model.RemoverFuncionarioPorID(id_funcionario);
+            }
+            catch (ArgumentException argEx)
+            {
+                // argumento inválido
+                MessageBox.Show("Erro de argumento: " + argEx.Message);
+            }
+            catch (SQLiteException sqlEx)
+            {
+                // SQLite
+                MessageBox.Show("Erro de banco de dados: " + sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                // outra exceção
+                MessageBox.Show("Ocorreu um erro ao tentar remover o funcionário: " + ex.Message);
+            }
         }
 
         // Método para encerrar o programa

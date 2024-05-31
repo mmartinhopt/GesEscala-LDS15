@@ -102,7 +102,54 @@ namespace GesEscala_LDS15
             // Notifica que a lista foi alterada.
             //ListaDeFuncionariosAlterada();
         }
+        //Remover utilizador pelo ID
+        public void RemoverFuncionarioPorID(int idFuncionario)
+        {
+            try
+            {
+                string query = "DELETE FROM Funcionarios WHERE id_funcionario = @idFuncionario";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@idFuncionario", idFuncionario);
+                    int rowsAffected = command.ExecuteNonQuery();
 
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Funcionário removido com sucesso.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nenhum funcionário encontrado com o ID fornecido.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO Lidar com a exceção
+                MessageBox.Show("Problema ao remover funcionário: " + ex.Message);
+            }
+        }
+
+        public bool FuncionarioExiste(int numeroFuncionario)
+        {
+            try
+            {
+                string query = "SELECT COUNT(*) FROM Funcionarios WHERE numero_funcionario = @numeroFuncionario";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@numeroFuncionario", numeroFuncionario);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao verificar funcionário: " + ex.Message);
+                return false;
+            }
+        }
+
+        //Obter listas do serviço
         public void GetListaServicos(ref List<Servico> listaServicos)
         {
             listaServicos = new List<Servico>();
@@ -140,9 +187,6 @@ namespace GesEscala_LDS15
             // Notifica que a lista foi alterada.
             //ListaDeFuncionariosAlterada();
         }
-
-
-
 
         public List<Dictionary<string, object>> GetEscalados(string data)
         {
@@ -186,6 +230,11 @@ namespace GesEscala_LDS15
 
         public void AdicionarFuncionario(Funcionario novoFuncionario)
         {
+            if (FuncionarioExiste(novoFuncionario.Numero))
+            {
+                MessageBox.Show("Já existe um funcionário com este número.");
+                return;
+            }
             try
             {
                 string sqlInsert = "INSERT INTO Funcionarios (numero_funcionario, nome_funcionario, " +
