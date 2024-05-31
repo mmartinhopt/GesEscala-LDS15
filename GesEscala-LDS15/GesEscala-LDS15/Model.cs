@@ -142,6 +142,8 @@ namespace GesEscala_LDS15
         }
 
 
+
+
         public List<Dictionary<string, object>> GetEscalados(string data)
         {
 
