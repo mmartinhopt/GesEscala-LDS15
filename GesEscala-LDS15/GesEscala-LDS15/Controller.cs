@@ -16,12 +16,12 @@ namespace GesEscala_LDS15
             view = new View(model);
             model = new Model(view);
 
-            //Registio dos eventos dos ServiÁos
+            //Registio dos eventos dos Servi√ßos
 
             view.PrecisoDeServicos += model.GetListaServicos;
 
 
-            //Registio dos eventos dos Funcion·rios
+            //Registio dos eventos dos Funcion√°rios
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
             view.RegistoNovoFuncionario += RegistoNovoFuncionario;
             //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
@@ -30,7 +30,7 @@ namespace GesEscala_LDS15
 
         }
 
-        // MÈtodo para iniciar o programa
+        // M√©todo para iniciar o programa
         public void IniciarPrograma()
         {
             try
@@ -61,7 +61,12 @@ namespace GesEscala_LDS15
 
         }
 
-        // MÈtodo para encerrar o programa
+        public void UserAtivouTabFuncionarios(object sender, EventArgs e)
+        {
+            //model.GetListaFuncionarios();
+        }
+
+        // M√©todo para encerrar o programa
         public void EncerrarPrograma()
         {
             //view.Encerrar();
