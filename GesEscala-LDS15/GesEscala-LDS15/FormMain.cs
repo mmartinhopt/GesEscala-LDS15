@@ -89,7 +89,6 @@ namespace GesEscala_LDS15
 
         public void ApresentarServicos()
         {
-
             //lst_funcionarios_registo.Items.Clear();
             lst_servicos_registo.Items.Clear();
             try
@@ -101,12 +100,11 @@ namespace GesEscala_LDS15
                 MessageBox.Show("Erro a obter lista de servicos da view" + e.Message);
             }
 
-
             try
             {
                 foreach (Servico servico in listaServicosApresentar)
                 {
-                    string aux = servico.ID.ToString() + " - " + servico.Nome.ToString() + " " + servico.HoraInicio.ToString();
+                    string aux = servico.ID.ToString() + " - " + servico.Nome.ToString() + " " + servico.HoraInicio.ToString() + "/" + servico.HoraFim.ToString();
                     //MessageBox.Show(aux);
                     lst_servicos_registo.Items.Add(aux);
                 }
@@ -146,6 +144,20 @@ namespace GesEscala_LDS15
             }
         }
 
+        private void lst_servicos_registo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verifica se algum item está selecionado
+            if (lst_servicos_registo.SelectedItem != null)
+            {
+                lbl_servico_id.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].ID.ToString();
+                tb_servico_nome.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Nome.ToString();
+                tb_servico_desc.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Descricao.ToString();
+                tb_servico_sigla.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Sigla.ToString();
+                tb_servico_inicio.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].HoraInicio.ToString();
+                tb_servico_fim.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].HoraFim.ToString();
+            }
+        }
+
         public void remover_tabs()
         {
             tc_Main.ItemSize = new System.Drawing.Size(0, 1);
@@ -173,23 +185,8 @@ namespace GesEscala_LDS15
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
-            panel3.Visible = false;
+            panel5.Visible = false;
             ApresentarServicos();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox_Efetivo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_limpar_Click(object sender, EventArgs e)
@@ -207,21 +204,6 @@ namespace GesEscala_LDS15
             tb_contacto.Clear();
 
             btn_adicionar.Enabled = true;
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label21_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_adicionar_Click(object sender, EventArgs e)
@@ -253,5 +235,7 @@ namespace GesEscala_LDS15
         {
 
         }
+
+
     }
 }

@@ -120,9 +120,9 @@ namespace GesEscala_LDS15
                                 ID = Convert.ToInt32(reader["id_servico"]),
                                 Nome = reader["nome"].ToString(),
                                 Descricao = reader["descricao"].ToString(),
-                                Sigla = reader["sigla"].ToString(),
-                                HoraInicio = ConvertToDateTime(reader["hora_inicio"].ToString()),
-                                HoraFim = ConvertToDateTime(reader["hora_fim"].ToString()),
+                                Sigla = reader["sigla_servico"].ToString(),
+                                HoraInicio = reader["hora_inicio"].ToString(),
+                                HoraFim = reader["hora_fim"].ToString(),
                             };
                             listaServicos.Add(servico);
                         }
