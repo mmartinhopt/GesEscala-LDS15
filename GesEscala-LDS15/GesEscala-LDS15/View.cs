@@ -22,7 +22,9 @@ namespace GesEscala_LDS15
         public delegate void PedidoListaFuncionarios(ref List<Funcionario> listaFuncionarios);
         public event PedidoListaFuncionarios PrecisoDeFuncionarios;
         public delegate void EventNovoFuncionario(Funcionario novoFuncionario);
+        public delegate void EventRemFuncionario(int id_funcionario);
         public event EventNovoFuncionario RegistoNovoFuncionario;
+        public event EventRemFuncionario RemoverFuncionario;
 
         //Eventos Servicos
         public delegate void PedidoListaServicos(ref List<Servico> listaServicos);
@@ -70,6 +72,11 @@ namespace GesEscala_LDS15
 
         public void ListaNovoFuncionario()
         {
+
+        }
+        public void RemFuncionario(int id_funcionario)
+        {
+            RemoverFuncionario?.Invoke(id_funcionario);
 
         }
 

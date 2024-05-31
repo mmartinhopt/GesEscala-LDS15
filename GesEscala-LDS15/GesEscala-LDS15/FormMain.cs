@@ -11,8 +11,12 @@ namespace GesEscala_LDS15
         private List<Funcionario> listaFuncionariosApresentar = null;
         private List<Dictionary<string, object>> listaEscaladosApresentar = null;
         private List<Servico> listaServicosApresentar = null;
+        
+        //get set da instancia da view ao Form
+        public View View { get => view; set => view = value; }
 
-        // Tornar o construtor público
+
+        // construtor 
         public FormMain()
         {
             InitializeComponent();
@@ -24,15 +28,14 @@ namespace GesEscala_LDS15
             desativarIncompletos();
         }
 
-
+        //Encerrar aplicação
         public void Encerrar()
         {
             //view.Encerrar();
         }
 
-        public View View { get => view; set => view = value; }
 
-
+        //Btn adicionar serviço
         private void btn_adicionar_svc_Click(object sender, EventArgs e)
         {
 
@@ -45,20 +48,21 @@ namespace GesEscala_LDS15
                 listBox_Efetivo.Items.Add(funcionario.Nome);
             }
         }
-
+        //Atualizar lista de funcionarios
         public void AtualizaListaFuncionarios(ref List<Funcionario> listaNova)
         {
             this.listaFuncionariosApresentar = listaNova;
         }
-
+        //Atualizar lista de serviços
         public void AtualizarListaServicos(ref List<Servico> novaListaServicos)
         {
             this.listaServicosApresentar = novaListaServicos;
         }
 
+        //Popular a lista de funcionarios
         public void ApresentarFuncionarios()
         {
-            //lst_funcionarios_registo.Items.Clear();
+            // Limpa lista
             lst_funcionarios_registo.Items.Clear();
             try
             {
@@ -81,15 +85,15 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
+                // a exceção
+                MessageBox.Show($"Erro ao preencher ListView: {ex.Message}");
             }
         }
 
-
+        //Popular lista de serviços
         public void ApresentarServicos()
         {
-            //lst_funcionarios_registo.Items.Clear();
+            //Limpa lista servicos para preencher
             lst_servicos_registo.Items.Clear();
             try
             {
@@ -115,26 +119,34 @@ namespace GesEscala_LDS15
                 Console.WriteLine($"Erro ao preencher ListViewServicos: {ex.Message}");
             }
         }
+
+        //Btn principal de selecao de tab de funcionarios
         private void btn_funcionarios_Click(object sender, EventArgs e)
         {
 
             tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"]; // Seleciona a tab de funcionários
-            panel3.Visible = false;
+            //Temporario painel de topo não esta visivel
+            panel_top_funcionario.Visible = false;
             ApresentarFuncionarios();
         }
 
+        // Atualiza a lista de funcionários a apresentar com a lista fornecida
         internal void PopularFuncionarios(ref List<Funcionario> listaFuncionariosView)
         {
             this.listaFuncionariosApresentar = listaFuncionariosView;
         }
 
 
+        // Evento acionado quando a seleção na lista de funcionários muda
         private void lst_funcionarios_registo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btn_adicionar.Enabled = false;
+            btn_adicionar.Enabled = false; // Desativa o botão de adicionar
+            btn_remover.Enabled = true;    // Ativa o botão de remover
+
             // Verifica se algum item está selecionado
             if (lst_funcionarios_registo.SelectedItem != null)
             {
+                // Atualiza os campos com as informações do funcionário selecionado
                 lbl_ID.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex].ID.ToString();
                 tb_numero.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex].Numero.ToString();
                 tb_nome.Text = listaFuncionariosApresentar[lst_funcionarios_registo.SelectedIndex].Nome.ToString();
@@ -144,11 +156,13 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Evento acionado quando a seleção na lista de serviços muda
         private void lst_servicos_registo_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Verifica se algum item está selecionado
             if (lst_servicos_registo.SelectedItem != null)
             {
+                // Atualiza os campos com as informações do serviço selecionado
                 lbl_servico_id.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].ID.ToString();
                 tb_servico_nome.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Nome.ToString();
                 tb_servico_desc.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Descricao.ToString();
@@ -158,6 +172,8 @@ namespace GesEscala_LDS15
             }
         }
 
+        //ocultar os headers dos tabs para poder utilizar o tab e os elementos ainda estarem
+        //em memória podendo assim continuar. Mero efeito
         public void remover_tabs()
         {
             tc_Main.ItemSize = new System.Drawing.Size(0, 1);
@@ -165,31 +181,34 @@ namespace GesEscala_LDS15
             tc_Main.SizeMode = TabSizeMode.Fixed;
         }
 
+        //Em desenvolvimento *Temporario
         private void desativarIncompletos()
         {
             btn_escalas.Enabled = false;
             btn_gerarEscala.Enabled = false;
         }
 
+        //Btn  do Form, btn principal apresenta o tab da nova escala
         private void btn_gerarEscala_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_nEscala"];
 
         }
-
+        //Btn do Form, btn principl apresenta o tab da escala existente
         private void btn_escalas_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_cEscala"];
         }
-
+        //Btn do Form, btn principal apresenta os serviços
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
             panel5.Visible = false;
             ApresentarServicos();
         }
-
-        private void btn_limpar_Click(object sender, EventArgs e)
+        //Void para limpar a lista dos funcionarios 
+        //É utilizado por mais de um btn, adicionar/remover funcionario
+        private void limpar_lista()
         {
             if (lst_funcionarios_registo.SelectedItems.Count > 0)
             {
@@ -205,7 +224,21 @@ namespace GesEscala_LDS15
 
             btn_adicionar.Enabled = true;
         }
+        //Btn para limpar a lista
+        private void btn_limpar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                limpar_lista();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Não foi possível limpar caixas de texto.");
+            }
+        }
 
+        //btn adicionar funcionario à lista com verificacao de existencia 
+        // de funcionario com o mesmo numero, visto que é elemento unico
         private void btn_adicionar_Click(object sender, EventArgs e)
         {
             int numero;
@@ -231,11 +264,47 @@ namespace GesEscala_LDS15
 
         }
 
-        private void label18_Click(object sender, EventArgs e)
+        //Terminar a aplicacao btn
+        private void btn_sair_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
+        //Remover funcionario por ID, elemento unico e sequencial
+        private void btn_remover_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(lbl_ID.Text))
+                {
+                    MessageBox.Show("Por favor, selecione o funcionario a remover na lista.");
+                    return;
+                }
 
+                if (!int.TryParse(lbl_ID.Text, out int idFuncionario))
+                {
+                    MessageBox.Show("Por favor, insira um ID de funcionário válido.");
+                    return;
+                }
+              //View remover funcionario pelo ID.
+                view.RemFuncionario(idFuncionario);                
+            }
+            catch (Exception ex)
+            {
+                // Tratar qualquer exceção que possa ocorrer
+                MessageBox.Show("Ocorreu um erro ao tentar remover o funcionário: " + ex.Message);
+            }
+
+            //Refresh À lista de funcionarios e limpa caixas de txtbox
+            try
+            {
+                ApresentarFuncionarios();
+                limpar_lista();
+            }
+            catch(Exception erro)
+            {
+                MessageBox.Show("Erro na leitura de funcionarios a carregar para a lista.");
+            }
+        }
 
     }
 }

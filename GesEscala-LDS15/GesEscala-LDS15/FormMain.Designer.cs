@@ -84,7 +84,7 @@
             panel_lateral = new Panel();
             lst_funcionarios_registo = new ListBox();
             label4 = new Label();
-            panel3 = new Panel();
+            panel_top_funcionario = new Panel();
             label17 = new Label();
             tP_servicos = new TabPage();
             panel6 = new Panel();
@@ -125,7 +125,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).BeginInit();
             panel_lateral.SuspendLayout();
-            panel3.SuspendLayout();
+            panel_top_funcionario.SuspendLayout();
             tP_servicos.SuspendLayout();
             panel6.SuspendLayout();
             panel4.SuspendLayout();
@@ -205,6 +205,7 @@
             btn_sair.TabIndex = 3;
             btn_sair.Text = "Sair";
             btn_sair.UseVisualStyleBackColor = true;
+            btn_sair.Click += btn_sair_Click;
             // 
             // tc_Main
             // 
@@ -503,7 +504,7 @@
             // 
             tP_funcionarios.Controls.Add(panel2);
             tP_funcionarios.Controls.Add(panel_lateral);
-            tP_funcionarios.Controls.Add(panel3);
+            tP_funcionarios.Controls.Add(panel_top_funcionario);
             tP_funcionarios.Location = new Point(4, 26);
             tP_funcionarios.Name = "tP_funcionarios";
             tP_funcionarios.Padding = new Padding(3);
@@ -543,7 +544,7 @@
             tb_apelido.Location = new Point(100, 217);
             tb_apelido.Name = "tb_apelido";
             tb_apelido.Size = new Size(284, 25);
-            tb_apelido.TabIndex = 32;
+            tb_apelido.TabIndex = 29;
             // 
             // label20
             // 
@@ -570,7 +571,7 @@
             btn_limpar.Location = new Point(274, 355);
             btn_limpar.Name = "btn_limpar";
             btn_limpar.Size = new Size(102, 30);
-            btn_limpar.TabIndex = 29;
+            btn_limpar.TabIndex = 33;
             btn_limpar.Text = "&Limpar";
             btn_limpar.UseVisualStyleBackColor = true;
             btn_limpar.Click += btn_limpar_Click;
@@ -625,16 +626,17 @@
             btn_remover.Location = new Point(382, 355);
             btn_remover.Name = "btn_remover";
             btn_remover.Size = new Size(102, 30);
-            btn_remover.TabIndex = 23;
+            btn_remover.TabIndex = 34;
             btn_remover.Text = "&Remover";
             btn_remover.UseVisualStyleBackColor = true;
+            btn_remover.Click += btn_remover_Click;
             // 
             // btn_adicionar
             // 
             btn_adicionar.Location = new Point(166, 355);
             btn_adicionar.Name = "btn_adicionar";
             btn_adicionar.Size = new Size(102, 30);
-            btn_adicionar.TabIndex = 22;
+            btn_adicionar.TabIndex = 32;
             btn_adicionar.Text = "&Adicionar";
             btn_adicionar.UseVisualStyleBackColor = true;
             btn_adicionar.Click += btn_adicionar_Click;
@@ -653,7 +655,7 @@
             tb_contacto.Location = new Point(100, 279);
             tb_contacto.Name = "tb_contacto";
             tb_contacto.Size = new Size(184, 25);
-            tb_contacto.TabIndex = 20;
+            tb_contacto.TabIndex = 31;
             // 
             // label7
             // 
@@ -669,7 +671,7 @@
             tb_morada.Location = new Point(100, 248);
             tb_morada.Name = "tb_morada";
             tb_morada.Size = new Size(384, 25);
-            tb_morada.TabIndex = 18;
+            tb_morada.TabIndex = 30;
             // 
             // label5
             // 
@@ -685,7 +687,7 @@
             tb_nome.Location = new Point(100, 186);
             tb_nome.Name = "tb_nome";
             tb_nome.Size = new Size(284, 25);
-            tb_nome.TabIndex = 16;
+            tb_nome.TabIndex = 28;
             // 
             // label6
             // 
@@ -734,15 +736,15 @@
             label4.TabIndex = 4;
             label4.Text = "Funcionários em registo";
             // 
-            // panel3
+            // panel_top_funcionario
             // 
-            panel3.BackColor = Color.FromArgb(99, 99, 99);
-            panel3.Controls.Add(label17);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(3, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(809, 33);
-            panel3.TabIndex = 30;
+            panel_top_funcionario.BackColor = Color.FromArgb(99, 99, 99);
+            panel_top_funcionario.Controls.Add(label17);
+            panel_top_funcionario.Dock = DockStyle.Top;
+            panel_top_funcionario.Location = new Point(3, 3);
+            panel_top_funcionario.Name = "panel_top_funcionario";
+            panel_top_funcionario.Size = new Size(809, 33);
+            panel_top_funcionario.TabIndex = 30;
             // 
             // label17
             // 
@@ -771,9 +773,9 @@
             panel6.Controls.Add(lst_servicos_registo);
             panel6.Controls.Add(label18);
             panel6.Dock = DockStyle.Right;
-            panel6.Location = new Point(558, 33);
+            panel6.Location = new Point(435, 33);
             panel6.Name = "panel6";
-            panel6.Size = new Size(257, 416);
+            panel6.Size = new Size(380, 416);
             panel6.TabIndex = 34;
             // 
             // lst_servicos_registo
@@ -785,7 +787,7 @@
             lst_servicos_registo.ItemHeight = 17;
             lst_servicos_registo.Location = new Point(0, 21);
             lst_servicos_registo.Name = "lst_servicos_registo";
-            lst_servicos_registo.Size = new Size(257, 395);
+            lst_servicos_registo.Size = new Size(380, 395);
             lst_servicos_registo.TabIndex = 33;
             lst_servicos_registo.SelectedIndexChanged += lst_servicos_registo_SelectedIndexChanged;
             // 
@@ -799,7 +801,6 @@
             label18.Size = new Size(155, 21);
             label18.TabIndex = 34;
             label18.Text = "Serviços em registo";
-            label18.Click += label18_Click;
             // 
             // panel4
             // 
@@ -1040,8 +1041,8 @@
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).EndInit();
             panel_lateral.ResumeLayout(false);
             panel_lateral.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            panel_top_funcionario.ResumeLayout(false);
+            panel_top_funcionario.PerformLayout();
             tP_servicos.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
@@ -1120,7 +1121,7 @@
         private TextBox tb_nome;
         private Label label6;
         private ListBox lst_funcionarios_registo;
-        private Panel panel3;
+        private Panel panel_top_funcionario;
         private Label label17;
         private Button btn_alterar;
         private Button btn_limpar;
