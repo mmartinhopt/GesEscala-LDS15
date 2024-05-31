@@ -17,12 +17,12 @@ namespace GesEscala_LDS15
             view = new View(model);
             model = new Model(view);
 
-            //Registio dos eventos dos Serviços
+            //Registio dos eventos dos ServiÃ§os
 
             view.PrecisoDeServicos += model.GetListaServicos;
 
 
-            //Registio dos eventos dos Funcionários
+            //Registio dos eventos dos FuncionÃ¡rios
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
             view.RegistoNovoFuncionario += RegistoNovoFuncionario;
             //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
@@ -31,7 +31,7 @@ namespace GesEscala_LDS15
             view.RemoverFuncionario += RemoverFuncionario;
         }
 
-        // Método para iniciar o programa
+        // MÃ©todo para iniciar o programa
         public void IniciarPrograma()
         {
             try
@@ -44,7 +44,7 @@ namespace GesEscala_LDS15
             }
             
         }
-        //Adicionar novo funcionario à base de dados
+        //Adicionar novo funcionario ï¿½ base de dados
         public void RegistoNovoFuncionario(Funcionario novoFuncionario)
         {
             try
@@ -67,19 +67,19 @@ namespace GesEscala_LDS15
         {
             try
             {
-                // Verificar se o ID do funcionário é válido ( maior que 0)
+                // Verificar se o ID do funcionï¿½rio ï¿½ vï¿½lido ( maior que 0)
                 if (id_funcionario <= 0)
                 {
-                    MessageBox.Show("ID de funcionário inválido. O ID deve ser maior que zero.");
+                    MessageBox.Show("ID de funcionï¿½rio invï¿½lido. O ID deve ser maior que zero.");
                     return;
                 }
 
-                // Tentar remover o funcionário pelo ID
+                // Tentar remover o funcionï¿½rio pelo ID
                 model.RemoverFuncionarioPorID(id_funcionario);
             }
             catch (ArgumentException argEx)
             {
-                // argumento inválido
+                // argumento invï¿½lido
                 MessageBox.Show("Erro de argumento: " + argEx.Message);
             }
             catch (SQLiteException sqlEx)
@@ -89,12 +89,17 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // outra exceção
-                MessageBox.Show("Ocorreu um erro ao tentar remover o funcionário: " + ex.Message);
+                // outra exceï¿½ï¿½o
+                MessageBox.Show("Ocorreu um erro ao tentar remover o funcionï¿½rio: " + ex.Message);
             }
         }
 
-        // Método para encerrar o programa
+        public void UserAtivouTabFuncionarios(object sender, EventArgs e)
+        {
+            //model.GetListaFuncionarios();
+        }
+
+        // MÃ©todo para encerrar o programa
         public void EncerrarPrograma()
         {
             //view.Encerrar();
