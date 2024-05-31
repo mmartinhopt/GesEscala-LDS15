@@ -18,8 +18,8 @@ namespace GesEscala_LDS15
         // Sigla do serviço (O que vai aparecer na escala)
         public string Sigla { get; set; }
         // Hora de início do serviço (tem de ser um valor válido - hora XX:YY)
-        public DateTime HoraInicio { get; set; }
+        public string HoraInicio { get; set; }
         // Hora de fim do serviço (tem de ser um valor válido - hora XX:YY)
-        public DateTime HoraFim { get; set; }
+        public string HoraFim { get; set; }
     }
 }

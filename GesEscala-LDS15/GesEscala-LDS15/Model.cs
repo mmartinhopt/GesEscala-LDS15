@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -16,7 +17,7 @@ namespace GesEscala_LDS15
 
         List<Funcionario> listaFuncionarios;
         List<Dictionary<string, object>> listaEscalados;
-        List<Dictionary<string, object>> listaServicos;
+        List<Servico> listaServicos;
 
         // Definição de eventos para comunicação com a View
         public event Action<string> ConfiguracaoInicialSaved;
@@ -39,7 +40,7 @@ namespace GesEscala_LDS15
             conn = CriarLigacaoSqlite();
             listaEscalados = new List<Dictionary<string, object>>();
             listaFuncionarios = new List<Funcionario>();
-            listaServicos = new List<Dictionary<string, object>>();
+            listaServicos = new List<Servico>();
 
             // CriarTabelas(conn);
         }
@@ -62,7 +63,6 @@ namespace GesEscala_LDS15
                 return false; // Retorna false para indicar que não está vazia por causa do erro
             }
         }
-
 
         public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
         {
@@ -95,7 +95,7 @@ namespace GesEscala_LDS15
             catch (Exception ex)
             {
                 // TODO Lidar com a exceção
-                MessageBox.Show("Problema GetListaFuncionarios" +ex.Message);
+                MessageBox.Show("Problema GetListaFuncionarios" + ex.Message);
             }
 
             //listaFuncionarios = funcionarios;
@@ -103,7 +103,47 @@ namespace GesEscala_LDS15
             //ListaDeFuncionariosAlterada();
         }
 
-        
+        public void GetListaServicos(ref List<Servico> listaServicos)
+        {
+            listaServicos = new List<Servico>();
+            try
+            {
+                string query = "SELECT * FROM Servicos";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Servico servico = new Servico
+                            {
+                                ID = Convert.ToInt32(reader["id_servico"]),
+                                Nome = reader["nome"].ToString(),
+                                Descricao = reader["descricao"].ToString(),
+                                Sigla = reader["sigla_servico"].ToString(),
+                                HoraInicio = reader["hora_inicio"].ToString(),
+                                HoraFim = reader["hora_fim"].ToString(),
+                            };
+                            listaServicos.Add(servico);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // TODO Lidar com a exceção
+                MessageBox.Show("Problema GetListaServicos" + ex.Message);
+            }
+
+            //listaFuncionarios = funcionarios;
+            // Notifica que a lista foi alterada.
+            //ListaDeFuncionariosAlterada();
+        }
+
+
+
+
         public List<Dictionary<string, object>> GetEscalados(string data)
         {
 
@@ -114,7 +154,7 @@ namespace GesEscala_LDS15
                     "GROUP_CONCAT(DISTINCT s.hora_inicio || '-' || s.hora_fim) AS Horario,\r\n" +
                     "(SELECT GROUP_CONCAT(f.nome_funcionario, ', ')\r\n" +
                     "FROM Funcionarios f\r\n        JOIN Escala e2 ON f.id_funcionario = e2.id_funcionario\r\n" +
-                    "WHERE e2.id_servico = s.id_servico AND e2.dia_escala ="+ data +") AS Funcionarios\r\n" +
+                    "WHERE e2.id_servico = s.id_servico AND e2.dia_escala =" + data + ") AS Funcionarios\r\n" +
                     "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
                     "GROUP BY s.nome;";
 
@@ -159,11 +199,11 @@ namespace GesEscala_LDS15
                 sqlite_cmd.Parameters.AddWithValue("@Contacto", Convert.ToInt32(novoFuncionario.Contacto));
 
                 sqlite_cmd.ExecuteNonQuery();
-                
+
 
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -186,6 +226,31 @@ namespace GesEscala_LDS15
             }
             return sqlite_conn;
         }
+
+ 
+
+        //Convert TIME SQlite para DateTime C#
+        public static DateTime ConvertToDateTime(string str)
+        {
+            string pattern = @"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})\.(\d{3})";
+            if (Regex.IsMatch(str, pattern))
+            {
+                Match match = Regex.Match(str, pattern);
+                int year = Convert.ToInt32(match.Groups[1].Value);
+                int month = Convert.ToInt32(match.Groups[2].Value);
+                int day = Convert.ToInt32(match.Groups[3].Value);
+                int hour = Convert.ToInt32(match.Groups[4].Value);
+                int minute = Convert.ToInt32(match.Groups[5].Value);
+                int second = Convert.ToInt32(match.Groups[6].Value);
+                int millisecond = Convert.ToInt32(match.Groups[7].Value);
+                return new DateTime(year, month, day, hour, minute, second, millisecond);
+            }
+            else
+            {
+                throw new Exception("Unable to parse.");
+            }
+        }
+
 
         public void PreencherServicosPadrao()
         {
@@ -326,11 +391,5 @@ namespace GesEscala_LDS15
             // Gera o PDF da escala
             EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
-
-        public void GetListaServicos()
-        {
-
-        }
-
     }
 }

@@ -16,16 +16,21 @@ namespace GesEscala_LDS15
             view = new View(model);
             model = new Model(view);
 
+            //Registio dos eventos dos Servi√ßos
 
-            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
-            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
+            view.PrecisoDeServicos += model.GetListaServicos;
+
+
+            //Registio dos eventos dos Funcion√°rios
             view.PrecisoDeFuncionarios += model.GetListaFuncionarios;
             view.RegistoNovoFuncionario += RegistoNovoFuncionario;
+            //view.UserAtivouTabFuncionarios += UserAtivouTabFuncionarios;
+            //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
 
         }
 
-        // MÈtodo para iniciar o programa
+        // M√©todo para iniciar o programa
         public void IniciarPrograma()
         {
             try
@@ -38,20 +43,6 @@ namespace GesEscala_LDS15
             }
             
         }
-
-        // MÈtodo para buscar funcion·rios
-        /*public List<Dictionary<string, object>> BuscarFuncionarios()
-        {
-            return model.GetFuncionarios();
-        }
-        */
-
-        /*
-        public void CliqueEmFuncionarios(object sender, System.EventArgs e)
-        {
-            model.SolicitarListaFuncionarios();
-        }
-        */
 
         public void RegistoNovoFuncionario(Funcionario novoFuncionario)
         {
@@ -69,12 +60,13 @@ namespace GesEscala_LDS15
             model.AdicionarFuncionario(novoFuncionario);
 
         }
+
         public void UserAtivouTabFuncionarios(object sender, EventArgs e)
         {
             //model.GetListaFuncionarios();
         }
 
-        // MÈtodo para encerrar o programa
+        // M√©todo para encerrar o programa
         public void EncerrarPrograma()
         {
             //view.Encerrar();

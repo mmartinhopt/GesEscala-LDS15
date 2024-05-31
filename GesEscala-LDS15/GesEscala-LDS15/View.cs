@@ -16,15 +16,24 @@ namespace GesEscala_LDS15
 
         private List<Funcionario> listaFuncionariosView = null;
         private List<Dictionary<string, object>> listaEscaladosView = null;
-        private List<Dictionary<string, object>> listaServicosView = null;
+        private List<Servico> listaServicosView = null;
 
-        // Eventos
-
+        // Eventos Funcionarios
         public delegate void PedidoListaFuncionarios(ref List<Funcionario> listaFuncionarios);
         public event PedidoListaFuncionarios PrecisoDeFuncionarios;
-
         public delegate void EventNovoFuncionario(Funcionario novoFuncionario);
         public event EventNovoFuncionario RegistoNovoFuncionario;
+
+        //Eventos Servicos
+        public delegate void PedidoListaServicos(ref List<Servico> listaServicos);
+        public event PedidoListaServicos PrecisoDeServicos;
+        //public delegate void EventNovoServico(Funcionario novoServico);
+        //public event EventNovoServico RegistoNovoServico;
+
+
+
+
+
 
         //public event EventHandler UserAtivouTabFuncionarios;
 
@@ -45,30 +54,6 @@ namespace GesEscala_LDS15
         }
 
         // Métodos
-
-        public void PreencherListView(List<Dictionary<string, object>> funcionarios)
-        {
-            try
-            {
-                
-                //FuncionariosListView.Items.Clear();
-                foreach (var funcionario in funcionarios)
-                {
-                    ListViewItem item = new ListViewItem(funcionario["Id"].ToString());
-                    item.SubItems.Add(funcionario["Numero"].ToString());
-                    item.SubItems.Add(funcionario["Nome"].ToString());
-                    item.SubItems.Add(funcionario["Morada"].ToString());
-                    item.SubItems.Add(funcionario["Contacto"].ToString());
-                    //FuncionariosListView.Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao preencher ListView: {ex.Message}");
-            }
-        }
-
         
         public void IniciarInterface()
         {
@@ -105,9 +90,16 @@ namespace GesEscala_LDS15
             janela.AtualizaListaFuncionarios(ref listaFuncionariosView);
         }
 
+        public void PrecisoDeListaServicos(ref List<Servico> listaServicosView)
+        {
+            PrecisoDeServicos(ref listaServicosView);
+            janela.AtualizarListaServicos(ref listaServicosView);
+        }
+
         // Método para encerrar a aplicação
-        //public void Encerrar()
-        //{
-        //}
+        public void Encerrar()
+        {
+            //Implementar.
+        }
     }
 }

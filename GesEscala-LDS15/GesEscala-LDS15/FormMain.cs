@@ -10,7 +10,7 @@ namespace GesEscala_LDS15
 
         private List<Funcionario> listaFuncionariosApresentar = null;
         private List<Dictionary<string, object>> listaEscaladosApresentar = null;
-        private List<Dictionary<string, object>> listaServicosApresentar = null;
+        private List<Servico> listaServicosApresentar = null;
 
         // Tornar o construtor público
         public FormMain()
@@ -51,6 +51,11 @@ namespace GesEscala_LDS15
             this.listaFuncionariosApresentar = listaNova;
         }
 
+        public void AtualizarListaServicos(ref List<Servico> novaListaServicos)
+        {
+            this.listaServicosApresentar = novaListaServicos;
+        }
+
         public void ApresentarFuncionarios()
         {
             //lst_funcionarios_registo.Items.Clear();
@@ -69,7 +74,7 @@ namespace GesEscala_LDS15
             {
                 foreach (Funcionario funcionario in listaFuncionariosApresentar)
                 {
-                    string aux = funcionario.ID.ToString() + " - " +funcionario.Nome.ToString() + " " + funcionario.Apelido.ToString();
+                    string aux = funcionario.ID.ToString() + " - " + funcionario.Nome.ToString() + " " + funcionario.Apelido.ToString();
                     //MessageBox.Show(aux);
                     lst_funcionarios_registo.Items.Add(aux);
                 }
@@ -81,6 +86,35 @@ namespace GesEscala_LDS15
             }
         }
 
+
+        public void ApresentarServicos()
+        {
+            //lst_funcionarios_registo.Items.Clear();
+            lst_servicos_registo.Items.Clear();
+            try
+            {
+                view.PrecisoDeListaServicos(ref listaServicosApresentar);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro a obter lista de servicos da view" + e.Message);
+            }
+
+            try
+            {
+                foreach (Servico servico in listaServicosApresentar)
+                {
+                    string aux = servico.ID.ToString() + " - " + servico.Nome.ToString() + " " + servico.HoraInicio.ToString() + "/" + servico.HoraFim.ToString();
+                    //MessageBox.Show(aux);
+                    lst_servicos_registo.Items.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com a exceção
+                Console.WriteLine($"Erro ao preencher ListViewServicos: {ex.Message}");
+            }
+        }
         private void btn_funcionarios_Click(object sender, EventArgs e)
         {
 
@@ -110,6 +144,20 @@ namespace GesEscala_LDS15
             }
         }
 
+        private void lst_servicos_registo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verifica se algum item está selecionado
+            if (lst_servicos_registo.SelectedItem != null)
+            {
+                lbl_servico_id.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].ID.ToString();
+                tb_servico_nome.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Nome.ToString();
+                tb_servico_desc.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Descricao.ToString();
+                tb_servico_sigla.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].Sigla.ToString();
+                tb_servico_inicio.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].HoraInicio.ToString();
+                tb_servico_fim.Text = listaServicosApresentar[lst_servicos_registo.SelectedIndex].HoraFim.ToString();
+            }
+        }
+
         public void remover_tabs()
         {
             tc_Main.ItemSize = new System.Drawing.Size(0, 1);
@@ -121,7 +169,6 @@ namespace GesEscala_LDS15
         {
             btn_escalas.Enabled = false;
             btn_gerarEscala.Enabled = false;
-            btn_turnos.Enabled = false;
         }
 
         private void btn_gerarEscala_Click(object sender, EventArgs e)
@@ -138,21 +185,8 @@ namespace GesEscala_LDS15
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox_Efetivo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
+            panel5.Visible = false;
+            ApresentarServicos();
         }
 
         private void btn_limpar_Click(object sender, EventArgs e)
@@ -172,43 +206,36 @@ namespace GesEscala_LDS15
             btn_adicionar.Enabled = true;
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label21_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_adicionar_Click(object sender, EventArgs e)
         {
             int numero;
-            if(tb_numero.Text.Length > 0 && tb_nome.Text.Length > 0 && int.TryParse(tb_numero.Text, out numero))
+            if (tb_numero.Text.Length > 0 && tb_nome.Text.Length > 0 && int.TryParse(tb_numero.Text, out numero))
             {
                 Funcionario novoFuncionario = new Funcionario();
 
                 novoFuncionario.Numero = Convert.ToInt32(tb_numero.Text);
                 novoFuncionario.Nome = tb_nome.Text.ToString();
-                
-                if(tb_apelido != null) { novoFuncionario.Apelido = tb_apelido.Text.ToString(); }
-                if(tb_morada != null) { novoFuncionario.Morada = tb_morada.Text.ToString(); };
-                if (tb_contacto.Text.Length > 0 && int.TryParse(tb_contacto.Text, out numero)) { novoFuncionario.Contacto = Convert.ToInt32(tb_contacto.Text); } 
-                
+
+                if (tb_apelido != null) { novoFuncionario.Apelido = tb_apelido.Text.ToString(); }
+                if (tb_morada != null) { novoFuncionario.Morada = tb_morada.Text.ToString(); };
+                if (tb_contacto.Text.Length > 0 && int.TryParse(tb_contacto.Text, out numero)) { novoFuncionario.Contacto = Convert.ToInt32(tb_contacto.Text); }
+
                 view.NovoFuncionario(novoFuncionario);
                 ApresentarFuncionarios();
-            } else
+            }
+            else
             {
                 MessageBox.Show("O campos NUMERO e NOME são de preenchimento obrigatorio\n" +
                                 "Campo NUMERO apenas pode conter digitos.");
             }
-            
+
         }
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
