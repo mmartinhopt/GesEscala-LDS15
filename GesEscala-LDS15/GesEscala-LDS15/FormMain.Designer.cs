@@ -77,7 +77,7 @@
             panel2 = new Panel();
             tb_apelido = new TextBox();
             label20 = new Label();
-            btn_alterar = new Button();
+            btn_exportar = new Button();
             btn_limpar = new Button();
             label9 = new Label();
             tb_numero = new TextBox();
@@ -103,6 +103,7 @@
             lst_servicos_registo = new ListBox();
             label18 = new Label();
             panel4 = new Panel();
+            btn_exp_servicos = new Button();
             label29 = new Label();
             tb_servico_desc = new TextBox();
             lbl_servico_id = new Label();
@@ -622,7 +623,7 @@
             // 
             panel2.Controls.Add(tb_apelido);
             panel2.Controls.Add(label20);
-            panel2.Controls.Add(btn_alterar);
+            panel2.Controls.Add(btn_exportar);
             panel2.Controls.Add(btn_limpar);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(tb_numero);
@@ -643,6 +644,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(527, 410);
             panel2.TabIndex = 5;
+            panel2.Paint += panel2_Paint;
             // 
             // tb_apelido
             // 
@@ -661,19 +663,19 @@
             label20.TabIndex = 31;
             label20.Text = "Apelido:";
             // 
-            // btn_alterar
+            // btn_exportar
             // 
-            btn_alterar.Enabled = false;
-            btn_alterar.Location = new Point(382, 319);
-            btn_alterar.Name = "btn_alterar";
-            btn_alterar.Size = new Size(102, 30);
-            btn_alterar.TabIndex = 30;
-            btn_alterar.Text = "&Alterar";
-            btn_alterar.UseVisualStyleBackColor = true;
+            btn_exportar.Location = new Point(408, 358);
+            btn_exportar.Name = "btn_exportar";
+            btn_exportar.Size = new Size(102, 30);
+            btn_exportar.TabIndex = 30;
+            btn_exportar.Text = "&Exportar PDF";
+            btn_exportar.UseVisualStyleBackColor = true;
+            btn_exportar.Click += btn_exportar_Click;
             // 
             // btn_limpar
             // 
-            btn_limpar.Location = new Point(274, 355);
+            btn_limpar.Location = new Point(192, 358);
             btn_limpar.Name = "btn_limpar";
             btn_limpar.Size = new Size(102, 30);
             btn_limpar.TabIndex = 33;
@@ -728,7 +730,7 @@
             // btn_remover
             // 
             btn_remover.Enabled = false;
-            btn_remover.Location = new Point(382, 355);
+            btn_remover.Location = new Point(300, 358);
             btn_remover.Name = "btn_remover";
             btn_remover.Size = new Size(102, 30);
             btn_remover.TabIndex = 34;
@@ -738,7 +740,7 @@
             // 
             // btn_adicionar
             // 
-            btn_adicionar.Location = new Point(166, 355);
+            btn_adicionar.Location = new Point(84, 358);
             btn_adicionar.Name = "btn_adicionar";
             btn_adicionar.Size = new Size(102, 30);
             btn_adicionar.TabIndex = 32;
@@ -909,6 +911,7 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(btn_exp_servicos);
             panel4.Controls.Add(label29);
             panel4.Controls.Add(tb_servico_desc);
             panel4.Controls.Add(lbl_servico_id);
@@ -932,6 +935,16 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(815, 416);
             panel4.TabIndex = 0;
+            // 
+            // btn_exp_servicos
+            // 
+            btn_exp_servicos.Location = new Point(332, 339);
+            btn_exp_servicos.Name = "btn_exp_servicos";
+            btn_exp_servicos.Size = new Size(102, 30);
+            btn_exp_servicos.TabIndex = 61;
+            btn_exp_servicos.Text = "&Exportar PDF";
+            btn_exp_servicos.UseVisualStyleBackColor = true;
+            btn_exp_servicos.Click += btn_exp_servicos_Click;
             // 
             // label29
             // 
@@ -1014,7 +1027,7 @@
             // 
             // btn_remover_servico
             // 
-            btn_remover_servico.Location = new Point(287, 339);
+            btn_remover_servico.Location = new Point(224, 339);
             btn_remover_servico.Name = "btn_remover_servico";
             btn_remover_servico.Size = new Size(102, 30);
             btn_remover_servico.TabIndex = 51;
@@ -1023,7 +1036,7 @@
             // 
             // btn_adicionar_servico
             // 
-            btn_adicionar_servico.Location = new Point(172, 339);
+            btn_adicionar_servico.Location = new Point(116, 339);
             btn_adicionar_servico.Name = "btn_adicionar_servico";
             btn_adicionar_servico.Size = new Size(102, 30);
             btn_adicionar_servico.TabIndex = 50;
@@ -1232,7 +1245,7 @@
         private ListBox lst_funcionarios_registo;
         private Panel panel_top_funcionario;
         private Label label17;
-        private Button btn_alterar;
+        private Button btn_exportar;
         private Button btn_limpar;
         private Label label20;
         private TextBox tb_apelido;
@@ -1259,5 +1272,6 @@
         private DataGridViewTextBoxColumn col_fnome;
         private DataGridViewTextBoxColumn col_fapelido;
         private Label label31;
+        private Button btn_exp_servicos;
     }
 }

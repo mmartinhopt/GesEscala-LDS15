@@ -26,6 +26,10 @@ namespace GesEscala_LDS15
         public event EventNovoFuncionario RegistoNovoFuncionario;
         public event EventRemFuncionario RemoverFuncionario;
 
+        public delegate void EventImprimirFuncionarios();
+        public event EventImprimirFuncionarios GerarPdfFuncionarios;
+        public delegate void EventImprimirServicos();
+        public event EventImprimirServicos GerarPdfServicos;
         //Eventos Servicos
         public delegate void PedidoListaServicos(ref List<Servico> listaServicos);
         public event PedidoListaServicos PrecisoDeServicos;
@@ -70,7 +74,16 @@ namespace GesEscala_LDS15
         {
             RegistoNovoFuncionario(novoFuncionario);
         }
+        public void pdfFuncionarios()
+        {
+            GerarPdfFuncionarios?.Invoke();
 
+
+        }
+        public void pdfServicos()
+        {
+            GerarPdfServicos?.Invoke();
+        }
         public void ListaNovoFuncionario()
         {
 

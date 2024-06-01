@@ -33,6 +33,8 @@ namespace GesEscala_LDS15
 
             //Registio dos eventos das Escalas
             view.PrecisoDeEscalaDiaria += model.GetEscalaDiaria;
+            view.GerarPdfFuncionarios += GerarPdfFuncionarios;
+            view.GerarPdfServicos += GerarPdfServicos;
         }
 
         // Método para iniciar o programa
@@ -101,6 +103,17 @@ namespace GesEscala_LDS15
         public void UserAtivouTabFuncionarios(object sender, EventArgs e)
         {
             //model.GetListaFuncionarios();
+            
+        }
+     
+            public void GerarPdfFuncionarios()
+            {
+            model.GerarPdfFuncionarios();
+
+        }
+        public void GerarPdfServicos()
+        {
+            model.GerarPdfServicos();
         }
 
         // Método para encerrar o programa

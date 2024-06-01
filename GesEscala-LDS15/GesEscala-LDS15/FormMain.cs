@@ -365,5 +365,9 @@ namespace GesEscala_LDS15
 
         }
 
+        private void btn_exp_servicos_Click(object sender, EventArgs e)
+        {
+            view.pdfServicos();
+        }
     }
 }

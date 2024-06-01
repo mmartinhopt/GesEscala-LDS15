@@ -25,7 +25,6 @@ namespace GesEscala_LDS15
         public event Action<string> DiaSelecionadoUpdated;
         public event Action<string> ServicoSelecionadoUpdated;
         public event Action<string> EscalaPDFGenerated;
-
         public delegate void NotificarListaDeFuncionariosAlterada();
         public event NotificarListaDeFuncionariosAlterada ListaDeFuncionariosAlterada;
 
@@ -41,6 +40,7 @@ namespace GesEscala_LDS15
             listaEscalados = new List<Dictionary<string, object>>();
             listaFuncionarios = new List<Funcionario>();
             listaServicos = new List<Servico>();
+
 
             // CriarTabelas(conn);
         }
@@ -103,6 +103,69 @@ namespace GesEscala_LDS15
             //ListaDeFuncionariosAlterada();
         }
         //Remover utilizador pelo ID
+        public void GerarPdfFuncionarios()
+        {
+            try
+            {
+                // Inicializar a lista de funcionários
+                List<Funcionario> listaFuncionarios = new List<Funcionario>();
+
+                // Chamar GetListaFuncionarios para preencher a lista
+                GetListaFuncionarios(ref listaFuncionarios);
+
+                // Verificar se a lista foi preenchida corretamente
+                if (listaFuncionarios.Count > 0)
+                {
+                    // Iniciar a geração do PDF com a lista preenchida
+                    IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
+                    EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
+                    escalaPDF.GerarRelatorioFuncionarios(listaFuncionarios);
+                }
+                else
+                {
+                
+                   MessageBox.Show("A lista de funcionários está vazia.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF de funcionários: " + ex.Message);
+            }
+        }
+
+
+
+        public void GerarPdfServicos()
+        {
+            try
+            {
+                IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
+                EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
+
+                escalaPDF.GerarRelatorioServicos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF de serviços: " + ex.Message);
+            }
+        }
+
+        public void GerarPdfEscala(string data)
+        {
+            try
+            {
+                IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
+                EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
+
+                escalaPDF.GerarRelatorioEscala(data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF da escala: " + ex.Message);
+            }
+        }
+
+
         public void RemoverFuncionarioPorID(int idFuncionario)
         {
             try
