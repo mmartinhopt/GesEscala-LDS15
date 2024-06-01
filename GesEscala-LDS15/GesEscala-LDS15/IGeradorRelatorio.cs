@@ -12,7 +12,7 @@ namespace GesEscala_LDS15
         void AdicionarServicoFuncionario(Servico servico, Funcionario funcionario); // Método para adicionar serviço e funcionário
         void AdicionarFuncionario(Funcionario funcionario); // Método para adicionar funcionário
         void AdicionarServico(Servico servico); // Método para adicionar serviço
-        void AdicionarEscala(Dictionary<string, object> escala); // Método para adicionar escala
+        void AdicionarEscala(Servico servico, List<Funcionario> funcionarios);
     }
 
 }

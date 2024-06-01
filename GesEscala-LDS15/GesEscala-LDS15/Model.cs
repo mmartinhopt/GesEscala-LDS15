@@ -45,7 +45,6 @@ namespace GesEscala_LDS15
             // CriarTabelas(conn);
         }
 
-
         public bool IsDatabaseEmpty()
         {
             try
@@ -150,19 +149,35 @@ namespace GesEscala_LDS15
             }
         }
 
-        public void GerarPdfEscala(string data)
+        public void GerarEscala(string data)
         {
             try
             {
-                IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
-                EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
+                // Parse the data string to a DateTime object
+                DateTime dataSelecionada = DateTime.ParseExact(data, "dd/MM/yyyy", null);
 
-                escalaPDF.GerarRelatorioEscala(data);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao gerar PDF da escala: " + ex.Message);
-            }
+                // Inicializar o objeto es
+                // Obtenha a escala dos serviços para a data especificada
+                EscalaDeServicoDiaria escalaDiaria =null;
+                    GetEscalaDiaria(ref escalaDiaria, dataSelecionada);
+
+                    if (escalaDiaria != null && escalaDiaria.ServicosComFuncionarios.Count > 0)
+                    {
+                        // Iniciar a geração do PDF com a escala diária
+                    IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
+                    EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
+                    escalaPDF.GerarRelatorioEscala(ref escalaDiaria);
+                }
+                    else
+                    {
+                        MessageBox.Show("Nenhum serviço ou funcionário encontrado para a data especificada.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao gerar PDF da escala: " + ex.Message);
+                }
+
         }
 
 

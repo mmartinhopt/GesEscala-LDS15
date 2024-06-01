@@ -47,7 +47,7 @@
             tP_nEscala = new TabPage();
             panel_direito = new Panel();
             panel1 = new Panel();
-            button2 = new Button();
+            btn_rem_funcionario = new Button();
             btn_adicionar_svc = new Button();
             listBox_Efetivo = new ListBox();
             label2 = new Label();
@@ -55,13 +55,14 @@
             monthCalendar1 = new MonthCalendar();
             panel_mid = new Panel();
             dgv_novaEscala = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
+            Col_1 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             panel_top = new Panel();
-            label1 = new Label();
+            lbl_info_escala = new Label();
             tP_cEscalas = new TabPage();
-            dataGridView1 = new DataGridView();
+            btn_impr_escala = new Button();
+            dG_Escala = new DataGridView();
             col_sNome = new DataGridViewTextBoxColumn();
             col_sig = new DataGridViewTextBoxColumn();
             col_inicio = new DataGridViewTextBoxColumn();
@@ -69,10 +70,10 @@
             col_fnumero = new DataGridViewTextBoxColumn();
             col_fnome = new DataGridViewTextBoxColumn();
             col_fapelido = new DataGridViewTextBoxColumn();
-            monthCalendar2 = new MonthCalendar();
+            calendario_mensal = new MonthCalendar();
             panel3 = new Panel();
             label31 = new Label();
-            label30 = new Label();
+            lbl_info_escala_dia = new Label();
             tP_funcionarios = new TabPage();
             panel2 = new Panel();
             tb_apelido = new TextBox();
@@ -122,7 +123,7 @@
             label15 = new Label();
             tb_servico_nome = new TextBox();
             label16 = new Label();
-            panel5 = new Panel();
+            panel_top_servicos = new Panel();
             label19 = new Label();
             tP_impressao = new TabPage();
             panel_menu.SuspendLayout();
@@ -135,7 +136,7 @@
             ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).BeginInit();
             panel_top.SuspendLayout();
             tP_cEscalas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dG_Escala).BeginInit();
             panel3.SuspendLayout();
             tP_funcionarios.SuspendLayout();
             panel2.SuspendLayout();
@@ -146,7 +147,7 @@
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel5.SuspendLayout();
+            panel_top_servicos.SuspendLayout();
             SuspendLayout();
             // 
             // btn_gerarEscala
@@ -244,6 +245,7 @@
             // 
             // tP_main
             // 
+            tP_main.BackColor = Color.Transparent;
             tP_main.Controls.Add(label21);
             tP_main.Controls.Add(label22);
             tP_main.Controls.Add(label23);
@@ -257,13 +259,12 @@
             tP_main.Size = new Size(815, 449);
             tP_main.TabIndex = 5;
             tP_main.Text = "Main";
-            tP_main.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 12F);
-            label21.Location = new Point(135, 250);
+            label21.Location = new Point(556, 389);
             label21.Name = "label21";
             label21.Size = new Size(178, 21);
             label21.TabIndex = 13;
@@ -273,7 +274,7 @@
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 12F);
-            label22.Location = new Point(135, 208);
+            label22.Location = new Point(556, 347);
             label22.Name = "label22";
             label22.Size = new Size(209, 21);
             label22.TabIndex = 12;
@@ -283,7 +284,7 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 12F);
-            label23.Location = new Point(135, 229);
+            label23.Location = new Point(556, 368);
             label23.Name = "label23";
             label23.Size = new Size(186, 21);
             label23.TabIndex = 11;
@@ -293,7 +294,7 @@
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 12F);
-            label24.Location = new Point(135, 187);
+            label24.Location = new Point(556, 326);
             label24.Name = "label24";
             label24.Size = new Size(199, 21);
             label24.TabIndex = 10;
@@ -303,7 +304,7 @@
             // 
             label25.AutoSize = true;
             label25.Font = new Font("Segoe UI", 12F);
-            label25.Location = new Point(135, 166);
+            label25.Location = new Point(556, 305);
             label25.Name = "label25";
             label25.Size = new Size(201, 21);
             label25.TabIndex = 9;
@@ -313,7 +314,7 @@
             // 
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label26.Location = new Point(43, 136);
+            label26.Location = new Point(464, 275);
             label26.Name = "label26";
             label26.Size = new Size(183, 21);
             label26.TabIndex = 8;
@@ -323,7 +324,7 @@
             // 
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label27.Location = new Point(93, 14);
+            label27.Location = new Point(234, 142);
             label27.Name = "label27";
             label27.Size = new Size(312, 86);
             label27.TabIndex = 7;
@@ -361,7 +362,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(button2);
+            panel1.Controls.Add(btn_rem_funcionario);
             panel1.Controls.Add(btn_adicionar_svc);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 200);
@@ -369,19 +370,19 @@
             panel1.Size = new Size(227, 27);
             panel1.TabIndex = 3;
             // 
-            // button2
+            // btn_rem_funcionario
             // 
-            button2.BackColor = SystemColors.Control;
-            button2.Dock = DockStyle.Fill;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = SystemColors.ActiveCaptionText;
-            button2.Location = new Point(108, 0);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(119, 27);
-            button2.TabIndex = 9;
-            button2.Text = "Remover svc";
-            button2.UseVisualStyleBackColor = false;
+            btn_rem_funcionario.BackColor = SystemColors.Control;
+            btn_rem_funcionario.Dock = DockStyle.Fill;
+            btn_rem_funcionario.FlatStyle = FlatStyle.Flat;
+            btn_rem_funcionario.ForeColor = SystemColors.ActiveCaptionText;
+            btn_rem_funcionario.Location = new Point(108, 0);
+            btn_rem_funcionario.Margin = new Padding(3, 2, 3, 2);
+            btn_rem_funcionario.Name = "btn_rem_funcionario";
+            btn_rem_funcionario.Size = new Size(119, 27);
+            btn_rem_funcionario.TabIndex = 9;
+            btn_rem_funcionario.Text = "Remover svc";
+            btn_rem_funcionario.UseVisualStyleBackColor = false;
             // 
             // btn_adicionar_svc
             // 
@@ -457,7 +458,7 @@
             dgv_novaEscala.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedHeaders;
             dgv_novaEscala.BackgroundColor = SystemColors.ControlLightLight;
             dgv_novaEscala.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_novaEscala.Columns.AddRange(new DataGridViewColumn[] { Column1, Column3, Column2 });
+            dgv_novaEscala.Columns.AddRange(new DataGridViewColumn[] { Col_1, Column3, Column2 });
             dgv_novaEscala.Dock = DockStyle.Fill;
             dgv_novaEscala.Location = new Point(0, 0);
             dgv_novaEscala.Name = "dgv_novaEscala";
@@ -465,12 +466,12 @@
             dgv_novaEscala.Size = new Size(809, 412);
             dgv_novaEscala.TabIndex = 0;
             // 
-            // Column1
+            // Col_1
             // 
-            Column1.HeaderText = "Serviço";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            Column1.Width = 77;
+            Col_1.HeaderText = "Serviço";
+            Col_1.MinimumWidth = 6;
+            Col_1.Name = "Col_1";
+            Col_1.Width = 77;
             // 
             // Column3
             // 
@@ -489,27 +490,29 @@
             // panel_top
             // 
             panel_top.BackColor = Color.FromArgb(99, 99, 99);
-            panel_top.Controls.Add(label1);
+            panel_top.Controls.Add(lbl_info_escala);
             panel_top.Dock = DockStyle.Top;
             panel_top.Location = new Point(3, 2);
             panel_top.Name = "panel_top";
             panel_top.Size = new Size(809, 33);
             panel_top.TabIndex = 0;
             // 
-            // label1
+            // lbl_info_escala
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(3, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(167, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Escala do dia: XX/XX/XXXX";
+            lbl_info_escala.AutoSize = true;
+            lbl_info_escala.ForeColor = SystemColors.ButtonHighlight;
+            lbl_info_escala.Location = new Point(3, 9);
+            lbl_info_escala.Name = "lbl_info_escala";
+            lbl_info_escala.Size = new Size(167, 17);
+            lbl_info_escala.TabIndex = 0;
+            lbl_info_escala.Text = "Escala do dia: XX/XX/XXXX";
             // 
             // tP_cEscalas
             // 
-            tP_cEscalas.Controls.Add(dataGridView1);
-            tP_cEscalas.Controls.Add(monthCalendar2);
+            tP_cEscalas.BackColor = Color.White;
+            tP_cEscalas.Controls.Add(btn_impr_escala);
+            tP_cEscalas.Controls.Add(dG_Escala);
+            tP_cEscalas.Controls.Add(calendario_mensal);
             tP_cEscalas.Controls.Add(panel3);
             tP_cEscalas.Location = new Point(4, 26);
             tP_cEscalas.Margin = new Padding(3, 2, 3, 2);
@@ -518,68 +521,94 @@
             tP_cEscalas.Size = new Size(815, 449);
             tP_cEscalas.TabIndex = 1;
             tP_cEscalas.Text = "Consultar escala";
-            tP_cEscalas.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // btn_impr_escala
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col_sNome, col_sig, col_inicio, col_fim, col_fnumero, col_fnome, col_fapelido });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 35);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(809, 250);
-            dataGridView1.TabIndex = 6;
+            btn_impr_escala.FlatStyle = FlatStyle.Flat;
+            btn_impr_escala.Location = new Point(683, 392);
+            btn_impr_escala.Name = "btn_impr_escala";
+            btn_impr_escala.Size = new Size(124, 49);
+            btn_impr_escala.TabIndex = 7;
+            btn_impr_escala.Text = "&Imprimir Escala";
+            btn_impr_escala.UseVisualStyleBackColor = true;
+            btn_impr_escala.Click += btn_impr_escala_Click;
+            // 
+            // dG_Escala
+            // 
+            dG_Escala.AllowUserToAddRows = false;
+            dG_Escala.AllowUserToDeleteRows = false;
+            dG_Escala.AllowUserToResizeColumns = false;
+            dG_Escala.AllowUserToResizeRows = false;
+            dG_Escala.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dG_Escala.BackgroundColor = SystemColors.ControlLightLight;
+            dG_Escala.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dG_Escala.Columns.AddRange(new DataGridViewColumn[] { col_sNome, col_sig, col_inicio, col_fim, col_fnumero, col_fnome, col_fapelido });
+            dG_Escala.Dock = DockStyle.Fill;
+            dG_Escala.Location = new Point(3, 35);
+            dG_Escala.Name = "dG_Escala";
+            dG_Escala.ReadOnly = true;
+            dG_Escala.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dG_Escala.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dG_Escala.Size = new Size(809, 250);
+            dG_Escala.TabIndex = 6;
             // 
             // col_sNome
             // 
             col_sNome.HeaderText = "SNome";
             col_sNome.Name = "col_sNome";
+            col_sNome.ReadOnly = true;
             // 
             // col_sig
             // 
             col_sig.HeaderText = "Sigla";
             col_sig.Name = "col_sig";
+            col_sig.ReadOnly = true;
             // 
             // col_inicio
             // 
             col_inicio.HeaderText = "Inicio";
             col_inicio.Name = "col_inicio";
+            col_inicio.ReadOnly = true;
             // 
             // col_fim
             // 
             col_fim.HeaderText = "Fim";
             col_fim.Name = "col_fim";
+            col_fim.ReadOnly = true;
             // 
             // col_fnumero
             // 
             col_fnumero.HeaderText = "Numero";
             col_fnumero.Name = "col_fnumero";
+            col_fnumero.ReadOnly = true;
             // 
             // col_fnome
             // 
-            col_fnome.HeaderText = "FNome";
+            col_fnome.HeaderText = "Nome";
             col_fnome.Name = "col_fnome";
+            col_fnome.ReadOnly = true;
             // 
             // col_fapelido
             // 
             col_fapelido.HeaderText = "Apelido";
             col_fapelido.Name = "col_fapelido";
+            col_fapelido.ReadOnly = true;
             // 
-            // monthCalendar2
+            // calendario_mensal
             // 
-            monthCalendar2.CalendarDimensions = new Size(3, 1);
-            monthCalendar2.Dock = DockStyle.Bottom;
-            monthCalendar2.Location = new Point(3, 285);
-            monthCalendar2.MaxSelectionCount = 1;
-            monthCalendar2.Name = "monthCalendar2";
-            monthCalendar2.TabIndex = 5;
-            monthCalendar2.DateChanged += monthCalendar2_DateChanged;
+            calendario_mensal.CalendarDimensions = new Size(3, 1);
+            calendario_mensal.Dock = DockStyle.Bottom;
+            calendario_mensal.Location = new Point(3, 285);
+            calendario_mensal.MaxSelectionCount = 1;
+            calendario_mensal.Name = "calendario_mensal";
+            calendario_mensal.TabIndex = 5;
+            calendario_mensal.DateChanged += monthCalendar2_DateChanged;
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(99, 99, 99);
             panel3.Controls.Add(label31);
-            panel3.Controls.Add(label30);
+            panel3.Controls.Add(lbl_info_escala_dia);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(3, 2);
             panel3.Name = "panel3";
@@ -596,15 +625,15 @@
             label31.TabIndex = 7;
             label31.Text = "YYYY-MM-DD";
             // 
-            // label30
+            // lbl_info_escala_dia
             // 
-            label30.AutoSize = true;
-            label30.ForeColor = SystemColors.ButtonHighlight;
-            label30.Location = new Point(3, 9);
-            label30.Name = "label30";
-            label30.Size = new Size(93, 17);
-            label30.TabIndex = 0;
-            label30.Text = "Escala do dia: ";
+            lbl_info_escala_dia.AutoSize = true;
+            lbl_info_escala_dia.ForeColor = SystemColors.ButtonHighlight;
+            lbl_info_escala_dia.Location = new Point(3, 9);
+            lbl_info_escala_dia.Name = "lbl_info_escala_dia";
+            lbl_info_escala_dia.Size = new Size(93, 17);
+            lbl_info_escala_dia.TabIndex = 0;
+            lbl_info_escala_dia.Text = "Escala do dia: ";
             // 
             // tP_funcionarios
             // 
@@ -644,7 +673,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(527, 410);
             panel2.TabIndex = 5;
-            panel2.Paint += panel2_Paint;
             // 
             // tb_apelido
             // 
@@ -859,15 +887,15 @@
             label17.ForeColor = SystemColors.ButtonHighlight;
             label17.Location = new Point(3, 9);
             label17.Name = "label17";
-            label17.Size = new Size(167, 17);
+            label17.Size = new Size(150, 17);
             label17.TabIndex = 0;
-            label17.Text = "Escala do dia: XX/XX/XXXX";
+            label17.Text = "Gestão de Funcionários";
             // 
             // tP_servicos
             // 
             tP_servicos.Controls.Add(panel6);
             tP_servicos.Controls.Add(panel4);
-            tP_servicos.Controls.Add(panel5);
+            tP_servicos.Controls.Add(panel_top_servicos);
             tP_servicos.Location = new Point(4, 26);
             tP_servicos.Name = "tP_servicos";
             tP_servicos.Size = new Size(815, 449);
@@ -880,9 +908,9 @@
             panel6.Controls.Add(lst_servicos_registo);
             panel6.Controls.Add(label18);
             panel6.Dock = DockStyle.Right;
-            panel6.Location = new Point(435, 33);
+            panel6.Location = new Point(514, 33);
             panel6.Name = "panel6";
-            panel6.Size = new Size(380, 416);
+            panel6.Size = new Size(301, 416);
             panel6.TabIndex = 34;
             // 
             // lst_servicos_registo
@@ -894,7 +922,7 @@
             lst_servicos_registo.ItemHeight = 17;
             lst_servicos_registo.Location = new Point(0, 21);
             lst_servicos_registo.Name = "lst_servicos_registo";
-            lst_servicos_registo.Size = new Size(380, 395);
+            lst_servicos_registo.Size = new Size(301, 395);
             lst_servicos_registo.TabIndex = 33;
             lst_servicos_registo.SelectedIndexChanged += lst_servicos_registo_SelectedIndexChanged;
             // 
@@ -938,7 +966,7 @@
             // 
             // btn_exp_servicos
             // 
-            btn_exp_servicos.Location = new Point(332, 339);
+            btn_exp_servicos.Location = new Point(395, 367);
             btn_exp_servicos.Name = "btn_exp_servicos";
             btn_exp_servicos.Size = new Size(102, 30);
             btn_exp_servicos.TabIndex = 61;
@@ -1027,7 +1055,7 @@
             // 
             // btn_remover_servico
             // 
-            btn_remover_servico.Location = new Point(224, 339);
+            btn_remover_servico.Location = new Point(278, 367);
             btn_remover_servico.Name = "btn_remover_servico";
             btn_remover_servico.Size = new Size(102, 30);
             btn_remover_servico.TabIndex = 51;
@@ -1036,7 +1064,7 @@
             // 
             // btn_adicionar_servico
             // 
-            btn_adicionar_servico.Location = new Point(116, 339);
+            btn_adicionar_servico.Location = new Point(160, 367);
             btn_adicionar_servico.Name = "btn_adicionar_servico";
             btn_adicionar_servico.Size = new Size(102, 30);
             btn_adicionar_servico.TabIndex = 50;
@@ -1101,15 +1129,15 @@
             label16.TabIndex = 43;
             label16.Text = "Serviço";
             // 
-            // panel5
+            // panel_top_servicos
             // 
-            panel5.BackColor = Color.FromArgb(99, 99, 99);
-            panel5.Controls.Add(label19);
-            panel5.Dock = DockStyle.Top;
-            panel5.Location = new Point(0, 0);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(815, 33);
-            panel5.TabIndex = 33;
+            panel_top_servicos.BackColor = Color.FromArgb(99, 99, 99);
+            panel_top_servicos.Controls.Add(label19);
+            panel_top_servicos.Dock = DockStyle.Top;
+            panel_top_servicos.Location = new Point(0, 0);
+            panel_top_servicos.Name = "panel_top_servicos";
+            panel_top_servicos.Size = new Size(815, 33);
+            panel_top_servicos.TabIndex = 33;
             // 
             // label19
             // 
@@ -1117,9 +1145,9 @@
             label19.ForeColor = SystemColors.ButtonHighlight;
             label19.Location = new Point(3, 9);
             label19.Name = "label19";
-            label19.Size = new Size(167, 17);
+            label19.Size = new Size(123, 17);
             label19.TabIndex = 0;
-            label19.Text = "Escala do dia: XX/XX/XXXX";
+            label19.Text = "Gestão de Serviços";
             // 
             // tP_impressao
             // 
@@ -1154,7 +1182,7 @@
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
             tP_cEscalas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dG_Escala).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             tP_funcionarios.ResumeLayout(false);
@@ -1171,8 +1199,8 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            panel_top_servicos.ResumeLayout(false);
+            panel_top_servicos.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1190,13 +1218,13 @@
         private Panel panel_mid;
         private Panel panel_direito;
         private DataGridView dgv_novaEscala;
-        private Label label1;
-        private DataGridViewTextBoxColumn Column1;
+        private Label lbl_info_escala;
+        private DataGridViewTextBoxColumn Col_1;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column2;
         private Label label2;
         private Panel panel1;
-        private Button button2;
+        private Button btn_rem_funcionario;
         private Button btn_adicionar_svc;
         private TabPage tP_funcionarios;
         private TabPage tP_servicos;
@@ -1225,7 +1253,7 @@
         private Label label15;
         private TextBox tb_servico_nome;
         private Label label16;
-        private Panel panel5;
+        private Panel panel_top_servicos;
         private Label label19;
         private Panel panel2;
         private Label label9;
@@ -1261,9 +1289,12 @@
         private Label label29;
         private TextBox tb_servico_desc;
         private Panel panel3;
-        private Label label30;
-        private MonthCalendar monthCalendar2;
-        private DataGridView dataGridView1;
+        private Label lbl_info_escala_dia;
+        private MonthCalendar calendario_mensal;
+        private DataGridView dG_Escala;
+        private Label label31;
+        private Button btn_exp_servicos;
+        private Button btn_impr_escala;
         private DataGridViewTextBoxColumn col_sNome;
         private DataGridViewTextBoxColumn col_sig;
         private DataGridViewTextBoxColumn col_inicio;
@@ -1271,7 +1302,5 @@
         private DataGridViewTextBoxColumn col_fnumero;
         private DataGridViewTextBoxColumn col_fnome;
         private DataGridViewTextBoxColumn col_fapelido;
-        private Label label31;
-        private Button btn_exp_servicos;
     }
 }

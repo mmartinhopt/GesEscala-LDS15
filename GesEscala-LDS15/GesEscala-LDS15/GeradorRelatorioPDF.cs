@@ -12,17 +12,17 @@ namespace GesEscala_LDS15
         private List<(Servico, Funcionario)> dados = new List<(Servico, Funcionario)>();
         private List<Funcionario> funcionarios = new List<Funcionario>();
         private List<Servico> servicos = new List<Servico>();
-        private List<Dictionary<string, object>> escalas = new List<Dictionary<string, object>>();
+        private List<(Servico, List<Funcionario>)> escalas = new List<(Servico, List<Funcionario>)>();
 
 
-        public void AdicionarEscala(Dictionary<string, object> escala)
+        public void AdicionarEscala(Servico servico, List<Funcionario> funcionarios)
         {
-            throw new NotImplementedException();
+            escalas.Add((servico, funcionarios));
         }
 
         public void AdicionarFuncionario(Funcionario funcionario)
         {
-            funcionarios.Add(funcionario); 
+            funcionarios.Add(funcionario);
         }
 
         public void AdicionarServico(Servico servico)
@@ -43,12 +43,16 @@ namespace GesEscala_LDS15
             }
             if (numero_relatorio == 2)
             {
-                GerarRelatorioEscalas(servicos);
+                GerarRelatorioServicos(servicos);
+            }
+            if (numero_relatorio == 3)
+            {
+                GerarRelatorioEscalas(escalas);
             }
 
         }
 
-        public void GerarRelatorioEscalas(List<Servico> servicos)
+        public void GerarRelatorioServicos(List<Servico> servicos)
         {
             using (var doc = new PdfDocument())
             {
@@ -96,7 +100,7 @@ namespace GesEscala_LDS15
                 int nameColumnWidth = 150;
                 int surnameColumnWidth = 150;
                 int addressColumnWidth = 250;
-                int contactColumnLabelWidth = Convert.ToInt32( page.Width - (50 + 100 + 100 + 100));
+                int contactColumnLabelWidth = Convert.ToInt32(page.Width - (50 + 100 + 100 + 100));
 
                 // Cabeçalho
                 graphics.DrawString("Número", fontConteudo, XBrushes.Black, new XRect(40, currentYPosition, numColumnWidth, page.Height), XStringFormats.TopLeft);
@@ -122,5 +126,67 @@ namespace GesEscala_LDS15
                 doc.Save("funcionarios.pdf");
             }
         }
+
+        public void GerarRelatorioEscalas(List<(Servico, List<Funcionario>)> escalas)
+        {
+            using (var doc = new PdfDocument())
+            {
+                var page = doc.AddPage();
+                var graphics = XGraphics.FromPdfPage(page);
+                var textFormatter = new XTextFormatter(graphics);
+                GlobalFontSettings.FontResolver = new FontResolver();
+                var fontTitulo = new XFont("Arial", 20);
+                var fontConteudo = new XFont("Arial", 12);
+                double currentYPosition = 100;
+                textFormatter.Alignment = XParagraphAlignment.Center;
+                graphics.DrawString("Escala de Serviço", fontTitulo, XBrushes.Black, new XRect(0, 50, page.Width, page.Height), XStringFormats.TopCenter);
+
+                // Define as larguras das colunas
+                int servicoColumnWidth = 100;
+                int siglaColumnWidth = 50;
+                int horaInicioColumnWidth = 70;
+                int horaFimColumnWidth = 70;
+                int numeroColumnWidth = 50;
+                int nomeColumnWidth = 100;
+                int apelidoColumnWidth = 100;
+
+                // Cabeçalho
+                graphics.DrawString("Serviço", fontConteudo, XBrushes.Black, new XRect(40, currentYPosition, servicoColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Sigla", fontConteudo, XBrushes.Black, new XRect(140, currentYPosition, siglaColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Hora Início", fontConteudo, XBrushes.Black, new XRect(190, currentYPosition, horaInicioColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Hora Fim", fontConteudo, XBrushes.Black, new XRect(260, currentYPosition, horaFimColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Número", fontConteudo, XBrushes.Black, new XRect(330, currentYPosition, numeroColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Nome", fontConteudo, XBrushes.Black, new XRect(380, currentYPosition, nomeColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Apelido", fontConteudo, XBrushes.Black, new XRect(480, currentYPosition, apelidoColumnWidth, page.Height), XStringFormats.TopLeft);
+                currentYPosition += 20;
+                graphics.DrawLine(XPens.Black, 40, currentYPosition, page.Width - 40, currentYPosition);  // Draw a line under headers
+
+                // Desenha os dados das escalas
+                foreach (var escala in escalas)
+                {
+                    var servico = escala.Item1;
+                    var funcionarios = escala.Item2;
+
+                    foreach (var funcionario in funcionarios)
+                    {
+                        currentYPosition += 25;  // Espaçamento entre linhas
+                        graphics.DrawString(servico.Nome, fontConteudo, XBrushes.Black, new XRect(40, currentYPosition, servicoColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(servico.Sigla, fontConteudo, XBrushes.Black, new XRect(140, currentYPosition, siglaColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(servico.HoraInicio, fontConteudo, XBrushes.Black, new XRect(190, currentYPosition, horaInicioColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(servico.HoraFim, fontConteudo, XBrushes.Black, new XRect(260, currentYPosition, horaFimColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(funcionario.Numero.ToString(), fontConteudo, XBrushes.Black, new XRect(330, currentYPosition, numeroColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(funcionario.Nome, fontConteudo, XBrushes.Black, new XRect(380, currentYPosition, nomeColumnWidth, page.Height), XStringFormats.TopLeft);
+                        graphics.DrawString(funcionario.Apelido, fontConteudo, XBrushes.Black, new XRect(480, currentYPosition, apelidoColumnWidth, page.Height), XStringFormats.TopLeft);
+                    }
+
+                    currentYPosition += 30;  // Espaçamento adicional entre serviços
+                    graphics.DrawLine(XPens.Black, 40, currentYPosition, page.Width - 40, currentYPosition);  // Draw a line under each service section
+                    currentYPosition += 10;  // Espaçamento adicional após a linha
+                }
+
+                // Salva o documento
+                doc.Save("Escala_diaria.pdf");
+            }
+        }
     }
-}
+}    

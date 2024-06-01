@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GesEscala_LDS15
 {
@@ -139,7 +140,7 @@ namespace GesEscala_LDS15
 
             tc_Main.SelectedTab = tc_Main.TabPages["tP_funcionarios"]; // Seleciona a tab de funcionários
             //Temporario painel de topo não esta visivel
-            panel_top_funcionario.Visible = false;
+            panel_top_funcionario.Visible = true;
             ApresentarFuncionarios();
         }
 
@@ -224,7 +225,7 @@ namespace GesEscala_LDS15
         private void btn_turnos_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
-            panel5.Visible = false;
+            panel_top_servicos.Visible = true;
             ApresentarServicos();
         }
         //Void para limpar a lista dos funcionarios 
@@ -337,12 +338,12 @@ namespace GesEscala_LDS15
 
         private void PopularEscaladosDataGrid()
         {
-            dataGridView1.Rows.Clear();
+            dG_Escala.Rows.Clear();
             foreach (ServicoComFuncionarios servicoComFuncionarios in escalaDiariaApresentar.ServicosComFuncionarios)
             {
                 foreach (Funcionario funcionario in servicoComFuncionarios.Funcionarios)
                 {
-                    dataGridView1.Rows.Add(
+                    dG_Escala.Rows.Add(
                         servicoComFuncionarios.Servico.Nome,
                         servicoComFuncionarios.Servico.Sigla,
                         servicoComFuncionarios.Servico.HoraInicio.ToString(),
@@ -358,7 +359,7 @@ namespace GesEscala_LDS15
 
         private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
         {
-            DateTime data = DateTime.Parse(monthCalendar2.SelectionStart.ToString());
+            DateTime data = DateTime.Parse(calendario_mensal.SelectionStart.ToString());
             label31.Text = data.ToString("dd/MM/yyyy");
             ApresentarEscalados(data);
             PopularEscaladosDataGrid();
@@ -368,6 +369,19 @@ namespace GesEscala_LDS15
         private void btn_exp_servicos_Click(object sender, EventArgs e)
         {
             view.pdfServicos();
+        }
+
+        private void btn_exportar_Click(object sender, EventArgs e)
+        {
+            view.pdfFuncionarios();
+        }
+
+        private void btn_impr_escala_Click(object sender, EventArgs e)
+        {
+            DateTime dataSelecionada = calendario_mensal.SelectionStart;
+            string dataselecionada = dataSelecionada.ToString("dd/MM/yyyy");
+            view.GerarEscala(dataselecionada);
+
         }
     }
 }

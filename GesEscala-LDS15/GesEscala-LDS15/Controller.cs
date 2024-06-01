@@ -33,8 +33,10 @@ namespace GesEscala_LDS15
 
             //Registio dos eventos das Escalas
             view.PrecisoDeEscalaDiaria += model.GetEscalaDiaria;
+            //Impressao para PDF
             view.GerarPdfFuncionarios += GerarPdfFuncionarios;
             view.GerarPdfServicos += GerarPdfServicos;
+            view.GerarPdfEscala += GerarPdfEscala;
         }
 
         // Método para iniciar o programa
@@ -114,6 +116,11 @@ namespace GesEscala_LDS15
         public void GerarPdfServicos()
         {
             model.GerarPdfServicos();
+        }
+
+        public void GerarPdfEscala(string data)
+        {
+            model.GerarEscala(data);
         }
 
         // Método para encerrar o programa

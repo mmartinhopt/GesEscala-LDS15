@@ -26,9 +26,12 @@ namespace GesEscala_LDS15
             {
                 geradorRelatorio.GerarRelatorio(2);
             }
+            if (n == 3)
+            {
+                geradorRelatorio.GerarRelatorio(3);
+            }
             
-            
-            
+           
         }
 
 
@@ -42,6 +45,10 @@ namespace GesEscala_LDS15
             if (relatorio == 2)
             {
                 Process.Start("explorer.exe", "servicos.pdf");
+            }
+            if (relatorio == 3)
+            {
+                Process.Start("explorer.exe", "Escala_diaria.pdf");
             }
         }
 
@@ -88,15 +95,13 @@ namespace GesEscala_LDS15
         }
 
         // Método para gerar um relatório da escala
-        public void GerarRelatorioEscala(string data)
+        public void GerarRelatorioEscala(ref EscalaDeServicoDiaria escalaDiaria)
         {
             try
             {
-                List<Dictionary<string, object>> listaEscala = model.GetEscalados(data);
-
-                foreach (var escala in listaEscala)
+                foreach (var servicoComFuncionarios in escalaDiaria.ServicosComFuncionarios)
                 {
-                    geradorRelatorio.AdicionarEscala(escala);
+                    geradorRelatorio.AdicionarEscala(servicoComFuncionarios.Servico, servicoComFuncionarios.Funcionarios);
                 }
 
                 CriarPDF(3);

@@ -30,6 +30,8 @@ namespace GesEscala_LDS15
         public event EventImprimirFuncionarios GerarPdfFuncionarios;
         public delegate void EventImprimirServicos();
         public event EventImprimirServicos GerarPdfServicos;
+        public delegate void EventImprimirEscala(string data);
+        public event EventImprimirEscala GerarPdfEscala;
         //Eventos Servicos
         public delegate void PedidoListaServicos(ref List<Servico> listaServicos);
         public event PedidoListaServicos PrecisoDeServicos;
@@ -77,17 +79,12 @@ namespace GesEscala_LDS15
         public void pdfFuncionarios()
         {
             GerarPdfFuncionarios?.Invoke();
-
-
         }
         public void pdfServicos()
         {
             GerarPdfServicos?.Invoke();
         }
-        public void ListaNovoFuncionario()
-        {
-
-        }
+     
         public void RemFuncionario(int id_funcionario)
         {
             RemoverFuncionario?.Invoke(id_funcionario);
@@ -121,6 +118,12 @@ namespace GesEscala_LDS15
         {
             PrecisoDeEscalaDiaria(ref escalaDiaria, data);
             janela.PopularEscalados(ref escalaDiaria);
+        }
+        public void GerarEscala(string data)
+        {
+            GerarPdfEscala?.Invoke(data);
+
+
         }
 
         // Método para encerrar a aplicação
