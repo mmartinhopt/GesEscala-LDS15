@@ -37,19 +37,7 @@ namespace GesEscala_LDS15
         }
 
 
-        //Btn adicionar serviço
-        private void btn_adicionar_svc_Click(object sender, EventArgs e)
-        {
 
-            // Limpa a ListBox antes de preencher novamente
-            listBox_Efetivo.Items.Clear();
-
-            // Preenche a ListBox com os funcionários obtidos
-            foreach (Funcionario funcionario in listaFuncionariosApresentar)
-            {
-                listBox_Efetivo.Items.Add(funcionario.Nome);
-            }
-        }
         //Atualizar lista de funcionarios
         public void AtualizaListaFuncionarios(ref List<Funcionario> listaNova)
         {
@@ -203,7 +191,7 @@ namespace GesEscala_LDS15
         //Em desenvolvimento *Temporario
         private void desativarIncompletos()
         {
-            btn_gerarEscala.Enabled = false;
+            //btn_gerarEscala.Enabled = false;
         }
 
         //Btn  do Form, btn principal apresenta o tab da nova escala
