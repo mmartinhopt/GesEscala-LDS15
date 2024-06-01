@@ -22,24 +22,23 @@ namespace GesEscala_LDS15
             controller.IniciarPrograma();
 
             // Instanciar a implementação de IGeradorRelatorio
-            IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
-            EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio);
+      //      IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
 
             // Adicionar um serviço e um funcionário ao PDF - teste
-            Servico servico1 = new Servico { Sigla = "AT1" };
-            Funcionario funcionario1 = new Funcionario { Nome = "Bregieira" };
-            escalaPDF.AdicionarServicoFuncionario(servico1, funcionario1);
+    //        Servico servico1 = new Servico { Sigla = "AT1" };
+  //          Funcionario funcionario1 = new Funcionario { Nome = "Bregieira" };
+//            escalaPDF.AdicionarServicoFuncionario(servico1, funcionario1);
 
             // Adicionar um segundo serviço e funcionário ao PDF - teste
-            Servico servico2 = new Servico { Sigla = "AT2" };
-            Funcionario funcionario2 = new Funcionario { Nome = "Santos" };
-            escalaPDF.AdicionarServicoFuncionario(servico2, funcionario2);
+           // Servico servico2 = new Servico { Sigla = "AT2" };
+         //   Funcionario funcionario2 = new Funcionario { Nome = "Santos" };
+         //   escalaPDF.AdicionarServicoFuncionario(servico2, funcionario2);
 
             // Gerar o relatório
-            escalaPDF.CriarPDF();
+          //  escalaPDF.CriarPDF();
 
             // Abrir o PDF - teste
-            escalaPDF.AbrirPDF();
+           // escalaPDF.AbrirPDF();
         }
     }
 }

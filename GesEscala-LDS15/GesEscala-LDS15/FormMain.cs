@@ -11,7 +11,7 @@ namespace GesEscala_LDS15
         private List<Funcionario> listaFuncionariosApresentar = null;
         private List<Dictionary<string, object>> listaEscaladosApresentar = null;
         private List<Servico> listaServicosApresentar = null;
-        
+
         //get set da instancia da view ao Form
         public View View { get => view; set => view = value; }
 
@@ -231,7 +231,7 @@ namespace GesEscala_LDS15
             {
                 limpar_lista();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Não foi possível limpar caixas de texto.");
             }
@@ -285,8 +285,8 @@ namespace GesEscala_LDS15
                     MessageBox.Show("Por favor, insira um ID de funcionário válido.");
                     return;
                 }
-              //View remover funcionario pelo ID.
-                view.RemFuncionario(idFuncionario);                
+                //View remover funcionario pelo ID.
+                view.RemFuncionario(idFuncionario);
             }
             catch (Exception ex)
             {
@@ -300,11 +300,25 @@ namespace GesEscala_LDS15
                 ApresentarFuncionarios();
                 limpar_lista();
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 MessageBox.Show("Erro na leitura de funcionarios a carregar para a lista.");
             }
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btn_exportar_Click(object sender, EventArgs e)
+        {
+            view.pdfFuncionarios();
+        }
+
+        private void btn_exp_servicos_Click(object sender, EventArgs e)
+        {
+            view.pdfServicos();
+        }
     }
 }

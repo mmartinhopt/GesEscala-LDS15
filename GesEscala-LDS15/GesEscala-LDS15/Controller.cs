@@ -29,6 +29,8 @@ namespace GesEscala_LDS15
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
             view.RemoverFuncionario += RemoverFuncionario;
+            view.GerarPdfFuncionarios += GerarPdfFuncionarios;
+            view.GerarPdfServicos += GerarPdfServicos;
         }
 
         // Método para iniciar o programa
@@ -97,6 +99,17 @@ namespace GesEscala_LDS15
         public void UserAtivouTabFuncionarios(object sender, EventArgs e)
         {
             //model.GetListaFuncionarios();
+            
+        }
+     
+            public void GerarPdfFuncionarios()
+            {
+            model.GerarPdfFuncionarios();
+
+        }
+        public void GerarPdfServicos()
+        {
+            model.GerarPdfServicos();
         }
 
         // Método para encerrar o programa
