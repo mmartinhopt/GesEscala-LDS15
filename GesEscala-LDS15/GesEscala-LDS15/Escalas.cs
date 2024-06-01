@@ -28,4 +28,11 @@ namespace GesEscala_LDS15
             ServicosComFuncionarios = new List<ServicoComFuncionarios>();
         }
     }
+
+    public class FuncionarioEscala
+    {
+        public int Numero { get; set; }
+        public string Nome { get; set; }
+        public string? Apelido { get; set; }
+    }
 }

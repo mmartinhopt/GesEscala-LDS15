@@ -15,7 +15,7 @@ namespace GesEscala_LDS15
         // private FormMain janela;
 
         private List<Funcionario> listaFuncionariosView = null;
-        private List<Dictionary<string, object>> listaEscaladosView = null;
+        private EscalaDeServicoDiaria escalaDiaria = null;
         private List<Servico> listaServicosView = null;
 
         // Eventos Funcionarios
@@ -32,8 +32,9 @@ namespace GesEscala_LDS15
         //public delegate void EventNovoServico(Funcionario novoServico);
         //public event EventNovoServico RegistoNovoServico;
 
-
-
+        //Eventos Escalas
+        public delegate void PedidoEscalaDiaria(ref EscalaDeServicoDiaria escalaDiaria, DateTime data);
+        public event PedidoEscalaDiaria PrecisoDeEscalaDiaria;
 
 
 
@@ -101,6 +102,12 @@ namespace GesEscala_LDS15
         {
             PrecisoDeServicos(ref listaServicosView);
             janela.AtualizarListaServicos(ref listaServicosView);
+        }
+
+        public void PrecisoEscalas(ref EscalaDeServicoDiaria escalaDiaria, DateTime data)
+        {
+            PrecisoDeEscalaDiaria(ref escalaDiaria, data);
+            janela.PopularEscalados(ref escalaDiaria);
         }
 
         // Método para encerrar a aplicação

@@ -61,6 +61,18 @@
             panel_top = new Panel();
             label1 = new Label();
             tP_cEscalas = new TabPage();
+            dataGridView1 = new DataGridView();
+            col_sNome = new DataGridViewTextBoxColumn();
+            col_sig = new DataGridViewTextBoxColumn();
+            col_inicio = new DataGridViewTextBoxColumn();
+            col_fim = new DataGridViewTextBoxColumn();
+            col_fnumero = new DataGridViewTextBoxColumn();
+            col_fnome = new DataGridViewTextBoxColumn();
+            col_fapelido = new DataGridViewTextBoxColumn();
+            monthCalendar2 = new MonthCalendar();
+            panel3 = new Panel();
+            label31 = new Label();
+            label30 = new Label();
             tP_funcionarios = new TabPage();
             panel2 = new Panel();
             tb_apelido = new TextBox();
@@ -121,6 +133,9 @@
             panel_mid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).BeginInit();
             panel_top.SuspendLayout();
+            tP_cEscalas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel3.SuspendLayout();
             tP_funcionarios.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic_Funcionario).BeginInit();
@@ -170,6 +185,7 @@
             btn_escalas.TabIndex = 6;
             btn_escalas.Text = "Consultar Escala";
             btn_escalas.UseVisualStyleBackColor = true;
+            btn_escalas.Click += btn_escalas_Click;
             // 
             // btn_turnos
             // 
@@ -491,6 +507,9 @@
             // 
             // tP_cEscalas
             // 
+            tP_cEscalas.Controls.Add(dataGridView1);
+            tP_cEscalas.Controls.Add(monthCalendar2);
+            tP_cEscalas.Controls.Add(panel3);
             tP_cEscalas.Location = new Point(4, 26);
             tP_cEscalas.Margin = new Padding(3, 2, 3, 2);
             tP_cEscalas.Name = "tP_cEscalas";
@@ -499,6 +518,92 @@
             tP_cEscalas.TabIndex = 1;
             tP_cEscalas.Text = "Consultar escala";
             tP_cEscalas.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col_sNome, col_sig, col_inicio, col_fim, col_fnumero, col_fnome, col_fapelido });
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 35);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(809, 250);
+            dataGridView1.TabIndex = 6;
+            // 
+            // col_sNome
+            // 
+            col_sNome.HeaderText = "SNome";
+            col_sNome.Name = "col_sNome";
+            // 
+            // col_sig
+            // 
+            col_sig.HeaderText = "Sigla";
+            col_sig.Name = "col_sig";
+            // 
+            // col_inicio
+            // 
+            col_inicio.HeaderText = "Inicio";
+            col_inicio.Name = "col_inicio";
+            // 
+            // col_fim
+            // 
+            col_fim.HeaderText = "Fim";
+            col_fim.Name = "col_fim";
+            // 
+            // col_fnumero
+            // 
+            col_fnumero.HeaderText = "Numero";
+            col_fnumero.Name = "col_fnumero";
+            // 
+            // col_fnome
+            // 
+            col_fnome.HeaderText = "FNome";
+            col_fnome.Name = "col_fnome";
+            // 
+            // col_fapelido
+            // 
+            col_fapelido.HeaderText = "Apelido";
+            col_fapelido.Name = "col_fapelido";
+            // 
+            // monthCalendar2
+            // 
+            monthCalendar2.CalendarDimensions = new Size(3, 1);
+            monthCalendar2.Dock = DockStyle.Bottom;
+            monthCalendar2.Location = new Point(3, 285);
+            monthCalendar2.MaxSelectionCount = 1;
+            monthCalendar2.Name = "monthCalendar2";
+            monthCalendar2.TabIndex = 5;
+            monthCalendar2.DateChanged += monthCalendar2_DateChanged;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(99, 99, 99);
+            panel3.Controls.Add(label31);
+            panel3.Controls.Add(label30);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(3, 2);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(809, 33);
+            panel3.TabIndex = 2;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.ForeColor = SystemColors.ButtonHighlight;
+            label31.Location = new Point(102, 9);
+            label31.Name = "label31";
+            label31.Size = new Size(92, 17);
+            label31.TabIndex = 7;
+            label31.Text = "YYYY-MM-DD";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.ForeColor = SystemColors.ButtonHighlight;
+            label30.Location = new Point(3, 9);
+            label30.Name = "label30";
+            label30.Size = new Size(93, 17);
+            label30.TabIndex = 0;
+            label30.Text = "Escala do dia: ";
             // 
             // tP_funcionarios
             // 
@@ -1035,6 +1140,10 @@
             ((System.ComponentModel.ISupportInitialize)dgv_novaEscala).EndInit();
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
+            tP_cEscalas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             tP_funcionarios.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -1138,5 +1247,17 @@
         private Label lbl_servico_id;
         private Label label29;
         private TextBox tb_servico_desc;
+        private Panel panel3;
+        private Label label30;
+        private MonthCalendar monthCalendar2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn col_sNome;
+        private DataGridViewTextBoxColumn col_sig;
+        private DataGridViewTextBoxColumn col_inicio;
+        private DataGridViewTextBoxColumn col_fim;
+        private DataGridViewTextBoxColumn col_fnumero;
+        private DataGridViewTextBoxColumn col_fnome;
+        private DataGridViewTextBoxColumn col_fapelido;
+        private Label label31;
     }
 }

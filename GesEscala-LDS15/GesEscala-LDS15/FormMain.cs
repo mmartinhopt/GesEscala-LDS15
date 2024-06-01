@@ -9,9 +9,10 @@ namespace GesEscala_LDS15
         //private Controller controller;
 
         private List<Funcionario> listaFuncionariosApresentar = null;
-        private List<Dictionary<string, object>> listaEscaladosApresentar = null;
+        private EscalaDeServicoDiaria escalaDiariaApresentar = null;
+
         private List<Servico> listaServicosApresentar = null;
-        
+
         //get set da instancia da view ao Form
         public View View { get => view; set => view = value; }
 
@@ -57,6 +58,18 @@ namespace GesEscala_LDS15
         public void AtualizarListaServicos(ref List<Servico> novaListaServicos)
         {
             this.listaServicosApresentar = novaListaServicos;
+        }
+
+        public void ApresentarEscalados(DateTime data)
+        {
+            try
+            {
+                view.PrecisoEscalas(ref escalaDiariaApresentar, data);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro a obter lista de escalados da view" + e.Message);
+            }
         }
 
         //Popular a lista de funcionarios
@@ -136,6 +149,11 @@ namespace GesEscala_LDS15
             this.listaFuncionariosApresentar = listaFuncionariosView;
         }
 
+        //Atualiza a escala de servicos
+        internal void PopularEscalados(ref EscalaDeServicoDiaria escalaDiariaView)
+        {
+            this.escalaDiariaApresentar = escalaDiariaView;
+        }
 
         // Evento acionado quando a seleção na lista de funcionários muda
         private void lst_funcionarios_registo_SelectedIndexChanged(object sender, EventArgs e)
@@ -184,7 +202,6 @@ namespace GesEscala_LDS15
         //Em desenvolvimento *Temporario
         private void desativarIncompletos()
         {
-            btn_escalas.Enabled = false;
             btn_gerarEscala.Enabled = false;
         }
 
@@ -197,7 +214,11 @@ namespace GesEscala_LDS15
         //Btn do Form, btn principl apresenta o tab da escala existente
         private void btn_escalas_Click(object sender, EventArgs e)
         {
-            tc_Main.SelectedTab = tc_Main.TabPages["tP_cEscala"];
+            tc_Main.SelectedTab = tc_Main.TabPages["tP_cEscalas"];
+            DateTime data = DateTime.Today;
+            label31.Text = data.ToString("dd/MM/yyyy");
+            ApresentarEscalados(data);
+            PopularEscaladosDataGrid();
         }
         //Btn do Form, btn principal apresenta os serviços
         private void btn_turnos_Click(object sender, EventArgs e)
@@ -231,7 +252,7 @@ namespace GesEscala_LDS15
             {
                 limpar_lista();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Não foi possível limpar caixas de texto.");
             }
@@ -285,8 +306,8 @@ namespace GesEscala_LDS15
                     MessageBox.Show("Por favor, insira um ID de funcionário válido.");
                     return;
                 }
-              //View remover funcionario pelo ID.
-                view.RemFuncionario(idFuncionario);                
+                //View remover funcionario pelo ID.
+                view.RemFuncionario(idFuncionario);
             }
             catch (Exception ex)
             {
@@ -300,10 +321,48 @@ namespace GesEscala_LDS15
                 ApresentarFuncionarios();
                 limpar_lista();
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 MessageBox.Show("Erro na leitura de funcionarios a carregar para a lista.");
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DateTime data = DateTime.Parse("2024-06-01");
+            ApresentarEscalados(data);
+            PopularEscaladosDataGrid();
+
+        }
+
+        private void PopularEscaladosDataGrid()
+        {
+            dataGridView1.Rows.Clear();
+            foreach (ServicoComFuncionarios servicoComFuncionarios in escalaDiariaApresentar.ServicosComFuncionarios)
+            {
+                foreach (Funcionario funcionario in servicoComFuncionarios.Funcionarios)
+                {
+                    dataGridView1.Rows.Add(
+                        servicoComFuncionarios.Servico.Nome,
+                        servicoComFuncionarios.Servico.Sigla,
+                        servicoComFuncionarios.Servico.HoraInicio.ToString(),
+                        servicoComFuncionarios.Servico.HoraFim.ToString(),
+                        funcionario.Numero,
+                        funcionario.Nome,
+                        funcionario.Apelido
+                    );
+                }
+            }
+
+        }
+
+        private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            DateTime data = DateTime.Parse(monthCalendar2.SelectionStart.ToString());
+            label31.Text = data.ToString("dd/MM/yyyy");
+            ApresentarEscalados(data);
+            PopularEscaladosDataGrid();
+
         }
 
     }

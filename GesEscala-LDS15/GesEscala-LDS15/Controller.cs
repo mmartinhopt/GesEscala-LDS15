@@ -29,6 +29,10 @@ namespace GesEscala_LDS15
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaDeFormas;
             //model.ListaDeFuncionariosAlterada += view.AtualizarListaFuncionarios;
             view.RemoverFuncionario += RemoverFuncionario;
+
+
+            //Registio dos eventos das Escalas
+            view.PrecisoDeEscalaDiaria += model.GetEscalaDiaria;
         }
 
         // Método para iniciar o programa

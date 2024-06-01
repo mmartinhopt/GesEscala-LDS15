@@ -188,46 +188,6 @@ namespace GesEscala_LDS15
             //ListaDeFuncionariosAlterada();
         }
 
-        public List<Dictionary<string, object>> GetEscalados(string data)
-        {
-
-            List<Dictionary<string, object>> escalados = new List<Dictionary<string, object>>();
-            try
-            {
-                string query = "SELECT s.nome AS Nome_Servico,\r\n" +
-                    "GROUP_CONCAT(DISTINCT s.hora_inicio || '-' || s.hora_fim) AS Horario,\r\n" +
-                    "(SELECT GROUP_CONCAT(f.nome_funcionario, ', ')\r\n" +
-                    "FROM Funcionarios f\r\n        JOIN Escala e2 ON f.id_funcionario = e2.id_funcionario\r\n" +
-                    "WHERE e2.id_servico = s.id_servico AND e2.dia_escala =" + data + ") AS Funcionarios\r\n" +
-                    "FROM Escala e\r\nJOIN Servicos s ON e.id_servico = s.id_servico\r\nWHERE e.dia_escala =" + data + "\r\n" +
-                    "GROUP BY s.nome;";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
-                {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            // Cria um dicionário para armazenar os dados de cada funcionário
-                            Dictionary<string, object> escalado = new Dictionary<string, object>();
-                            escalado["Nome_Servico"] = reader["Nome_Servico"].ToString();
-                            escalado["Horario"] = reader["Horario"].ToString();
-                            escalado["Funcionarios"] = reader["Funcionarios"].ToString();
-                            // Adiciona o dicionário à lista de funcionários
-                            escalados.Add(escalado);
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao recuperar funcionários: {ex.Message}");
-            }
-            return escalados;
-        }
-
         public void AdicionarFuncionario(Funcionario novoFuncionario)
         {
             if (FuncionarioExiste(novoFuncionario.Numero))
@@ -276,7 +236,75 @@ namespace GesEscala_LDS15
             return sqlite_conn;
         }
 
- 
+        public void GetEscalaDiaria(ref EscalaDeServicoDiaria escala, DateTime data)
+        {
+            escala = new EscalaDeServicoDiaria { Data = data };
+
+                string query = @"
+                SELECT e.Data, s.id_servico AS ServicoId, s.nome AS ServicoNome, s.descricao, s.sigla_servico, s.hora_inicio, s.hora_fim,
+                       f.id_funcionario AS FuncionarioId, f.numero_funcionario, f.nome_funcionario, f.apelido_funcionario, f.morada_funcionario, f.contacto_funcionario
+                FROM Escalas e
+                JOIN EscalaServicos es ON e.EscalaId = es.EscalaId
+                JOIN Servicos s ON es.ServicoId = s.id_servico
+                JOIN ServicoFuncionarios sf ON es.EscalaServicoId = sf.EscalaServicoId
+                JOIN Funcionarios f ON sf.FuncionarioId = f.id_funcionario
+                WHERE e.Data = @Data
+                ORDER BY s.id_servico, f.id_funcionario";
+
+                using (var command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@Data", data.ToString("yyyy-MM-dd"));
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        int servicoIdAtual = -1;
+                        ServicoComFuncionarios servicoComFuncionariosAtual = null;
+
+                        while (reader.Read())
+                        {
+                            int servicoId = int.Parse(reader["ServicoId"].ToString());
+                            string servicoNome = reader["ServicoNome"].ToString();
+                            string descricaoServico = reader["descricao"].ToString();
+                            string sigla = reader["sigla_servico"].ToString();
+                            string horaInicio = reader["hora_inicio"].ToString();
+                            string horaFim = reader["hora_fim"].ToString();
+                            int funcionarioId = int.Parse(reader["FuncionarioId"].ToString());
+                            int numeroFuncionario = int.Parse(reader["numero_funcionario"].ToString());
+                            string nomeFuncionario = reader["nome_funcionario"].ToString();
+                            string apelidoFuncionario = reader["apelido_funcionario"] != DBNull.Value ? reader["apelido_funcionario"].ToString() : null;
+                            string moradaFuncionario = reader["morada_funcionario"] != DBNull.Value ? reader["morada_funcionario"].ToString() : null;
+                            int? contactoFuncionario = reader["contacto_funcionario"] != DBNull.Value ? (int?)int.Parse(reader["contacto_funcionario"].ToString()) : null;
+
+                            if (servicoIdAtual != servicoId)
+                            {
+                                var servico = new Servico
+                                {
+                                    ID = servicoId,
+                                    Nome = servicoNome,
+                                    Descricao = descricaoServico,
+                                    Sigla = sigla,
+                                    HoraInicio = horaInicio,
+                                    HoraFim = horaFim
+                                };
+                                servicoComFuncionariosAtual = new ServicoComFuncionarios(servico);
+                                escala.ServicosComFuncionarios.Add(servicoComFuncionariosAtual);
+                                servicoIdAtual = servicoId;
+                            }
+
+                            var funcionario = new Funcionario
+                            {
+                                ID = funcionarioId,
+                                Numero = numeroFuncionario,
+                                Nome = nomeFuncionario,
+                                Apelido = apelidoFuncionario,
+                                Morada = moradaFuncionario,
+                                Contacto = contactoFuncionario
+                            };
+                            servicoComFuncionariosAtual.Funcionarios.Add(funcionario);
+                        }
+                    }
+                }
+        }
 
         //Convert TIME SQlite para DateTime C#
         public static DateTime ConvertToDateTime(string str)
@@ -298,147 +326,6 @@ namespace GesEscala_LDS15
             {
                 throw new Exception("Unable to parse.");
             }
-        }
-
-
-        public void PreencherServicosPadrao()
-        {
-            try
-            {
-                // Verifica se já existem registos para não inserir duplicados
-                string checkQuery = "SELECT COUNT(*) FROM Servicos";
-                SQLiteCommand checkCommand = new SQLiteCommand(checkQuery, conn);
-                int count = Convert.ToInt32(checkCommand.ExecuteScalar());
-
-                if (count == 0) // Apenas insere se ainda não há serviços
-                {
-                    List<Tuple<string, string, string, string>> servicos = new List<Tuple<string, string, string, string>>
-                    {
-                        Tuple.Create("DS", "Descanso Semanal", "00:00", "23:59"),
-                        Tuple.Create("LF", "Licença Férias", "00:00", "23:59"),
-                        Tuple.Create("C", "Baixa Médica", "00:00", "23:59")
-                    };
-
-                    foreach (var servico in servicos)
-                    {
-                        string sqlInsert = "INSERT INTO Servicos (sigla_servico, nome, hora_inicio, hora_fim) VALUES (@Sigla, @Nome, @Inicio, @Fim)";
-                        SQLiteCommand sqlite_cmd = new SQLiteCommand(sqlInsert, conn);
-                        sqlite_cmd.Parameters.AddWithValue("@Sigla", servico.Item1);
-                        sqlite_cmd.Parameters.AddWithValue("@Nome", servico.Item2);
-                        sqlite_cmd.Parameters.AddWithValue("@Inicio", servico.Item3);
-                        sqlite_cmd.Parameters.AddWithValue("@Fim", servico.Item4);
-                        sqlite_cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao preencher serviços padrão: {ex.Message}");
-            }
-        }
-
-        // Geração da base de dados
-        public void CriarTabelas(SQLiteConnection conn)
-        {
-            try
-            {
-                SQLiteCommand sqlite_cmd;
-                string sqlFuncionarios = "CREATE TABLE IF NOT EXISTS \"Funcionarios\" " +
-                    "(\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"numero_funcionario\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"nome_funcionario\"\tTEXT NOT NULL," +
-                    "\r\n\t\"morada_funcionario\"\tTEXT," +
-                    "\r\n\t\"contacto_funcionario\"\tINTEGER," +
-                    "\r\n\tPRIMARY KEY(\"id_funcionario\" AUTOINCREMENT)\r\n)";
-
-
-                string sqlServicos = "CREATE TABLE IF NOT EXISTS \"Servicos\" " +
-                    "(\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"nome\"\tTEXT NOT NULL," +
-                    "\r\n\t\"sigla_servico\"\tTEXT NOT NULL," +
-                    "\r\n\t\"hora_inicio\"\tTIME NOT NULL," +
-                    "\r\n\t\"hora_fim\"\tTIME NOT NULL," +
-                    "\r\n\tPRIMARY KEY(\"id_servico\" AUTOINCREMENT)\r\n)";
-
-                string sqlEscala = "CREATE TABLE IF NOT EXISTS \"Escala\" " +
-                    "(\r\n\t\"id_escala\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"id_funcionario\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"id_servico\"\tINTEGER NOT NULL," +
-                    "\r\n\tFOREIGN KEY(\"id_servico\") REFERENCES \"Servicos\"(\"id_servico\")," +
-                    "\r\n\tFOREIGN KEY(\"id_funcionario\") REFERENCES \"Funcionarios\"(\"id_funcionario\")," +
-                    "\r\n\tPRIMARY KEY(\"id_escala\" AUTOINCREMENT)\r\n)";
-
-                string sqlSeccao = "CREATE TABLE IF NOT EXISTS \"Seccao\" " +
-                    "(\r\n\t\"id_seccao\"\tINTEGER NOT NULL," +
-                    "\r\n\t\"nome_seccao\"\tTEXT NOT NULL," +
-                    "\r\n\tPRIMARY KEY(\"id_seccao\" AUTOINCREMENT)\r\n)";
-
-                sqlite_cmd = conn.CreateCommand();
-
-                sqlite_cmd.CommandText = sqlFuncionarios;
-                sqlite_cmd.ExecuteNonQuery();
-                sqlite_cmd.CommandText = sqlServicos;
-                sqlite_cmd.ExecuteNonQuery();
-                sqlite_cmd.CommandText = sqlEscala;
-                sqlite_cmd.ExecuteNonQuery();
-                sqlite_cmd.CommandText = sqlSeccao;
-                sqlite_cmd.ExecuteNonQuery();
-
-                PreencherServicosPadrao();
-            }
-            catch (Exception ex)
-            {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao criar tabelas: {ex.Message}");
-            }
-        }
-
-        public void ReceberConfiguracaoInicial()
-        {
-            // Guarda a configuração inicial
-            ConfiguracaoInicialSaved?.Invoke("Configuração inicial armazenada com sucesso");
-        }
-
-        public void GuardarNomeSeccao(string nomeSecao)
-        {
-            try
-            {
-                // Guarda o nome da secção
-                string query = "INSERT INTO Seccao (nome_seccao) VALUES (@nomeSecao)";
-                SQLiteCommand command = new SQLiteCommand(query, conn);
-                command.Parameters.AddWithValue("@nomeSecao", nomeSecao);
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                // Lidar com a exceção
-                Console.WriteLine($"Erro ao guardar o nome da secção: {ex.Message}");
-            }
-        }
-
-        public void ReceberDadosMes()
-        {
-            // Procura os dados do mês selecionado
-            DadosMesUpdated?.Invoke("Dados do mês atualizados");
-        }
-
-        public void ReceberDiaSelecionado()
-        {
-            // Calcula os mais atrasados para o serviço
-            DiaSelecionadoUpdated?.Invoke("Dia selecionado atualizado");
-        }
-
-        public void ReceberServicoSelecionado()
-        {
-            // Verifica se o serviço selecionado é válido
-            ServicoSelecionadoUpdated?.Invoke("Serviço selecionado verificado");
-        }
-
-        public void ReceberGerarPDF()
-        {
-            // Gera o PDF da escala
-            EscalaPDFGenerated?.Invoke("PDF gerado com sucesso");
         }
     }
 }
