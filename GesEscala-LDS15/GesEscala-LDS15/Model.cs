@@ -181,6 +181,7 @@ namespace GesEscala_LDS15
         }
 
 
+
         public void RemoverFuncionarioPorID(int idFuncionario)
         {
             try
@@ -265,6 +266,54 @@ namespace GesEscala_LDS15
             // Notifica que a lista foi alterada.
             //ListaDeFuncionariosAlterada();
         }
+
+        public void AdicionarEscala(List<(Servico, Funcionario)> escala, DateTime data)
+        {
+            try
+            {
+                using (var transaction = conn.BeginTransaction())
+                {
+                    string insertEscala = "INSERT INTO Escalas (Data) VALUES (@Data); SELECT last_insert_rowid();";
+                    long escalaId;
+
+                    using (var command = new SQLiteCommand(insertEscala, conn, transaction))
+                    {
+                        command.Parameters.AddWithValue("@Data", data.ToString("yyyy-MM-dd"));
+                        escalaId = (long)command.ExecuteScalar();
+                    }
+
+                    foreach (var item in escala)
+                    {
+                        string insertEscalaServico = "INSERT INTO EscalaServicos (EscalaId, ServicoId) VALUES (@EscalaId, @ServicoId); SELECT last_insert_rowid();";
+                        long escalaServicoId;
+
+                        using (var command = new SQLiteCommand(insertEscalaServico, conn, transaction))
+                        {
+                            command.Parameters.AddWithValue("@EscalaId", escalaId);
+                            command.Parameters.AddWithValue("@ServicoId", item.Item1.ID);
+                            escalaServicoId = (long)command.ExecuteScalar();
+                        }
+
+                        string insertServicoFuncionario = "INSERT INTO ServicoFuncionarios (EscalaServicoId, FuncionarioId) VALUES (@EscalaServicoId, @FuncionarioId)";
+
+                        using (var command = new SQLiteCommand(insertServicoFuncionario, conn, transaction))
+                        {
+                            command.Parameters.AddWithValue("@EscalaServicoId", escalaServicoId);
+                            command.Parameters.AddWithValue("@FuncionarioId", item.Item2.ID);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                }
+                MessageBox.Show("Escala inserida com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao guardar escala: " + ex.Message);
+            }
+        }
+
 
         public void AdicionarFuncionario(Funcionario novoFuncionario)
         {

@@ -41,6 +41,8 @@ namespace GesEscala_LDS15
         //Eventos Escalas
         public delegate void PedidoEscalaDiaria(ref EscalaDeServicoDiaria escalaDiaria, DateTime data);
         public event PedidoEscalaDiaria PrecisoDeEscalaDiaria;
+        public delegate void EventoNovaEscala(List<(Servico, Funcionario)> novaEscala, DateTime data);
+        public event EventoNovaEscala RegistoNovaEscala;
 
 
 
@@ -119,12 +121,19 @@ namespace GesEscala_LDS15
             PrecisoDeEscalaDiaria(ref escalaDiaria, data);
             janela.PopularEscalados(ref escalaDiaria);
         }
+
+        public void NovaEscala(List<(Servico, Funcionario)> novaEscala, DateTime data)
+        {
+            RegistoNovaEscala(novaEscala, data);
+        }
         public void GerarEscala(string data)
         {
             GerarPdfEscala?.Invoke(data);
 
 
         }
+
+       
 
         // Método para encerrar a aplicação
         public void Encerrar()

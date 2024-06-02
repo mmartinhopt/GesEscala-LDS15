@@ -33,6 +33,8 @@ namespace GesEscala_LDS15
 
             //Registio dos eventos das Escalas
             view.PrecisoDeEscalaDiaria += model.GetEscalaDiaria;
+            view.RegistoNovaEscala += model.AdicionarEscala;
+            
             //Impressao para PDF
             view.GerarPdfFuncionarios += GerarPdfFuncionarios;
             view.GerarPdfServicos += GerarPdfServicos;

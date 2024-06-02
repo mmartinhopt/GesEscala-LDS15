@@ -198,6 +198,8 @@ namespace GesEscala_LDS15
         private void btn_gerarEscala_Click(object sender, EventArgs e)
         {
             tc_Main.SelectedTab = tc_Main.TabPages["tP_nEscala"];
+            ApresentarServicos();
+            ApresentarFuncionarios();
 
         }
         //Btn do Form, btn principl apresenta o tab da escala existente
@@ -316,14 +318,6 @@ namespace GesEscala_LDS15
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DateTime data = DateTime.Parse("2024-06-01");
-            ApresentarEscalados(data);
-            PopularEscaladosDataGrid();
-
-        }
-
         private void PopularEscaladosDataGrid()
         {
             dG_Escala.Rows.Clear();
@@ -371,5 +365,84 @@ namespace GesEscala_LDS15
             view.GerarEscala(dataselecionada);
 
         }
+
+        private void CarregarComboServicos()
+        {
+            comboServico.DataSource = listaServicosApresentar;
+            comboServico.DisplayMember = "Nome";
+            comboServico.ValueMember = "ID";
+        }
+
+        private void CarregarComboFuncionarios()
+        {
+            comboFuncionario.DataSource = listaFuncionariosApresentar;
+            comboFuncionario.DisplayMember = "Nome";
+            comboFuncionario.ValueMember = "ID";
+        }
+
+        private void lbl_escalaDia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+
+            lbl_diaEscalar.Text = monthCalendar1.SelectionStart.ToString("yyyy/MM/dd");
+            txt_diaEscalar.Text = monthCalendar1.SelectionStart.ToString("yyyy/MM/dd");
+
+            CarregarComboServicos();
+            CarregarComboFuncionarios();
+        }
+
+        private void comboServico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_add_escala_Click(object sender, EventArgs e)
+        {
+            Servico servicoSelecionado = (Servico)comboServico.SelectedItem;
+            Funcionario funcionarioSelecionado = (Funcionario)comboFuncionario.SelectedItem;
+
+            monthCalendar1.Enabled = false;
+
+            // Adicionar à lista de escala (isso pode ser uma lista temporária exibida em um DataGridView)
+            dataGridViewEscala.Rows.Add(servicoSelecionado.ID, servicoSelecionado.Nome, funcionarioSelecionado.ID, funcionarioSelecionado.Numero, funcionarioSelecionado.Nome, funcionarioSelecionado.Apelido);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Salvar a escala no banco de dados
+            DateTime data = DateTime.Parse(monthCalendar1.SelectionStart.ToString());
+            List<(Servico, Funcionario)> escala = new List<(Servico, Funcionario)>();
+
+            foreach (DataGridViewRow row in dataGridViewEscala.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    int servicoId = int.Parse(row.Cells[0].Value.ToString());
+                    int funcionarioId = int.Parse(row.Cells[2].Value.ToString());
+
+                    Servico servico = new Servico { ID = servicoId };
+                    Funcionario funcionario = new Funcionario { ID = funcionarioId };
+
+                    escala.Add((servico, funcionario));
+                }
+            }
+
+            view.NovaEscala(escala, data);
+        }
+
+        private void btn_escala_lcampos_Click(object sender, EventArgs e)
+        {
+            dataGridViewEscala.Rows.Clear();
+            lbl_diaEscalar.Text = " ";
+            txt_diaEscalar.Text = " ";
+            comboFuncionario.SelectedItem = null;
+            comboServico.SelectedItem = null;
+            monthCalendar1.Enabled = true;
+        }
+
     }
 }
