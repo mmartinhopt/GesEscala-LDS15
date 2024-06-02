@@ -82,15 +82,39 @@ namespace GesEscala_LDS15
                 double currentYPosition = 100;
 
                 textFormatter.Alignment = XParagraphAlignment.Center;
-                graphics.DrawString("Escala de Serviço", fontTitulo, XBrushes.Black, new XRect(0, 50, page.Width, page.Height), XStringFormats.TopCenter);
+                graphics.DrawString("Lista de Serviços", fontTitulo, XBrushes.Black, new XRect(0, 50, page.Width, page.Height), XStringFormats.TopCenter);
 
+                // Define as larguras das colunas
+                int idColumnWidth = 50;
+                int nomeColumnWidth = 120;
+                int descricaoColumnWidth = 180;
+                int siglaColumnWidth = 50;
+                int horaInicioColumnWidth = 80;
+                int horaFimColumnWidth = 80;
+
+                // Cabeçalho
+                graphics.DrawString("ID", fontConteudo, XBrushes.Black, new XRect(40, currentYPosition, idColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Nome", fontConteudo, XBrushes.Black, new XRect(90, currentYPosition, nomeColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Descrição", fontConteudo, XBrushes.Black, new XRect(210, currentYPosition, descricaoColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Sigla", fontConteudo, XBrushes.Black, new XRect(400, currentYPosition, siglaColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Hora Início", fontConteudo, XBrushes.Black, new XRect(460, currentYPosition, horaInicioColumnWidth, page.Height), XStringFormats.TopLeft);
+                graphics.DrawString("Hora Fim", fontConteudo, XBrushes.Black, new XRect(540, currentYPosition, horaFimColumnWidth, page.Height), XStringFormats.TopLeft);
+                currentYPosition += 20;
+                graphics.DrawLine(XPens.Black, 40, currentYPosition, page.Width - 40, currentYPosition);  // Draw a line under headers
+
+                // Desenha os dados dos serviços
                 foreach (Servico servico in servicos)
                 {
-                    textFormatter.Alignment = XParagraphAlignment.Left;
-                    graphics.DrawString($"Serviço: {servico.Sigla}", fontConteudo, XBrushes.Black, new XRect(50, currentYPosition, page.Width - 100, page.Height), XStringFormats.TopLeft);
-                    currentYPosition += 20;
+                    currentYPosition += 25;  // Espaçamento entre linhas
+                    graphics.DrawString(servico.ID.ToString(), fontConteudo, XBrushes.Black, new XRect(40, currentYPosition, idColumnWidth, page.Height), XStringFormats.TopLeft);
+                    graphics.DrawString(servico.Nome, fontConteudo, XBrushes.Black, new XRect(90, currentYPosition, nomeColumnWidth, page.Height), XStringFormats.TopLeft);
+                    graphics.DrawString(servico.Descricao, fontConteudo, XBrushes.Black, new XRect(210, currentYPosition, descricaoColumnWidth, page.Height), XStringFormats.TopLeft);
+                    graphics.DrawString(servico.Sigla, fontConteudo, XBrushes.Black, new XRect(400, currentYPosition, siglaColumnWidth, page.Height), XStringFormats.TopLeft);
+                    graphics.DrawString(servico.HoraInicio, fontConteudo, XBrushes.Black, new XRect(460, currentYPosition, horaInicioColumnWidth, page.Height), XStringFormats.TopLeft);
+                    graphics.DrawString(servico.HoraFim, fontConteudo, XBrushes.Black, new XRect(540, currentYPosition, horaFimColumnWidth, page.Height), XStringFormats.TopLeft);
                 }
 
+                // Salva o documento
                 doc.Save("servicos.pdf");
             }
         }
