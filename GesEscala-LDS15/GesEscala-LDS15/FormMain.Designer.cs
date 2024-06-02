@@ -1019,7 +1019,7 @@
             btn_exp_servicos.Location = new Point(395, 367);
             btn_exp_servicos.Name = "btn_exp_servicos";
             btn_exp_servicos.Size = new Size(102, 30);
-            btn_exp_servicos.TabIndex = 61;
+            btn_exp_servicos.TabIndex = 51;
             btn_exp_servicos.Text = "&Exportar PDF";
             btn_exp_servicos.UseVisualStyleBackColor = true;
             btn_exp_servicos.Click += btn_exp_servicos_Click;
@@ -1038,7 +1038,7 @@
             tb_servico_desc.Location = new Point(116, 183);
             tb_servico_desc.Name = "tb_servico_desc";
             tb_servico_desc.Size = new Size(224, 25);
-            tb_servico_desc.TabIndex = 59;
+            tb_servico_desc.TabIndex = 45;
             // 
             // lbl_servico_id
             // 
@@ -1053,7 +1053,7 @@
             // 
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label28.Location = new Point(20, 21);
+            label28.Location = new Point(20, 14);
             label28.Name = "label28";
             label28.Size = new Size(72, 21);
             label28.TabIndex = 57;
@@ -1073,7 +1073,7 @@
             tb_servico_sigla.Location = new Point(116, 214);
             tb_servico_sigla.Name = "tb_servico_sigla";
             tb_servico_sigla.Size = new Size(85, 25);
-            tb_servico_sigla.TabIndex = 55;
+            tb_servico_sigla.TabIndex = 46;
             // 
             // label11
             // 
@@ -1096,32 +1096,33 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(28, 51);
+            pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
+            pictureBox1.Location = new Point(26, 40);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(64, 64);
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 52;
             pictureBox1.TabStop = false;
             // 
             // btn_remover_servico
             // 
-            btn_remover_servico.Enabled = false;
             btn_remover_servico.Location = new Point(278, 367);
             btn_remover_servico.Name = "btn_remover_servico";
             btn_remover_servico.Size = new Size(102, 30);
-            btn_remover_servico.TabIndex = 51;
+            btn_remover_servico.TabIndex = 50;
             btn_remover_servico.Text = "&Remover";
             btn_remover_servico.UseVisualStyleBackColor = true;
+            btn_remover_servico.Click += btn_remover_servico_Click;
             // 
             // btn_adicionar_servico
             // 
-            btn_adicionar_servico.Enabled = false;
             btn_adicionar_servico.Location = new Point(160, 367);
             btn_adicionar_servico.Name = "btn_adicionar_servico";
             btn_adicionar_servico.Size = new Size(102, 30);
-            btn_adicionar_servico.TabIndex = 50;
+            btn_adicionar_servico.TabIndex = 49;
             btn_adicionar_servico.Text = "&Adicionar";
             btn_adicionar_servico.UseVisualStyleBackColor = true;
+            btn_adicionar_servico.Click += btn_adicionar_servico_Click;
             // 
             // label13
             // 
@@ -1153,7 +1154,7 @@
             tb_servico_inicio.Location = new Point(116, 245);
             tb_servico_inicio.Name = "tb_servico_inicio";
             tb_servico_inicio.Size = new Size(85, 25);
-            tb_servico_inicio.TabIndex = 46;
+            tb_servico_inicio.TabIndex = 47;
             // 
             // label15
             // 

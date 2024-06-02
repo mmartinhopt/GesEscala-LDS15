@@ -217,6 +217,16 @@ namespace GesEscala_LDS15
             tc_Main.SelectedTab = tc_Main.TabPages["tP_servicos"];
             panel_top_servicos.Visible = true;
             ApresentarServicos();
+            LimparTurnos();
+        }
+
+        private void LimparTurnos()
+        {
+            tb_servico_nome.Text = "";
+            tb_servico_desc.Text = "";
+            tb_servico_fim.Text = "";
+            tb_servico_inicio.Text = "";
+            tb_servico_sigla.Text = "";
         }
         //Void para limpar a lista dos funcionarios 
         //É utilizado por mais de um btn, adicionar/remover funcionario
@@ -444,5 +454,37 @@ namespace GesEscala_LDS15
             monthCalendar1.Enabled = true;
         }
 
+        private void btn_adicionar_servico_Click(object sender, EventArgs e)
+        {
+            Servico novoServico = new Servico
+            {
+                Nome = tb_servico_nome.Text,
+                Descricao = tb_servico_desc.Text,
+                Sigla = tb_servico_sigla.Text,
+                HoraInicio = tb_servico_inicio.Text,
+                HoraFim = tb_servico_fim.Text
+            };
+
+            view.NovoServico(novoServico);
+            ApresentarServicos();
+            LimparTurnos();
+        }
+
+        private void btn_remover_servico_Click(object sender, EventArgs e)
+        {
+            if (lst_servicos_registo.SelectedItem != null)
+            {
+                int selectedIndex = lst_servicos_registo.SelectedIndex;
+                int idServico = listaServicosApresentar[selectedIndex].ID;
+                view.RemServico(idServico);
+                ApresentarServicos();
+                LimparTurnos();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecione um serviço para remover.");
+            }
+        }
     }
 }
+

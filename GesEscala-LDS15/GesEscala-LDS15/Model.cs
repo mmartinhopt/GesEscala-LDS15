@@ -132,8 +132,6 @@ namespace GesEscala_LDS15
             }
         }
 
-
-
         public void GerarPdfServicos()
         {
             try
@@ -452,6 +450,60 @@ namespace GesEscala_LDS15
             else
             {
                 throw new Exception("Unable to parse.");
+            }
+        }
+
+        public void AdicionarServico(Servico novoServico)
+        {
+            try
+            {
+                string sqlInsert = "INSERT INTO Servicos (nome, descricao, sigla_servico, hora_inicio, hora_fim) VALUES " +
+                                   "(@Nome, @Descricao, @Sigla, @HoraInicio, @HoraFim)";
+                SQLiteCommand sqlite_cmd = new SQLiteCommand(sqlInsert, conn);
+                sqlite_cmd.Parameters.AddWithValue("@Nome", novoServico.Nome);
+                sqlite_cmd.Parameters.AddWithValue("@Descricao", novoServico.Descricao);
+                sqlite_cmd.Parameters.AddWithValue("@Sigla", novoServico.Sigla);
+                sqlite_cmd.Parameters.AddWithValue("@HoraInicio", novoServico.HoraInicio);
+                sqlite_cmd.Parameters.AddWithValue("@HoraFim", novoServico.HoraFim);
+
+                sqlite_cmd.ExecuteNonQuery();
+                MessageBox.Show("Serviço adicionado com sucesso.");
+
+                // Atualiza a lista de serviços na memória
+                GetListaServicos(ref listaServicos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao adicionar serviço: " + ex.Message);
+            }
+        }
+
+        public void RemoverServicoPorID(int idServico)
+        {
+            try
+            {
+                string query = "DELETE FROM Servicos WHERE id_servico = @idServico";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@idServico", idServico);
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Serviço removido com sucesso.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nenhum serviço encontrado com o ID fornecido.");
+                    }
+                }
+
+                // Atualiza a lista de serviços na memória
+                GetListaServicos(ref listaServicos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao remover serviço: " + ex.Message);
             }
         }
     }

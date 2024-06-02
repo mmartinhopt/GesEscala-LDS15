@@ -39,6 +39,15 @@ namespace GesEscala_LDS15
             view.GerarPdfFuncionarios += GerarPdfFuncionarios;
             view.GerarPdfServicos += GerarPdfServicos;
             view.GerarPdfEscala += GerarPdfEscala;
+
+            //Para criar serviço
+            view.RegistoNovoServico += RegistoNovoServico;
+            view.RemoverServico += RemoverServico;
+        }
+
+        private void View_RemoverServico(int id_servico)
+        {
+            throw new NotImplementedException();
         }
 
         // Método para iniciar o programa
@@ -70,6 +79,10 @@ namespace GesEscala_LDS15
 
             model.AdicionarFuncionario(novoFuncionario);
 
+        }
+        private void RegistoNovoServico(Servico novoServico)
+        {
+            model.AdicionarServico(novoServico);
         }
 
         //Remover funcionario pelo id unico
@@ -123,6 +136,12 @@ namespace GesEscala_LDS15
         public void GerarPdfEscala(string data)
         {
             model.GerarEscala(data);
+        }
+
+        // Remover serviço pelo ID único
+        public void RemoverServico(int id_servico)
+        {
+            model.RemoverServicoPorID(id_servico);
         }
 
         // Método para encerrar o programa

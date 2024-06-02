@@ -44,7 +44,10 @@ namespace GesEscala_LDS15
         public delegate void EventoNovaEscala(List<(Servico, Funcionario)> novaEscala, DateTime data);
         public event EventoNovaEscala RegistoNovaEscala;
 
-
+        public delegate void EventNovoServico(Servico novoServico);
+        public event EventNovoServico RegistoNovoServico;
+        public delegate void EventRemServico(int id_servico);
+        public event EventRemServico RemoverServico;
 
         //public event EventHandler UserAtivouTabFuncionarios;
 
@@ -97,6 +100,15 @@ namespace GesEscala_LDS15
         {
             PrecisoDeFuncionarios(ref listaFuncionariosView);
             PopularFuncionarios();
+        }
+
+        public void NovoServico(Servico novoServico)
+        {
+            RegistoNovoServico?.Invoke(novoServico);
+        }
+        public void RemServico(int id_servico)
+        {
+            RemoverServico?.Invoke(id_servico);
         }
 
         void PopularFuncionarios()
