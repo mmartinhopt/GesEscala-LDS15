@@ -1,4 +1,10 @@
-﻿using System;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +13,13 @@ using System.Windows.Forms;
 
 namespace GesEscala_LDS15
 {
+    // Classe View - Responsável pela interação com o utilizador e obter os inputs
+
     public class View
     {
         // Atributos
         private Model model;
         private FormMain janela;
-        // private FormMain janela;
-
         private List<Funcionario> listaFuncionariosView = null;
         private EscalaDeServicoDiaria escalaDiaria = null;
         private List<Servico> listaServicosView = null;
@@ -25,18 +31,16 @@ namespace GesEscala_LDS15
         public delegate void EventRemFuncionario(int id_funcionario);
         public event EventNovoFuncionario RegistoNovoFuncionario;
         public event EventRemFuncionario RemoverFuncionario;
-
         public delegate void EventImprimirFuncionarios();
         public event EventImprimirFuncionarios GerarPdfFuncionarios;
         public delegate void EventImprimirServicos();
         public event EventImprimirServicos GerarPdfServicos;
         public delegate void EventImprimirEscala(string data);
         public event EventImprimirEscala GerarPdfEscala;
+
         //Eventos Servicos
         public delegate void PedidoListaServicos(ref List<Servico> listaServicos);
         public event PedidoListaServicos PrecisoDeServicos;
-        //public delegate void EventNovoServico(Funcionario novoServico);
-        //public event EventNovoServico RegistoNovoServico;
 
         //Eventos Escalas
         public delegate void PedidoEscalaDiaria(ref EscalaDeServicoDiaria escalaDiaria, DateTime data);
@@ -44,22 +48,12 @@ namespace GesEscala_LDS15
         public delegate void EventoNovaEscala(List<(Servico, Funcionario)> novaEscala, DateTime data);
         public event EventoNovaEscala RegistoNovaEscala;
 
+
         public delegate void EventNovoServico(Servico novoServico);
         public event EventNovoServico RegistoNovoServico;
         public delegate void EventRemServico(int id_servico);
         public event EventRemServico RemoverServico;
 
-        //public event EventHandler UserAtivouTabFuncionarios;
-
-        //public event EventHandler ConfiguracaoInicialButtonClicked;
-        //public event EventHandler GerarPDFButtonClicked;
-        //public event EventHandler EventUserClicouFuncionarios;
-        //public event EventHandler EventUserClicouServicos;
-        //public event EventHandler EventUserClicouEscalados;
-
-
-        // Propriedades
-        //public ListView FuncionariosListView { get; set; }
 
         // Construtor
         internal View(Model m)
@@ -69,6 +63,7 @@ namespace GesEscala_LDS15
 
         // Métodos
         
+        // Método para iniciar a interface gráfica
         public void IniciarInterface()
         {
             // Apresenta o Form inicial FormMain
@@ -141,13 +136,8 @@ namespace GesEscala_LDS15
         public void GerarEscala(string data)
         {
             GerarPdfEscala?.Invoke(data);
-
-
         }
 
-       
-
-        // Método para encerrar a aplicação
         public void Encerrar()
         {
             //Implementar.

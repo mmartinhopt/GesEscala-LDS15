@@ -1,4 +1,10 @@
-﻿using PdfSharp.Fonts;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using PdfSharp.Fonts;
 using System.IO;
 
 public class FontResolver : IFontResolver

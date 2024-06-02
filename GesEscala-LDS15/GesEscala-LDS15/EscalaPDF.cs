@@ -1,9 +1,17 @@
-﻿using System;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GesEscala_LDS15
 {
+
+    // Classe EscalaPDF que contém os métodos para gerar o PDF
     public class EscalaPDF
     {
         private readonly IGeradorRelatorio geradorRelatorio;
@@ -30,8 +38,6 @@ namespace GesEscala_LDS15
             {
                 geradorRelatorio.GerarRelatorio(3);
             }
-            
-           
         }
 
 
@@ -57,8 +63,6 @@ namespace GesEscala_LDS15
         {
             try
             {
-              
-
                 foreach (Funcionario funcionario in funcionarios)
                 {
                     geradorRelatorio.AdicionarFuncionario(funcionario);

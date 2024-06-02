@@ -1,4 +1,10 @@
-﻿using PdfSharp.Pdf;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using System.Collections.Generic;
@@ -7,13 +13,16 @@ using System;
 
 namespace GesEscala_LDS15
 {
-    public class GeradorRelatorioPDF : IGeradorRelatorio
+    // Classe GeradorRelatorioPDF - Implementa a interface IGeradorRelatorio
+    public class GeradorRelatorioPDF : IGeradorRelatorio 
     {
+        // Atributos
         private List<(Servico, Funcionario)> dados = new List<(Servico, Funcionario)>();
         private List<Funcionario> funcionarios = new List<Funcionario>();
         private List<Servico> servicos = new List<Servico>();
         private List<(Servico, List<Funcionario>)> escalas = new List<(Servico, List<Funcionario>)>();
 
+        // Construtor - Define o FontResolver
         public GeradorRelatorioPDF()
         {
             if (GlobalFontSettings.FontResolver == null)
@@ -22,39 +31,44 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para adicionar escala
         public void AdicionarEscala(Servico servico, List<Funcionario> funcionarios)
         {
             escalas.Add((servico, funcionarios));
         }
 
+        // Método para adicionar funcionário
         public void AdicionarFuncionario(Funcionario funcionario)
         {
             funcionarios.Add(funcionario);
         }
 
+        // Método para adicionar serviço
         public void AdicionarServico(Servico servico)
         {
             servicos.Add(servico);
         }
 
+        // Método para adicionar serviço e funcionário
         public void AdicionarServicoFuncionario(Servico servico, Funcionario funcionario)
         {
             dados.Add((servico, funcionario));
         }
 
+        // Método para gerar o relatório
         public void GerarRelatorio(int numero_relatorio)
         {
             if (numero_relatorio == 1)
             {
-                GerarRelatorioFuncionarios(funcionarios);
+                GerarRelatorioFuncionarios(funcionarios); // Relatório de funcionários
             }
             else if (numero_relatorio == 2)
             {
-                GerarRelatorioServicos(servicos);
+                GerarRelatorioServicos(servicos); // Relatório de serviços
             }
             else if (numero_relatorio == 3)
             {
-                GerarRelatorioEscalas(escalas);
+                GerarRelatorioEscalas(escalas); // Relatório da escala
             }
 
             // Limpar listas após a geração do relatório
@@ -70,6 +84,7 @@ namespace GesEscala_LDS15
             escalas.Clear();
         }
 
+        // Método para gerar o relatório de serviços
         public void GerarRelatorioServicos(List<Servico> servicos)
         {
             using (var doc = new PdfDocument())
@@ -114,11 +129,12 @@ namespace GesEscala_LDS15
                     graphics.DrawString(servico.HoraFim, fontConteudo, XBrushes.Black, new XRect(540, currentYPosition, horaFimColumnWidth, page.Height), XStringFormats.TopLeft);
                 }
 
-                // Salva o documento
+                // Guarda o documento
                 doc.Save("servicos.pdf");
             }
         }
 
+        // Método para gerar o relatório de funcionários
         public void GerarRelatorioFuncionarios(List<Funcionario> funcionarios)
         {
             using (var doc = new PdfDocument())
@@ -160,11 +176,12 @@ namespace GesEscala_LDS15
                     graphics.DrawString(func.Contacto.ToString(), fontConteudo, XBrushes.Black, new XRect(640, currentYPosition, contactColumnLabelWidth, page.Height), XStringFormats.TopLeft);
                 }
 
-                // Salva o documento
+                // Guarda o documento
                 doc.Save("funcionarios.pdf");
             }
         }
 
+        // Método para gerar o relatório da escala
         public void GerarRelatorioEscalas(List<(Servico, List<Funcionario>)> escalas)
         {
             using (var doc = new PdfDocument())
@@ -221,7 +238,7 @@ namespace GesEscala_LDS15
                     currentYPosition += 10;  // Espaçamento adicional após a linha
                 }
 
-                // Salva o documento
+                // Guarda o documento
                 doc.Save("Escala_diaria.pdf");
             }
         }

@@ -1,4 +1,10 @@
-﻿using System;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +15,7 @@ namespace GesEscala_LDS15
     internal class GesEscala
     {
         //Ponto de entrada para a aplicação.
+
         //Aqui é chamada a função IniciarPrograma do Controller()
         [STAThread]
         static void Main()
@@ -20,25 +27,6 @@ namespace GesEscala_LDS15
             //Instanciar o Controller
             Controller controller = new Controller();
             controller.IniciarPrograma();
-
-            // Instanciar a implementação de IGeradorRelatorio
-      //      IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
-
-            // Adicionar um serviço e um funcionário ao PDF - teste
-    //        Servico servico1 = new Servico { Sigla = "AT1" };
-  //          Funcionario funcionario1 = new Funcionario { Nome = "Bregieira" };
-//            escalaPDF.AdicionarServicoFuncionario(servico1, funcionario1);
-
-            // Adicionar um segundo serviço e funcionário ao PDF - teste
-           // Servico servico2 = new Servico { Sigla = "AT2" };
-         //   Funcionario funcionario2 = new Funcionario { Nome = "Santos" };
-         //   escalaPDF.AdicionarServicoFuncionario(servico2, funcionario2);
-
-            // Gerar o relatório
-          //  escalaPDF.CriarPDF();
-
-            // Abrir o PDF - teste
-           // escalaPDF.AbrirPDF();
         }
     }
 }

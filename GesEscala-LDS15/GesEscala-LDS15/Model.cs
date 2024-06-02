@@ -1,4 +1,10 @@
-﻿using System;
+﻿// Universidade Aberta
+// Licenciatura em Engenharia Informática
+// Laboratório de Desenvolvimento de Software
+// Projeto: GesEscala
+// Grupo: 15 - ByteBrigade (Ricardo Sanches, Marco Martinho, Marcelo Bregieira, António Vieira, José Campos)
+
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SQLite;
@@ -11,10 +17,14 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace GesEscala_LDS15
 {
+
+    // Classe Model - Responsável por gerir os dados e a implementação das funções
+
     public class Model
     {
         private View view;
 
+        // Lista de funcionarios, de funcionarios escalados e dos servicos
         List<Funcionario> listaFuncionarios;
         List<Dictionary<string, object>> listaEscalados;
         List<Servico> listaServicos;
@@ -40,11 +50,9 @@ namespace GesEscala_LDS15
             listaEscalados = new List<Dictionary<string, object>>();
             listaFuncionarios = new List<Funcionario>();
             listaServicos = new List<Servico>();
-
-
-            // CriarTabelas(conn);
         }
 
+        // Método para saber se a base de dados está vazia
         public bool IsDatabaseEmpty()
         {
             try
@@ -63,6 +71,7 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para ler a lista de funcionarios da base de dados
         public void GetListaFuncionarios(ref List<Funcionario> listaFuncionarios)
         {
 
@@ -93,14 +102,11 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // TODO Lidar com a exceção
+                // Exceção
                 MessageBox.Show("Problema GetListaFuncionarios" + ex.Message);
             }
-
-            //listaFuncionarios = funcionarios;
-            // Notifica que a lista foi alterada.
-            //ListaDeFuncionariosAlterada();
         }
+
         //Remover utilizador pelo ID
         public void GerarPdfFuncionarios()
         {
@@ -122,23 +128,25 @@ namespace GesEscala_LDS15
                 }
                 else
                 {
-                
+                    // Se a lista estiver vazia, mostrar uma mensagem
                    MessageBox.Show("A lista de funcionários está vazia.");
                 }
             }
+            // Lidar com a exceção
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao gerar PDF de funcionários: " + ex.Message);
             }
         }
 
+        // Método para gerar PDF de servicos
         public void GerarPdfServicos()
         {
             try
             {
+                // Cria um objeto GeradorRelatorioPDF e um objeto EscalaPDF
                 IGeradorRelatorio geradorRelatorio = new GeradorRelatorioPDF();
                 EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
-
                 escalaPDF.GerarRelatorioServicos();
             }
             catch (Exception ex)
@@ -147,18 +155,19 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para gerar PDF de escala
         public void GerarEscala(string data)
         {
             try
             {
-                // Parse the data string to a DateTime object
+                // Verificar se a data está no formato correto
                 DateTime dataSelecionada = DateTime.ParseExact(data, "dd/MM/yyyy", null);
 
-                // Inicializar o objeto es
-                // Obtenha a escala dos serviços para a data especificada
+                // Inicializar a escala diaria
                 EscalaDeServicoDiaria escalaDiaria =null;
                     GetEscalaDiaria(ref escalaDiaria, dataSelecionada);
 
+                    // Se a escala esta preenchida corretamente
                     if (escalaDiaria != null && escalaDiaria.ServicosComFuncionarios.Count > 0)
                     {
                         // Iniciar a geração do PDF com a escala diária
@@ -166,11 +175,13 @@ namespace GesEscala_LDS15
                     EscalaPDF escalaPDF = new EscalaPDF(geradorRelatorio, this);
                     escalaPDF.GerarRelatorioEscala(ref escalaDiaria);
                 }
+                    // Se nao tem funcionarios: 
                     else
                     {
                         MessageBox.Show("Nenhum serviço ou funcionário encontrado para a data especificada.");
                     }
                 }
+                // Lidar com a exceção
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro ao gerar PDF da escala: " + ex.Message);
@@ -178,8 +189,7 @@ namespace GesEscala_LDS15
 
         }
 
-
-
+        // Método para remover funcionario pelo ID
         public void RemoverFuncionarioPorID(int idFuncionario)
         {
             try
@@ -202,11 +212,12 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // TODO Lidar com a exceção
+                // Lida com a exceção
                 MessageBox.Show("Problema ao remover funcionário: " + ex.Message);
             }
         }
 
+        // Método para verificar se o funcionario existe
         public bool FuncionarioExiste(int numeroFuncionario)
         {
             try
@@ -256,15 +267,12 @@ namespace GesEscala_LDS15
             }
             catch (Exception ex)
             {
-                // TODO Lidar com a exceção
+                // Lida com a exceção
                 MessageBox.Show("Problema GetListaServicos" + ex.Message);
             }
-
-            //listaFuncionarios = funcionarios;
-            // Notifica que a lista foi alterada.
-            //ListaDeFuncionariosAlterada();
         }
 
+        // Método para adicionar funcionario ao dia selecionado
         public void AdicionarEscala(List<(Servico, Funcionario)> escala, DateTime data)
         {
             try
@@ -312,7 +320,7 @@ namespace GesEscala_LDS15
             }
         }
 
-
+        // Método para adicionar funcionario ao nosso sistema
         public void AdicionarFuncionario(Funcionario novoFuncionario)
         {
             if (FuncionarioExiste(novoFuncionario.Numero))
@@ -343,6 +351,7 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para criar a ligação à base de dados
         static SQLiteConnection CriarLigacaoSqlite()
         {
             SQLiteConnection sqlite_conn;
@@ -361,6 +370,7 @@ namespace GesEscala_LDS15
             return sqlite_conn;
         }
 
+        // Método para obter a escala do dia
         public void GetEscalaDiaria(ref EscalaDeServicoDiaria escala, DateTime data)
         {
             escala = new EscalaDeServicoDiaria { Data = data };
@@ -431,7 +441,7 @@ namespace GesEscala_LDS15
                 }
         }
 
-        //Convert TIME SQlite para DateTime C#
+        // Método para converter string em DateTime
         public static DateTime ConvertToDateTime(string str)
         {
             string pattern = @"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})\.(\d{3})";
@@ -453,6 +463,7 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para adicionar serviço ao nosso sistema
         public void AdicionarServico(Servico novoServico)
         {
             try
@@ -478,6 +489,7 @@ namespace GesEscala_LDS15
             }
         }
 
+        // Método para remover serviço pelo ID
         public void RemoverServicoPorID(int idServico)
         {
             try
