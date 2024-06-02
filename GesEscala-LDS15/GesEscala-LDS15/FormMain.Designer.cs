@@ -1105,6 +1105,7 @@
             // 
             // btn_remover_servico
             // 
+            btn_remover_servico.Enabled = false;
             btn_remover_servico.Location = new Point(278, 367);
             btn_remover_servico.Name = "btn_remover_servico";
             btn_remover_servico.Size = new Size(102, 30);
@@ -1114,6 +1115,7 @@
             // 
             // btn_adicionar_servico
             // 
+            btn_adicionar_servico.Enabled = false;
             btn_adicionar_servico.Location = new Point(160, 367);
             btn_adicionar_servico.Name = "btn_adicionar_servico";
             btn_adicionar_servico.Size = new Size(102, 30);
