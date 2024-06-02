@@ -414,11 +414,17 @@ namespace GesEscala_LDS15
         {
             Servico servicoSelecionado = (Servico)comboServico.SelectedItem;
             Funcionario funcionarioSelecionado = (Funcionario)comboFuncionario.SelectedItem;
-
+           
             monthCalendar1.Enabled = false;
-
-            // Adicionar à lista de escala (isso pode ser uma lista temporária exibida em um DataGridView)
-            dataGridViewEscala.Rows.Add(servicoSelecionado.ID, servicoSelecionado.Nome, funcionarioSelecionado.ID, funcionarioSelecionado.Numero, funcionarioSelecionado.Nome, funcionarioSelecionado.Apelido);
+            try
+            {
+                // Adicionar à lista de escala (isso pode ser uma lista temporária exibida em um DataGridView)
+                dataGridViewEscala.Rows.Add(servicoSelecionado.ID, servicoSelecionado.Nome, funcionarioSelecionado.ID, funcionarioSelecionado.Numero, funcionarioSelecionado.Nome, funcionarioSelecionado.Apelido);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("ERRO: ", err.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -485,6 +491,7 @@ namespace GesEscala_LDS15
                 MessageBox.Show("Por favor, selecione um serviço para remover.");
             }
         }
+
     }
 }
 

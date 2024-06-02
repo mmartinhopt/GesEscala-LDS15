@@ -46,6 +46,7 @@
             label27 = new Label();
             tP_nEscala = new TabPage();
             panel_mid = new Panel();
+            label2 = new Label();
             dataGridViewEscala = new DataGridView();
             SID = new DataGridViewTextBoxColumn();
             SNome = new DataGridViewTextBoxColumn();
@@ -55,8 +56,6 @@
             FApelido = new DataGridViewTextBoxColumn();
             btn_GuardarEscaka = new Button();
             label1 = new Label();
-            lbl_diaEscalar = new Label();
-            lbl_escalaDia = new Label();
             lbl_servicoEscala = new Label();
             lbl_funcionarioEscala = new Label();
             lbl_diaEscala = new Label();
@@ -67,6 +66,8 @@
             txt_diaEscalar = new TextBox();
             monthCalendar1 = new MonthCalendar();
             panel_top = new Panel();
+            lbl_escalaDia = new Label();
+            lbl_diaEscalar = new Label();
             tP_cEscalas = new TabPage();
             btn_impr_escala = new Button();
             dG_Escala = new DataGridView();
@@ -139,6 +140,7 @@
             tP_nEscala.SuspendLayout();
             panel_mid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewEscala).BeginInit();
+            panel_top.SuspendLayout();
             tP_cEscalas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dG_Escala).BeginInit();
             panel3.SuspendLayout();
@@ -350,11 +352,10 @@
             // 
             // panel_mid
             // 
+            panel_mid.Controls.Add(label2);
             panel_mid.Controls.Add(dataGridViewEscala);
             panel_mid.Controls.Add(btn_GuardarEscaka);
             panel_mid.Controls.Add(label1);
-            panel_mid.Controls.Add(lbl_diaEscalar);
-            panel_mid.Controls.Add(lbl_escalaDia);
             panel_mid.Controls.Add(lbl_servicoEscala);
             panel_mid.Controls.Add(lbl_funcionarioEscala);
             panel_mid.Controls.Add(lbl_diaEscala);
@@ -370,30 +371,49 @@
             panel_mid.Size = new Size(809, 412);
             panel_mid.TabIndex = 1;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.ActiveCaptionText;
+            label2.Location = new Point(56, 22);
+            label2.Name = "label2";
+            label2.Size = new Size(125, 21);
+            label2.TabIndex = 13;
+            label2.Text = "Atribuir Tarefas:";
+            // 
             // dataGridViewEscala
             // 
+            dataGridViewEscala.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEscala.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
+            dataGridViewEscala.BackgroundColor = SystemColors.ControlLightLight;
             dataGridViewEscala.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewEscala.Columns.AddRange(new DataGridViewColumn[] { SID, SNome, FID, FNumero, FNome, FApelido });
             dataGridViewEscala.Location = new Point(30, 246);
             dataGridViewEscala.Name = "dataGridViewEscala";
-            dataGridViewEscala.Size = new Size(459, 150);
+            dataGridViewEscala.ReadOnly = true;
+            dataGridViewEscala.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewEscala.Size = new Size(743, 150);
             dataGridViewEscala.TabIndex = 12;
             // 
             // SID
             // 
             SID.HeaderText = "SID";
             SID.Name = "SID";
+            SID.ReadOnly = true;
             SID.Visible = false;
             // 
             // SNome
             // 
             SNome.HeaderText = "SNome";
             SNome.Name = "SNome";
+            SNome.ReadOnly = true;
             // 
             // FID
             // 
             FID.HeaderText = "FID";
             FID.Name = "FID";
+            FID.ReadOnly = true;
             FID.Visible = false;
             // 
             // FNumero
@@ -416,10 +436,11 @@
             // 
             // btn_GuardarEscaka
             // 
-            btn_GuardarEscaka.Location = new Point(640, 298);
+            btn_GuardarEscaka.FlatStyle = FlatStyle.Flat;
+            btn_GuardarEscaka.Location = new Point(380, 176);
             btn_GuardarEscaka.Margin = new Padding(3, 2, 3, 2);
             btn_GuardarEscaka.Name = "btn_GuardarEscaka";
-            btn_GuardarEscaka.Size = new Size(152, 22);
+            btn_GuardarEscaka.Size = new Size(152, 29);
             btn_GuardarEscaka.TabIndex = 11;
             btn_GuardarEscaka.Text = "Concluir/Publicar";
             btn_GuardarEscaka.UseVisualStyleBackColor = true;
@@ -430,30 +451,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(30, 226);
             label1.Name = "label1";
-            label1.Size = new Size(201, 17);
+            label1.Size = new Size(122, 17);
             label1.TabIndex = 10;
-            label1.Text = "Adicionado à escala temporária:";
-            // 
-            // lbl_diaEscalar
-            // 
-            lbl_diaEscalar.AutoSize = true;
-            lbl_diaEscalar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            lbl_diaEscalar.Location = new Point(228, 22);
-            lbl_diaEscalar.Name = "lbl_diaEscalar";
-            lbl_diaEscalar.Size = new Size(112, 21);
-            lbl_diaEscalar.TabIndex = 9;
-            lbl_diaEscalar.Text = "YYYY/MM/DD";
-            // 
-            // lbl_escalaDia
-            // 
-            lbl_escalaDia.AutoSize = true;
-            lbl_escalaDia.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            lbl_escalaDia.Location = new Point(30, 22);
-            lbl_escalaDia.Name = "lbl_escalaDia";
-            lbl_escalaDia.Size = new Size(192, 21);
-            lbl_escalaDia.TabIndex = 8;
-            lbl_escalaDia.Text = "A gerar escala para o dia:";
-            lbl_escalaDia.Click += lbl_escalaDia_Click;
+            label1.Text = " Escala temporária:";
             // 
             // lbl_servicoEscala
             // 
@@ -493,10 +493,11 @@
             // 
             // btn_escala_lcampos
             // 
-            btn_escala_lcampos.Location = new Point(640, 246);
+            btn_escala_lcampos.FlatStyle = FlatStyle.Flat;
+            btn_escala_lcampos.Location = new Point(201, 176);
             btn_escala_lcampos.Margin = new Padding(3, 2, 3, 2);
             btn_escala_lcampos.Name = "btn_escala_lcampos";
-            btn_escala_lcampos.Size = new Size(152, 22);
+            btn_escala_lcampos.Size = new Size(152, 29);
             btn_escala_lcampos.TabIndex = 4;
             btn_escala_lcampos.Text = "Limpar Campos";
             btn_escala_lcampos.UseVisualStyleBackColor = true;
@@ -515,10 +516,11 @@
             // btn_add_escala
             // 
             btn_add_escala.AutoSize = true;
-            btn_add_escala.Location = new Point(278, 181);
+            btn_add_escala.FlatStyle = FlatStyle.Flat;
+            btn_add_escala.Location = new Point(30, 176);
             btn_add_escala.Margin = new Padding(3, 2, 3, 2);
             btn_add_escala.Name = "btn_add_escala";
-            btn_add_escala.Size = new Size(152, 27);
+            btn_add_escala.Size = new Size(152, 29);
             btn_add_escala.TabIndex = 3;
             btn_add_escala.Text = "Adicionar";
             btn_add_escala.UseVisualStyleBackColor = true;
@@ -529,12 +531,13 @@
             txt_diaEscalar.Location = new Point(201, 68);
             txt_diaEscalar.Margin = new Padding(3, 2, 3, 2);
             txt_diaEscalar.Name = "txt_diaEscalar";
+            txt_diaEscalar.ReadOnly = true;
             txt_diaEscalar.Size = new Size(110, 25);
             txt_diaEscalar.TabIndex = 2;
             // 
             // monthCalendar1
             // 
-            monthCalendar1.Location = new Point(575, 0);
+            monthCalendar1.Location = new Point(556, 31);
             monthCalendar1.Margin = new Padding(8, 7, 8, 7);
             monthCalendar1.MaxSelectionCount = 1;
             monthCalendar1.Name = "monthCalendar1";
@@ -544,11 +547,36 @@
             // panel_top
             // 
             panel_top.BackColor = Color.FromArgb(99, 99, 99);
+            panel_top.Controls.Add(lbl_escalaDia);
+            panel_top.Controls.Add(lbl_diaEscalar);
             panel_top.Dock = DockStyle.Top;
             panel_top.Location = new Point(3, 2);
             panel_top.Name = "panel_top";
             panel_top.Size = new Size(809, 33);
             panel_top.TabIndex = 0;
+            // 
+            // lbl_escalaDia
+            // 
+            lbl_escalaDia.AutoSize = true;
+            lbl_escalaDia.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lbl_escalaDia.ForeColor = SystemColors.Control;
+            lbl_escalaDia.Location = new Point(14, 9);
+            lbl_escalaDia.Name = "lbl_escalaDia";
+            lbl_escalaDia.Size = new Size(231, 21);
+            lbl_escalaDia.TabIndex = 8;
+            lbl_escalaDia.Text = "Programar a  escala para o dia:";
+            lbl_escalaDia.Click += lbl_escalaDia_Click;
+            // 
+            // lbl_diaEscalar
+            // 
+            lbl_diaEscalar.AutoSize = true;
+            lbl_diaEscalar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lbl_diaEscalar.ForeColor = SystemColors.Control;
+            lbl_diaEscalar.Location = new Point(251, 9);
+            lbl_diaEscalar.Name = "lbl_diaEscalar";
+            lbl_diaEscalar.Size = new Size(112, 21);
+            lbl_diaEscalar.TabIndex = 9;
+            lbl_diaEscalar.Text = "YYYY/MM/DD";
             // 
             // tP_cEscalas
             // 
@@ -1230,6 +1258,8 @@
             panel_mid.ResumeLayout(false);
             panel_mid.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewEscala).EndInit();
+            panel_top.ResumeLayout(false);
+            panel_top.PerformLayout();
             tP_cEscalas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dG_Escala).EndInit();
             panel3.ResumeLayout(false);
@@ -1358,5 +1388,6 @@
         private DataGridViewTextBoxColumn FApelido;
         private DataGridViewTextBoxColumn SID;
         private DataGridViewTextBoxColumn FID;
+        private Label label2;
     }
 }
